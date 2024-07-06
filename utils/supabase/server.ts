@@ -1,6 +1,7 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+// To access Supabase from Server Components, Server Actions, and Route Handlers, which run only on the server.
 export const createClient = () => {
   const cookieStore = cookies();
 
