@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { AddExpenseLink } from "../expense/add-expense-link";
 
 export default async function Overview() {
   const supabase = createClient();
@@ -17,5 +18,10 @@ export default async function Overview() {
     .select()
     .eq("owed_to", user.id);
 
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return (
+    <>
+      <pre className="overflow-hidden">{JSON.stringify(data, null, 2)}</pre>
+      <AddExpenseLink></AddExpenseLink>
+    </>
+  );
 }
