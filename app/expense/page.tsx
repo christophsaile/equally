@@ -41,6 +41,7 @@ export default function Expense() {
           onChange={setSelectedPerson}
           immediate
         >
+          {/* TODO: add feature to select multiple users */}
           <ComboboxInput
             id="profile"
             aria-label="Person"

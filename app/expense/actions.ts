@@ -96,6 +96,7 @@ export async function addExpense(formData: FormData) {
       {
         description: validatedData.description,
         paid_by: determineWhoPaidResult.paid,
+        owed_to: determineWhoPaidResult.owed,
         amount: validatedData.amount,
       },
     ])
@@ -118,20 +119,44 @@ export async function addExpense(formData: FormData) {
         amount: determineAmountResult.equal,
       },
     ]);
-    console.log(error);
+    if (error) console.log(error);
 
-    // update the balances table
-    await supabase
+    const { data: currentBalanceData } = await supabase
       .from("balances")
-      .upsert([
-        {
-          user_id: determineWhoPaidResult.owed,
-          owed_to: determineWhoPaidResult.paid,
-          amount: determineAmountResult.equal,
-        },
-      ])
+      .select()
       .eq("user_id", determineWhoPaidResult.owed)
       .eq("owed_to", determineWhoPaidResult.paid);
+
+    if (currentBalanceData?.length) {
+      // update the balances table
+      const { error: balanceError } = await supabase
+        .from("balances")
+        .update([
+          {
+            balance_id: currentBalanceData[0]?.balance_id,
+            user_id: determineWhoPaidResult.owed,
+            owed_to: determineWhoPaidResult.paid,
+            amount: currentBalanceData[0]?.amount + determineAmountResult.equal,
+          },
+        ])
+        .eq("user_id", determineWhoPaidResult.owed)
+        .eq("owed_to", determineWhoPaidResult.paid);
+      if (balanceError) console.log(balanceError);
+    } else {
+      // update the balances table
+      const { error: balanceError } = await supabase
+        .from("balances")
+        .upsert([
+          {
+            user_id: determineWhoPaidResult.owed,
+            owed_to: determineWhoPaidResult.paid,
+            amount: determineAmountResult.equal,
+          },
+        ])
+        .eq("user_id", determineWhoPaidResult.owed)
+        .eq("owed_to", determineWhoPaidResult.paid);
+      if (balanceError) console.log(balanceError);
+    }
   }
 
   // insert the expense split into the database based on the split type
@@ -148,24 +173,51 @@ export async function addExpense(formData: FormData) {
         amount: 0,
       },
     ]);
-    console.log(error);
+    if (error) console.log(error);
 
-    // update the balances table
-    await supabase
+    const { data: currentBalanceData } = await supabase
       .from("balances")
-      .update([
-        {
-          user_id: determineWhoPaidResult.owed,
-          owed_to: determineWhoPaidResult.paid,
-          amount: determineAmountResult.full,
-        },
-      ])
+      .select()
       .eq("user_id", determineWhoPaidResult.owed)
       .eq("owed_to", determineWhoPaidResult.paid);
+
+    if (currentBalanceData?.length) {
+      // update the balances table
+      const { error: balanceError } = await supabase
+        .from("balances")
+        .update([
+          {
+            balance_id: currentBalanceData[0]?.balance_id,
+            user_id: determineWhoPaidResult.owed,
+            owed_to: determineWhoPaidResult.paid,
+            amount: currentBalanceData[0]?.amount + determineAmountResult.full,
+          },
+        ])
+        .eq("user_id", determineWhoPaidResult.owed)
+        .eq("owed_to", determineWhoPaidResult.paid);
+      if (balanceError) console.log(balanceError);
+    } else {
+      // update the balances table
+      const { error: balanceError } = await supabase
+        .from("balances")
+        .upsert([
+          {
+            user_id: determineWhoPaidResult.owed,
+            owed_to: determineWhoPaidResult.paid,
+            amount: determineAmountResult.full,
+          },
+        ])
+        .eq("user_id", determineWhoPaidResult.owed)
+        .eq("owed_to", determineWhoPaidResult.paid);
+      if (balanceError) console.log(balanceError);
+    }
+
+    // TODO: make sure that if one action fails, the other one is rolled back
+    // atomic transactions
   }
 
-  revalidatePath("/protected/overview");
-  redirect("/protected/overview");
+  revalidatePath("/balance");
+  redirect("/balance");
 }
 
 export async function fetchProfiles(): Promise<Profile[]> {

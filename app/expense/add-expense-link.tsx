@@ -1,11 +1,13 @@
 export function AddExpenseLink() {
   return (
-    <a className="fixed bottom-0 right-0" href="/protected/expense">
+    <a className="fixed bottom-5 right-5" href="/expense">
+      <span className="sr-only">Add Expense</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="size-6"
+        className=" size-12 text-blue-600"
+        aria-hidden="true"
       >
         <path
           fillRule="evenodd"

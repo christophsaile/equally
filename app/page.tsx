@@ -15,8 +15,8 @@ export default async function Login({
     data: { user },
   } = await supabase.auth.getUser();
 
-  // if the user is logged in, redirect them to the overview page
-  if (user) return redirect("/protected/overview");
+  // if the user is logged in, redirect them to the balance page
+  if (user) return redirect("/balance");
 
   const signIn = async (formData: FormData) => {
     "use server";
@@ -34,7 +34,7 @@ export default async function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected/overview");
+    return redirect("/balance");
   };
 
   const signUp = async (formData: FormData) => {
