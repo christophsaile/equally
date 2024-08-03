@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { AddExpenseLink } from "../expense/add-expense-link";
-import { Card } from "./card";
+import { BalanceCard } from "./balanceCard";
 
 export default async function Balance() {
   const supabase = createClient();
@@ -43,24 +43,19 @@ export default async function Balance() {
     };
   });
 
-  const Euro = new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {data?.map((elem) => (
-        <Card
+        <BalanceCard
           key={elem.balance_id}
           avatar=""
-          amount={Euro.format(elem.amount)}
+          amount={elem.amount}
           firstName={elem.user_id.first_name}
           lastName={elem.user_id.last_name}
           href={`/expense/${elem.user_id.id}`}
-        ></Card>
+        ></BalanceCard>
       ))}
       <AddExpenseLink></AddExpenseLink>
-    </>
+    </div>
   );
 }

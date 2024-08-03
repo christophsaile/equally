@@ -5,10 +5,10 @@ type Props = ComponentProps<"a"> & {
   avatar?: string;
   firstName: string;
   lastName: string;
-  amount: string;
+  amount: number;
 };
 
-export function Card({
+export function BalanceCard({
   children,
   avatar,
   firstName,
@@ -16,18 +16,27 @@ export function Card({
   amount,
   ...props
 }: Props) {
+  const Euro = new Intl.NumberFormat("en-IE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  const isAmountNegative = amount < 0;
+  const amountColor = isAmountNegative ? "text-red-500" : "text-green-500";
+  const amountText = isAmountNegative ? "you owe" : "owes you";
+
   return (
     <a {...props}>
       <div className="flex items-center rounded-md gap-4 bg-neutral-100 hover:bg-neutral-200 px-4 pb-6 pt-2 relative">
-        <div className="rounded-full w-12 h-12">
+        <div className="rounded-full w-12 h-12 bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
         </div>
         <h2 className="flex flex-col">
           {firstName}
           <span className="text-xs text-neutral-500">{lastName}</span>
         </h2>
-        <p className="ml-auto flex flex-col text-right">
-          <span className="text-xs text-neutral-500">owes you</span> {amount}
+        <p className={`ml-auto flex flex-col text-right  ${amountColor}`}>
+          <span className="text-xs">{amountText}</span> {Euro.format(amount)}
         </p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
