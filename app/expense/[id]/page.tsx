@@ -52,7 +52,7 @@ export default async function ExpenseId({
   });
 
   const splitText = (split: number) => {
-    if (split === 1 || split === 3) {
+    if (split === 1 || split === 2) {
       return "You paid";
     } else {
       return `${firstName} paid`;
