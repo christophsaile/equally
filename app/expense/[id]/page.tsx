@@ -17,14 +17,14 @@ export default async function ExpenseId({
     return redirect("/login");
   }
 
-  // profile data
+  // profile data, TODO: can be called in parallel
   const { data: profileData, error: profileError } = await supabase
     .from("profiles")
     .select()
     .eq("id", params.id);
   const { first_name: firstName, last_name: lastName } = profileData[0];
 
-  // expenses data
+  // expenses data, TODO: paidByYouData and paidByProfileData can be called in parallel
   const { data: paidByYouData, error: paidByYouError } = await supabase
     .from("expenses")
     .select()
@@ -45,6 +45,13 @@ export default async function ExpenseId({
   const combinedData = [...paidByYouData, ...paidByProfileData].sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
+
+  // TODO: rethink if expense split is needed or if we can just add an enum to the expense table
+
+  // combinedData.forEach((expense) => {
+  //   const split = data.find((split) => split.expense_id === expense.expense_id);
+  //   expense.split = split.split;
+  // });
 
   return (
     <div className="flex flex-col gap-4">

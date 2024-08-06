@@ -106,12 +106,13 @@ export default function Expense() {
           id="split"
           className="w-full p-2 border border-gray-300 rounded-md"
         >
-          <option value="equally">You paid, split equally</option>
-          <option value="full">You are owed the full amount</option>
-          <option value="owed-equally">
+          {/* // TODO: fetch options from database */}
+          <option value="1">You paid, split equally</option>
+          <option value="2">You are owed the full amount</option>
+          <option value="3">
             {selectedPerson?.first_name} paid, split equally
           </option>
-          <option value="owed-full">
+          <option value="4">
             {selectedPerson?.first_name} is owed the full amount
           </option>
         </select>

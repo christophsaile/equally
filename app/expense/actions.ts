@@ -12,29 +12,25 @@ export type Profile = {
   last_name: string;
 };
 
-type Split = "equally" | "full" | "owed-equally" | "owed-full";
-
 type ValidateFormData = {
   profile_id: string;
   description: string;
   amount: number;
-  split: Split;
+  split: number;
 };
 
 const expenseSchema = object({
   profile_id: string().required(),
   description: string().required(),
   amount: number().positive().required(),
-  split: string()
-    .oneOf(["equally", "full", "owed-equally", "owed-full"])
-    .required(),
+  split: number().positive().required(),
 });
 
 function determineWhoPaid(
   validatedData: ValidateFormData,
   userId: string,
 ): { paid: string; owed: string } {
-  if (["equally", "full"].includes(validatedData.split)) {
+  if ([1, 2].includes(validatedData.split)) {
     return {
       paid: userId,
       owed: validatedData.profile_id,
@@ -61,7 +57,7 @@ async function validateFormData(formData: FormData): Promise<ValidateFormData> {
     profile_id: formData.get("profile[id]"),
     description: formData.get("description"),
     amount: Number(formData.get("amount")),
-    split: formData.get("split"),
+    split: Number(formData.get("split")),
   });
 
   return validatedData;
@@ -90,37 +86,18 @@ export async function addExpense(formData: FormData) {
   const determineAmountResult = determineAmount(validatedData);
 
   // insert the expense into the database
-  const { data: expensesInsertData } = await supabase
-    .from("expenses")
-    .insert([
-      {
-        description: validatedData.description,
-        paid_by: determineWhoPaidResult.paid,
-        owed_to: determineWhoPaidResult.owed,
-        amount: validatedData.amount,
-      },
-    ])
-    .select();
+  await supabase.from("expenses").insert([
+    {
+      description: validatedData.description,
+      paid_by: determineWhoPaidResult.paid,
+      owed_to: determineWhoPaidResult.owed,
+      split: validatedData.split,
+      amount: validatedData.amount,
+    },
+  ]);
 
   // insert the expense split into the database based on the split type
-  if (
-    validatedData.split === "owed-equally" ||
-    validatedData.split === "equally"
-  ) {
-    const { error } = await supabase.from("expense_splits").insert([
-      {
-        expense_id: expensesInsertData[0].expense_id,
-        user_id: determineWhoPaidResult.paid,
-        amount: determineAmountResult.equal,
-      },
-      {
-        expense_id: expensesInsertData[0].expense_id,
-        user_id: determineWhoPaidResult.owed,
-        amount: determineAmountResult.equal,
-      },
-    ]);
-    if (error) console.log(error);
-
+  if (validatedData.split === 1 || validatedData.split === 3) {
     const { data: currentBalanceData } = await supabase
       .from("balances")
       .select()
@@ -160,21 +137,7 @@ export async function addExpense(formData: FormData) {
   }
 
   // insert the expense split into the database based on the split type
-  if (validatedData.split === "owed-full" || validatedData.split === "full") {
-    const { error } = await supabase.from("expense_splits").insert([
-      {
-        expense_id: expensesInsertData[0].expense_id,
-        user_id: determineWhoPaidResult.paid,
-        amount: determineAmountResult.full,
-      },
-      {
-        expense_id: expensesInsertData[0].expense_id,
-        user_id: determineWhoPaidResult.owed,
-        amount: 0,
-      },
-    ]);
-    if (error) console.log(error);
-
+  if (validatedData.split === 2 || validatedData.split === 4) {
     const { data: currentBalanceData } = await supabase
       .from("balances")
       .select()
