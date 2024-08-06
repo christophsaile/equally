@@ -5,7 +5,6 @@ type Props = ComponentProps<"a"> & {
   date: string;
   description: string;
   split: string;
-  amount: number;
 };
 
 export function ExpenseCard({
@@ -13,14 +12,8 @@ export function ExpenseCard({
   date,
   description,
   split,
-  amount,
   ...props
 }: Props) {
-  const Euro = new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
   function formatDate(timestamp: string) {
     const date = new Date(timestamp);
 
@@ -44,10 +37,6 @@ export function ExpenseCard({
     return `${month} ${day}`;
   }
 
-  const isAmountNegative = amount < 0;
-  const amountColor = isAmountNegative ? "text-red-500" : "text-green-500";
-  const amountText = isAmountNegative ? "you owe" : "owes you";
-
   return (
     <a {...props}>
       <div className="flex items-center rounded-md gap-4 bg-neutral-100 hover:bg-neutral-200 px-4 pb-6 pt-2 relative">
@@ -56,9 +45,7 @@ export function ExpenseCard({
           {description}
           <span className="text-xs text-neutral-500">{split}</span>
         </h2>
-        <p className={`ml-auto flex flex-col text-right  ${amountColor}`}>
-          <span className="text-xs">{amountText}</span> {Euro.format(amount)}
-        </p>
+        {children}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

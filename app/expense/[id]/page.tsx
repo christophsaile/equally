@@ -46,12 +46,29 @@ export default async function ExpenseId({
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
-  // TODO: rethink if expense split is needed or if we can just add an enum to the expense table
+  const Euro = new Intl.NumberFormat("en-IE", {
+    style: "currency",
+    currency: "EUR",
+  });
 
-  // combinedData.forEach((expense) => {
-  //   const split = data.find((split) => split.expense_id === expense.expense_id);
-  //   expense.split = split.split;
-  // });
+  const splitText = (split: number) => {
+    if (split === 1 || split === 3) {
+      return "You paid";
+    } else {
+      return `${firstName} paid`;
+    }
+  };
+
+  // TODO: Move this to a helper function
+  const spiltAmount = (split: number, amount: number) => {
+    if (split === 1 || split === 3) {
+      return amount / 2;
+    }
+    return amount;
+  };
+
+  const splitDescription = (split: number, amount: number) =>
+    `${splitText(split)} ${Euro.format(amount)}`;
 
   return (
     <div className="flex flex-col gap-4">
@@ -66,15 +83,23 @@ export default async function ExpenseId({
       </div>
       <div className="flex flex-col gap-2">
         {combinedData.map((expense) => {
+          const amountColor =
+            expense.paid_by === user.id ? "text-green-500" : "text-red-500";
+          const amountText =
+            expense.paid_by === user.id ? "you lent" : "you owe";
           return (
             <ExpenseCard
               key={expense.expense_id}
               date={expense.created_at}
               description={expense.description}
-              split={expense.split}
-              amount={expense.amount}
+              split={splitDescription(expense.split, expense.amount)}
               href={`/expense/${expense.expense_id}`}
-            ></ExpenseCard>
+            >
+              <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
+                <span className="text-xs">{amountText}</span>{" "}
+                {Euro.format(spiltAmount(expense.split, expense.amount))}
+              </p>
+            </ExpenseCard>
           );
         })}
       </div>
