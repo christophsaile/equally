@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ExpenseDeleteButton } from "./expense-delete-button";
 
 export default async function ExpenseId({
   params,
@@ -92,6 +93,7 @@ export default async function ExpenseId({
         </svg>
         <span className="sr-only">Edit Expense</span>
       </Link>
+      <ExpenseDeleteButton></ExpenseDeleteButton>
 
       <h1>{description}</h1>
       <p>

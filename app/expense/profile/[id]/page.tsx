@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { ExpenseCard } from "./expenseCard";
+import { ExpenseCard } from "./expense-card";
 
 export default async function ExpenseProfile({
   params,
