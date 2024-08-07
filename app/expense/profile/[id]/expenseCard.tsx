@@ -1,10 +1,12 @@
 import { type ComponentProps } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = ComponentProps<"a"> & {
   date: string;
   description: string;
   split: string;
+  href: string;
 };
 
 export function ExpenseCard({
@@ -38,7 +40,7 @@ export function ExpenseCard({
   }
 
   return (
-    <a {...props}>
+    <Link {...props}>
       <div className="flex items-center rounded-md gap-4 bg-neutral-100 hover:bg-neutral-200 px-4 pb-6 pt-2 relative">
         <time className="text-xs text-neutral-500">{formatDate(date)}</time>
         <h2 className="flex flex-col">
@@ -60,6 +62,6 @@ export function ExpenseCard({
           />
         </svg>
       </div>
-    </a>
+    </Link>
   );
 }

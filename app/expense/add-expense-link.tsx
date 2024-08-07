@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 export function AddExpenseLink() {
   return (
-    <a className="fixed bottom-5 right-5" href="/expense">
+    <Link className="fixed bottom-5 right-5" href="/expense">
       <span className="sr-only">Add Expense</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -15,6 +17,6 @@ export function AddExpenseLink() {
           clipRule="evenodd"
         />
       </svg>
-    </a>
+    </Link>
   );
 }

@@ -1,5 +1,6 @@
 import { type ComponentProps } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = ComponentProps<"a"> & {
   avatar?: string;
@@ -26,7 +27,7 @@ export function BalanceCard({
   const amountText = isAmountNegative ? "you owe" : "owes you";
 
   return (
-    <a {...props}>
+    <Link {...props}>
       <div className="flex items-center rounded-md gap-4 bg-neutral-100 hover:bg-neutral-200 px-4 pb-6 pt-2 relative">
         <div className="rounded-full w-12 h-12 bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
@@ -52,6 +53,6 @@ export function BalanceCard({
           />
         </svg>
       </div>
-    </a>
+    </Link>
   );
 }
