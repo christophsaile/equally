@@ -7,7 +7,6 @@ export default async function ExpenseProfile({
 }: {
   params: { id: string };
 }) {
-  console.log(params);
   const supabase = createClient();
   const {
     data: { user },
