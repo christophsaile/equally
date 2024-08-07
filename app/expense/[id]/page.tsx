@@ -71,6 +71,7 @@ export default async function ExpenseProfile({
   }
 
   return (
+    // TODO add default layout for all pages
     <div>
       <h1>{description}</h1>
       <p>
