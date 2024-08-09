@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { ExpenseLink } from "../expense/expense-link";
+import { ExpenseAddLink } from "../expense/add/expense-add-link";
 import { BalanceCard } from "./balance-card";
 
 export default async function Balance() {
@@ -55,7 +55,7 @@ export default async function Balance() {
           href={`/expense/with/${elem.user_id.id}`}
         ></BalanceCard>
       ))}
-      <ExpenseLink></ExpenseLink>
+      <ExpenseAddLink></ExpenseAddLink>
     </div>
   );
 }

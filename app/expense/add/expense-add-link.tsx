@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function ExpenseLink() {
+export function ExpenseAddLink() {
   return (
     <Link className="fixed bottom-5 right-5" href="/expense/add">
       <span className="sr-only">Add Expense</span>
