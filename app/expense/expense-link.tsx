@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function ExpenseLink() {
   return (
-    <Link className="fixed bottom-5 right-5" href="/expense">
+    <Link className="fixed bottom-5 right-5" href="/expense/add">
       <span className="sr-only">Add Expense</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"

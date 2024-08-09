@@ -52,7 +52,7 @@ export default async function Balance() {
           amount={elem.amount}
           firstName={elem.user_id.first_name}
           lastName={elem.user_id.last_name}
-          href={`/expense/profile/${elem.user_id.id}`}
+          href={`/expense/with/${elem.user_id.id}`}
         ></BalanceCard>
       ))}
       <ExpenseLink></ExpenseLink>

@@ -1,6 +1,6 @@
 "use client";
-import { useState, type Key, useEffect } from "react";
-import { addExpense, fetchProfiles, Profile } from "./actions";
+import { useState, type Key, useEffect, ComponentProps } from "react";
+import { addExpense, Profile } from "./utils";
 import {
   Combobox,
   ComboboxInput,
@@ -10,14 +10,26 @@ import {
 
 // TODO: add library to prevent re-rendering on every key stroke
 // TODO: add feature to select user from database
-export default function ExpenseForm() {
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [selectedPerson, setSelectedPerson] = useState<Profile | null>(null);
+type Props = ComponentProps<"form"> & {
+  profiles: Profile[];
+  preselectProfile?: Profile;
+  description?: string;
+  amount?: number;
+  split?: number;
+};
+export default function ExpenseForm({
+  profiles,
+  preselectProfile,
+  description,
+  amount,
+  split,
+  children,
+  ...props
+}: Props) {
+  const [selectedPerson, setSelectedPerson] = useState<Profile | null>(
+    preselectProfile || null,
+  );
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    fetchProfiles().then(setProfiles);
-  }, []);
 
   const filteredProfiles =
     query === ""
@@ -28,7 +40,10 @@ export default function ExpenseForm() {
         });
 
   return (
-    <form className="flex flex-col gap-4 p-6 max-w-md mx-auto mt-10 text-black">
+    <form
+      {...props}
+      className="flex flex-col gap-4 p-6 max-w-md mx-auto mt-10 text-black"
+    >
       <div className="flex flex-col gap-2">
         <label htmlFor="profile" className="text-gray-700 font-semibold">
           Person
@@ -79,6 +94,7 @@ export default function ExpenseForm() {
           required
           name="description"
           className="w-full p-2 border border-gray-300 rounded-md"
+          defaultValue={description}
         ></input>
       </div>
       <div className="flex flex-col gap-2">
@@ -93,6 +109,7 @@ export default function ExpenseForm() {
           required
           name="amount"
           className="w-full p-2 border border-gray-300 rounded-md"
+          defaultValue={amount}
         ></input>
       </div>
       <div className="flex flex-col gap-2">
@@ -103,6 +120,7 @@ export default function ExpenseForm() {
           name="split"
           id="split"
           className="w-full p-2 border border-gray-300 rounded-md"
+          defaultValue={split}
         >
           {/* // TODO: fetch options from database */}
           <option value="1">You paid, split equally</option>
@@ -115,12 +133,7 @@ export default function ExpenseForm() {
           </option>
         </select>
       </div>
-      <button
-        className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
-        formAction={addExpense}
-      >
-        Add expense
-      </button>
+      {children}
     </form>
   );
 }
