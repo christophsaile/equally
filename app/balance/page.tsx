@@ -19,12 +19,12 @@ export default async function Balance() {
   // subtract the two to get the net balance
   const { data: getMoneyData, error: owedError } = await supabase
     .from("balances")
-    .select("balance_id, user_id (id, first_name, last_name), owed_to, amount")
-    .eq("owed_to", user.id);
+    .select("balance_id, user_id (id, first_name, last_name), owes, amount")
+    .eq("owes", user.id);
 
   const { data: oweMoneyData, error: owesError } = await supabase
     .from("balances")
-    .select("balance_id, user_id, owed_to (id, first_name, last_name), amount")
+    .select("balance_id, user_id, owes (id, first_name, last_name), amount")
     .eq("user_id", user.id);
 
   if (owedError || owesError) {
@@ -34,7 +34,7 @@ export default async function Balance() {
 
   const data = getMoneyData.map((owed) => {
     const owes = oweMoneyData.find((owe) => {
-      return owe.user_id === owed.owed_to;
+      return owe.user_id === owed.owes;
     });
     return {
       balance_id: owed.balance_id,

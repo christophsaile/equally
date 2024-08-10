@@ -30,8 +30,8 @@ export async function addExpense(formData: FormData) {
   await supabase.from("expenses").insert([
     {
       description: validatedData.description,
-      paid_by: determineWhoPaidResult.paid,
-      owed_to: determineWhoPaidResult.owed,
+      paid: determineWhoPaidResult.paid,
+      owes: determineWhoPaidResult.owed,
       split: validatedData.split,
       amount: validatedData.amount,
     },
@@ -43,7 +43,7 @@ export async function addExpense(formData: FormData) {
       .from("balances")
       .select()
       .eq("user_id", determineWhoPaidResult.owed)
-      .eq("owed_to", determineWhoPaidResult.paid);
+      .eq("owes", determineWhoPaidResult.paid);
 
     if (currentBalanceData?.length) {
       // update the balances table
@@ -53,12 +53,12 @@ export async function addExpense(formData: FormData) {
           {
             balance_id: currentBalanceData[0]?.balance_id,
             user_id: determineWhoPaidResult.owed,
-            owed_to: determineWhoPaidResult.paid,
+            owes: determineWhoPaidResult.paid,
             amount: currentBalanceData[0]?.amount + determineAmountResult.equal,
           },
         ])
         .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owed_to", determineWhoPaidResult.paid);
+        .eq("owes", determineWhoPaidResult.paid);
       if (balanceError) console.log(balanceError);
     } else {
       // update the balances table
@@ -67,12 +67,12 @@ export async function addExpense(formData: FormData) {
         .upsert([
           {
             user_id: determineWhoPaidResult.owed,
-            owed_to: determineWhoPaidResult.paid,
+            owes: determineWhoPaidResult.paid,
             amount: determineAmountResult.equal,
           },
         ])
         .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owed_to", determineWhoPaidResult.paid);
+        .eq("owes", determineWhoPaidResult.paid);
       if (balanceError) console.log(balanceError);
     }
   }
@@ -83,7 +83,7 @@ export async function addExpense(formData: FormData) {
       .from("balances")
       .select()
       .eq("user_id", determineWhoPaidResult.owed)
-      .eq("owed_to", determineWhoPaidResult.paid);
+      .eq("owes", determineWhoPaidResult.paid);
 
     if (currentBalanceData?.length) {
       // update the balances table
@@ -93,12 +93,12 @@ export async function addExpense(formData: FormData) {
           {
             balance_id: currentBalanceData[0]?.balance_id,
             user_id: determineWhoPaidResult.owed,
-            owed_to: determineWhoPaidResult.paid,
+            owes: determineWhoPaidResult.paid,
             amount: currentBalanceData[0]?.amount + determineAmountResult.full,
           },
         ])
         .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owed_to", determineWhoPaidResult.paid);
+        .eq("owes", determineWhoPaidResult.paid);
       if (balanceError) console.log(balanceError);
     } else {
       // update the balances table
@@ -107,12 +107,12 @@ export async function addExpense(formData: FormData) {
         .upsert([
           {
             user_id: determineWhoPaidResult.owed,
-            owed_to: determineWhoPaidResult.paid,
+            owes: determineWhoPaidResult.paid,
             amount: determineAmountResult.full,
           },
         ])
         .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owed_to", determineWhoPaidResult.paid);
+        .eq("owes", determineWhoPaidResult.paid);
       if (balanceError) console.log(balanceError);
     }
 

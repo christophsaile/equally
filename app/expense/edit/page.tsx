@@ -25,13 +25,11 @@ export default async function ExpenseEdit({
     .eq("expense_id", searchParams.expense_id);
 
   if (expenseError) console.log(expenseError);
-  const { split, paid_by, owed_to, amount, description } = expenseData[0];
+  const { split, paid, owes, amount, description } = expenseData[0];
 
   const preselectProfile = data.find(
-    (profile) => profile.id === paid_by || profile.id === owed_to,
+    (profile) => profile.id === paid || profile.id === owes,
   );
-
-  console.log(preselectProfile);
 
   return (
     <div>
@@ -43,6 +41,11 @@ export default async function ExpenseEdit({
         amount={amount}
         description={description}
       >
+        <input
+          type="hidden"
+          name="expense_id"
+          value={searchParams.expense_id}
+        />
         <button
           className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
           formAction={editExpense}

@@ -27,14 +27,14 @@ export default async function ExpenseProfile({
   const { data: paidByYouData, error: paidByYouError } = await supabase
     .from("expenses")
     .select()
-    .eq("paid_by", user.id)
-    .eq("owed_to", params.id);
+    .eq("paid", user.id)
+    .eq("owes", params.id);
 
   const { data: paidByProfileData, error: paidByProfileError } = await supabase
     .from("expenses")
     .select()
-    .eq("paid_by", params.id)
-    .eq("owed_to", user.id);
+    .eq("paid", params.id)
+    .eq("owes", user.id);
 
   if (paidByYouError || paidByProfileError) {
     console.error("Error fetching data:", paidByYouError || paidByProfileError);
@@ -83,9 +83,8 @@ export default async function ExpenseProfile({
       <div className="flex flex-col gap-2">
         {combinedData.map((expense) => {
           const amountColor =
-            expense.paid_by === user.id ? "text-green-500" : "text-red-500";
-          const amountText =
-            expense.paid_by === user.id ? "you lent" : "you owe";
+            expense.paid === user.id ? "text-green-500" : "text-red-500";
+          const amountText = expense.paid === user.id ? "you lent" : "you owe";
           return (
             <ExpenseCard
               key={expense.expense_id}

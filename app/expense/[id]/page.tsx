@@ -20,31 +20,24 @@ export default async function ExpenseId({
   const { data: expenseData, error: expenseError } = await supabase
     .from("expenses")
     .select(
-      "expense_id, description, amount, split, created_at, paid_by(id, first_name), owed_to(id, first_name)",
+      "expense_id, description, amount, split, created_at, paid(id, first_name), owes(id, first_name)",
     )
     .eq("expense_id", params.id);
 
   if (expenseError) {
     console.error("Error fetching data:", expenseError);
   }
-  // TODO: rename owed_to to something else?
-  const {
-    expense_id,
-    description,
-    amount,
-    split,
-    created_at,
-    paid_by,
-    owed_to,
-  } = expenseData[0];
+  // TODO: rename owes to something else?
+  const { expense_id, description, amount, split, created_at, paid, owes } =
+    expenseData[0];
 
   const Euro = new Intl.NumberFormat("en-IE", {
     style: "currency",
     currency: "EUR",
   });
 
-  const namePaidBy = paid_by.id === user.id ? "You" : paid_by.first_name;
-  const nameOwedTo = owed_to.id === user.id ? "You" : owed_to.first_name;
+  const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
+  const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
 
   // TODO: Move this to a helper function
   const spiltAmount = (split: number, amount: number) => {

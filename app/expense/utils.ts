@@ -11,6 +11,7 @@ type ValidateFormData = {
   description: string;
   amount: number;
   split: number;
+  expense_id?: string;
 };
 
 const expenseSchema = object({
@@ -18,6 +19,7 @@ const expenseSchema = object({
   description: string().required(),
   amount: number().positive().required(),
   split: number().positive().required(),
+  expense_id: string(),
 });
 
 export function determineWhoPaid(
@@ -54,6 +56,7 @@ export async function validateFormData(
     description: formData.get("description"),
     amount: Number(formData.get("amount")),
     split: Number(formData.get("split")),
+    expense_id: formData.get("expense_id"),
   });
 
   return validatedData;
