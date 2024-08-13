@@ -2,7 +2,7 @@
 
 Each user has one or more entries in the balance table, with each entry representing an amount the user has paid on behalf of another person. These balance entries are always positive and are updated whenever a payment is made.
 
-To determine how much one user owes another, we calculate the difference between their respective balance entries. The user with the higher balance entry owes the difference from the user with the lower balance entry.
+To determine how much one user owes another, we calculate the difference between their respective balance entries. The user with the higher balance entry owes the difference from the user with the lower balance entry. (each balance entry is a dept of the user(user_id) to another user(owes) with a certain amount)
 
 For example:
 

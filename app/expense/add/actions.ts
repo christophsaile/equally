@@ -27,15 +27,20 @@ export async function addExpense(formData: FormData) {
   const determineAmountResult = determineAmount(validatedData);
 
   // insert the expense into the database
-  await supabase.from("expenses").insert([
+  const { error: expenseError } = await supabase.from("expenses").insert([
     {
       description: validatedData.description,
       paid: determineWhoPaidResult.paid,
       owes: determineWhoPaidResult.owed,
       split: validatedData.split,
       amount: validatedData.amount,
+      created_by: user.id,
     },
   ]);
+
+  if (expenseError) {
+    console.error("Error inserting expense:", expenseError);
+  }
 
   // insert the expense split into the database based on the split type
   if (validatedData.split === 1 || validatedData.split === 3) {
