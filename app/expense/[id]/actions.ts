@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export async function deleteExpense(expenseId: number) {
   // TODO - move this to a shared function
+  // TODO - only allow the user who created the expense to delete it?
   const supabase = createClient();
   const {
     data: { user },
@@ -38,5 +39,6 @@ export async function deleteExpense(expenseId: number) {
   await updateBalances(user.id, profileId);
 
   revalidatePath("/balance");
-  redirect("/balance");
+  revalidatePath(`/expense/with/${profileId}`);
+  redirect(`/expense/with/${profileId}`);
 }
