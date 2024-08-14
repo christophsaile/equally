@@ -1,14 +1,17 @@
 "use client";
-
-import { useFormStatus } from "react-dom";
 import { type ComponentProps } from "react";
 import { deleteExpense } from "./actions";
 
-type Props = ComponentProps<"button">;
+type Props = ComponentProps<"button"> & {
+  expense: number;
+};
 
 export function ExpenseDeleteButton({ children, ...props }: Props) {
+  function handleClick() {
+    deleteExpense(props.expense);
+  }
   return (
-    <button {...props} onClick={deleteExpense}>
+    <button {...props} onClick={handleClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

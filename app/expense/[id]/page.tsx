@@ -6,7 +6,7 @@ import { ExpenseDeleteButton } from "./expense-delete-button";
 export default async function ExpenseId({
   params,
 }: {
-  params: { id: string };
+  params: { id: number };
 }) {
   const supabase = createClient();
   const {
@@ -28,8 +28,7 @@ export default async function ExpenseId({
     console.error("Error fetching data:", expenseError);
   }
   // TODO: rename owes to something else?
-  const { expense_id, description, amount, split, created_at, paid, owes } =
-    expenseData[0];
+  const { description, amount, split, created_at, paid, owes } = expenseData[0];
 
   const Euro = new Intl.NumberFormat("en-IE", {
     style: "currency",
@@ -75,7 +74,7 @@ export default async function ExpenseId({
     // TODO add default layout for all pages
     <div>
       <Link
-        href={{ pathname: "/expense/edit", query: { expense_id: expense_id } }}
+        href={{ pathname: "/expense/edit", query: { expense_id: params.id } }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +87,7 @@ export default async function ExpenseId({
         </svg>
         <span className="sr-only">Edit Expense</span>
       </Link>
-      <ExpenseDeleteButton></ExpenseDeleteButton>
+      <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
 
       <h1>{description}</h1>
       <p>

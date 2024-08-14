@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { validateFormData, determineWhoPaid, determineAmount } from "../utils";
+import { updateBalances } from "../actions";
 
 export async function addExpense(formData: FormData) {
   const supabase = createClient();
@@ -42,88 +43,10 @@ export async function addExpense(formData: FormData) {
     console.error("Error inserting expense:", expenseError);
   }
 
-  // insert the expense split into the database based on the split type
-  if (validatedData.split === 1 || validatedData.split === 3) {
-    const { data: currentBalanceData } = await supabase
-      .from("balances")
-      .select()
-      .eq("user_id", determineWhoPaidResult.owed)
-      .eq("owes", determineWhoPaidResult.paid);
+  await updateBalances(user.id, validatedData.profile_id);
 
-    if (currentBalanceData?.length) {
-      // update the balances table
-      const { error: balanceError } = await supabase
-        .from("balances")
-        .update([
-          {
-            balance_id: currentBalanceData[0]?.balance_id,
-            user_id: determineWhoPaidResult.owed,
-            owes: determineWhoPaidResult.paid,
-            amount: currentBalanceData[0]?.amount + determineAmountResult.equal,
-          },
-        ])
-        .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owes", determineWhoPaidResult.paid);
-      if (balanceError) console.log(balanceError);
-    } else {
-      // update the balances table
-      const { error: balanceError } = await supabase
-        .from("balances")
-        .upsert([
-          {
-            user_id: determineWhoPaidResult.owed,
-            owes: determineWhoPaidResult.paid,
-            amount: determineAmountResult.equal,
-          },
-        ])
-        .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owes", determineWhoPaidResult.paid);
-      if (balanceError) console.log(balanceError);
-    }
-  }
-
-  // insert the expense split into the database based on the split type
-  if (validatedData.split === 2 || validatedData.split === 4) {
-    const { data: currentBalanceData } = await supabase
-      .from("balances")
-      .select()
-      .eq("user_id", determineWhoPaidResult.owed)
-      .eq("owes", determineWhoPaidResult.paid);
-
-    if (currentBalanceData?.length) {
-      // update the balances table
-      const { error: balanceError } = await supabase
-        .from("balances")
-        .update([
-          {
-            balance_id: currentBalanceData[0]?.balance_id,
-            user_id: determineWhoPaidResult.owed,
-            owes: determineWhoPaidResult.paid,
-            amount: currentBalanceData[0]?.amount + determineAmountResult.full,
-          },
-        ])
-        .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owes", determineWhoPaidResult.paid);
-      if (balanceError) console.log(balanceError);
-    } else {
-      // update the balances table
-      const { error: balanceError } = await supabase
-        .from("balances")
-        .upsert([
-          {
-            user_id: determineWhoPaidResult.owed,
-            owes: determineWhoPaidResult.paid,
-            amount: determineAmountResult.full,
-          },
-        ])
-        .eq("user_id", determineWhoPaidResult.owed)
-        .eq("owes", determineWhoPaidResult.paid);
-      if (balanceError) console.log(balanceError);
-    }
-
-    // TODO: make sure that if one action fails, the other one is rolled back
-    // atomic transactions
-  }
+  // TODO: make sure that if one action fails, the other one is rolled back
+  // atomic transactions
 
   revalidatePath("/balance");
   redirect("/balance");
