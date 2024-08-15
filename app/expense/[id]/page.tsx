@@ -67,6 +67,7 @@ export default async function ExpenseId({
   const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
   const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
 
+  // TODO: move this to a helper function
   function formatTimestamp(timestamp: string) {
     const date = new Date(timestamp);
 

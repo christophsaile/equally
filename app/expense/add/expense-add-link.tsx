@@ -1,8 +1,18 @@
 import Link from "next/link";
 
-export function ExpenseAddLink() {
+type Props = {
+  profileId?: string;
+};
+
+export function ExpenseAddLink({ ...props }: Props) {
   return (
-    <Link className="fixed bottom-5 right-5" href="/expense/add">
+    <Link
+      className="fixed bottom-5 right-5"
+      href={{
+        pathname: "/expense/add",
+        query: { profile_id: props.profileId },
+      }}
+    >
       <span className="sr-only">Add Expense</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"

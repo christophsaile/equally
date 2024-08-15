@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ExpenseCard } from "./expense-card";
 import { euroFormatter } from "../../utils";
+import { ExpenseAddLink } from "../../add/expense-add-link";
 
 export default async function ExpenseProfile({
   params,
@@ -97,6 +98,7 @@ export default async function ExpenseProfile({
           );
         })}
       </div>
+      <ExpenseAddLink profileId={params.id}></ExpenseAddLink>
     </div>
   );
 }
