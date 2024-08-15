@@ -2,6 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ExpenseDeleteButton } from "./expense-delete-button";
+import { ErrorMessage } from "@/app/error-message";
+import { euroFormatter } from "../utils";
 
 export default async function ExpenseId({
   params,
@@ -27,13 +29,38 @@ export default async function ExpenseId({
   if (expenseError) {
     console.error("Error fetching data:", expenseError);
   }
+
+  if (!expenseData || !expenseData.length) {
+    return (
+      <div>
+        <ErrorMessage>Expense not found</ErrorMessage>
+      </div>
+    );
+  }
+
+  const checkIfUserIsPartOfTransaction = (expenseData: any, user: any) => {
+    if (
+      expenseData[0].paid.id === user.id ||
+      expenseData[0].owes.id === user.id
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  if (!checkIfUserIsPartOfTransaction(expenseData, user)) {
+    return (
+      <div>
+        <ErrorMessage>
+          You have no access to preview this expense since you were not part of
+          the transaction
+        </ErrorMessage>
+      </div>
+    );
+  }
+
   // TODO: rename owes to something else?
   const { description, amount, split, created_at, paid, owes } = expenseData[0];
-
-  const Euro = new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-  });
 
   const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
   const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
@@ -91,14 +118,14 @@ export default async function ExpenseId({
 
       <h1>{description}</h1>
       <p>
-        {namePaidBy} paid {Euro.format(amount)} on {formatTimestamp(created_at)}
-        .
+        {namePaidBy} paid {euroFormatter(amount)} on{" "}
+        {formatTimestamp(created_at)}.
       </p>
       <p>
-        {namePaidBy} owe {Euro.format(spiltAmount(split, amount))}.
+        {namePaidBy} owe {euroFormatter(spiltAmount(split, amount))}.
       </p>
       <p>
-        {nameOwedTo} owes {Euro.format(spiltAmount(split, amount))}.
+        {nameOwedTo} owes {euroFormatter(spiltAmount(split, amount))}.
       </p>
     </div>
   );
