@@ -47,7 +47,7 @@ export default async function ExpenseEdit({
           value={searchParams.expense_id}
         />
         <button
-          className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+          className="w-full rounded-md bg-blue-500 p-2 font-semibold text-white hover:bg-blue-600"
           formAction={editExpense}
         >
           Edit expense

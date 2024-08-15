@@ -68,8 +68,8 @@ export default async function ExpenseProfile({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row gap-4 items-center">
-        <div className="rounded-full w-12 h-12 bg-neutral-200">
+      <div className="flex flex-row items-center gap-4">
+        <div className="h-12 w-12 rounded-full bg-neutral-200">
           {/* {avatar && <Image src={avatar} alt="" />} */}
         </div>
         <h2 className="flex flex-col">

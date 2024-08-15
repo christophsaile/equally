@@ -42,10 +42,10 @@ export default function ExpenseForm({
   return (
     <form
       {...props}
-      className="flex flex-col gap-4 p-6 max-w-md mx-auto mt-10 text-black"
+      className="mx-auto mt-10 flex max-w-md flex-col gap-4 p-6 text-black"
     >
       <div className="flex flex-col gap-2">
-        <label htmlFor="profile" className="text-gray-700 font-semibold">
+        <label htmlFor="profile" className="font-semibold text-gray-700">
           Person
         </label>
         <Combobox
@@ -68,9 +68,9 @@ export default function ExpenseForm({
             onChange={(event) => {
               setQuery(event.target.value);
             }}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
           />
-          <ComboboxOptions className="border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto bg-white">
+          <ComboboxOptions className="mt-1 max-h-60 overflow-auto rounded-md border border-gray-300 bg-white">
             {filteredProfiles.map((profile) => (
               <ComboboxOption
                 key={profile.id}
@@ -84,7 +84,7 @@ export default function ExpenseForm({
         </Combobox>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="description" className="text-gray-700 font-semibold">
+        <label htmlFor="description" className="font-semibold text-gray-700">
           Description
         </label>
         <input
@@ -93,12 +93,12 @@ export default function ExpenseForm({
           placeholder="Enter a description"
           required
           name="description"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 p-2"
           defaultValue={description}
         ></input>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="amount" className="text-gray-700 font-semibold">
+        <label htmlFor="amount" className="font-semibold text-gray-700">
           Amount
         </label>
         <input
@@ -108,18 +108,18 @@ export default function ExpenseForm({
           step="0.01"
           required
           name="amount"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 p-2"
           defaultValue={amount}
         ></input>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="split" className="text-gray-700 font-semibold">
+        <label htmlFor="split" className="font-semibold text-gray-700">
           Split
         </label>
         <select
           name="split"
           id="split"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 p-2"
           defaultValue={split}
         >
           {/* // TODO: fetch options from database */}

@@ -24,15 +24,15 @@ export function BalanceCard({
 
   return (
     <Link {...props}>
-      <div className="flex items-center rounded-md gap-4 bg-neutral-100 hover:bg-neutral-200 px-4 pb-6 pt-2 relative">
-        <div className="rounded-full w-12 h-12 bg-neutral-200">
+      <div className="relative flex items-center gap-4 rounded-md bg-neutral-100 px-4 pb-6 pt-2 hover:bg-neutral-200">
+        <div className="h-12 w-12 rounded-full bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
         </div>
         <h2 className="flex flex-col">
           {firstName}
           <span className="text-xs text-neutral-500">{lastName}</span>
         </h2>
-        <p className={`ml-auto flex flex-col text-right  ${amountColor}`}>
+        <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
           <span className="text-xs">{amountText}</span> {euroFormatter(amount)}
         </p>
         <svg

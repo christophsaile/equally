@@ -31,7 +31,7 @@ export default async function ExpenseAdd({
         preselectProfile={preselectProfile}
       >
         <button
-          className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+          className="w-full rounded-md bg-blue-500 p-2 font-semibold text-white hover:bg-blue-600"
           formAction={addExpense}
         >
           Add expense

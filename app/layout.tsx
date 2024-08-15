@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} px-4 py-8 max-w-2xl mx-auto h-full`}>
+      <body className={`${inter.className} mx-auto h-full max-w-2xl px-4 py-8`}>
         <header>{/* TODO: add Navigation */}</header>
         <main className="h-full">{children}</main>
       </body>
