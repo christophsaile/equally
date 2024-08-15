@@ -1,6 +1,7 @@
 import { type ComponentProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { euroFormatter } from "../expense/utils";
 
 type Props = ComponentProps<"a"> & {
   avatar?: string;
@@ -17,11 +18,6 @@ export function BalanceCard({
   amount,
   ...props
 }: Props) {
-  const Euro = new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
   const isAmountNegative = amount < 0;
   const amountColor = isAmountNegative ? "text-red-500" : "text-green-500";
   const amountText = isAmountNegative ? "you owe" : "owes you";
@@ -37,7 +33,7 @@ export function BalanceCard({
           <span className="text-xs text-neutral-500">{lastName}</span>
         </h2>
         <p className={`ml-auto flex flex-col text-right  ${amountColor}`}>
-          <span className="text-xs">{amountText}</span> {Euro.format(amount)}
+          <span className="text-xs">{amountText}</span> {euroFormatter(amount)}
         </p>
         <svg
           xmlns="http://www.w3.org/2000/svg"

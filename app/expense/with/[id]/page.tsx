@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ExpenseCard } from "./expense-card";
+import { euroFormatter } from "../../utils";
 
 export default async function ExpenseProfile({
   params,
@@ -45,11 +46,6 @@ export default async function ExpenseProfile({
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
-  const Euro = new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
   const splitText = (split: number) => {
     if (split === 1 || split === 2) {
       return "You paid";
@@ -67,7 +63,7 @@ export default async function ExpenseProfile({
   };
 
   const splitDescription = (split: number, amount: number) =>
-    `${splitText(split)} ${Euro.format(amount)}`;
+    `${splitText(split)} ${euroFormatter(amount)}`;
 
   return (
     <div className="flex flex-col gap-4">
@@ -95,7 +91,7 @@ export default async function ExpenseProfile({
             >
               <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
                 <span className="text-xs">{amountText}</span>{" "}
-                {Euro.format(spiltAmount(expense.split, expense.amount))}
+                {euroFormatter(spiltAmount(expense.split, expense.amount))}
               </p>
             </ExpenseCard>
           );
