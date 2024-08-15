@@ -38,6 +38,8 @@ export default async function ExpenseId({
     );
   }
 
+  // TODO: if we at some point want to allow multiple users to be part of a transaction
+  // this function needs to be updated
   const checkIfUserIsPartOfTransaction = (expenseData: any, user: any) => {
     if (
       expenseData[0].paid.id === user.id ||
