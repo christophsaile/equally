@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ExpenseDeleteButton } from "./expense-delete-button";
 import { ErrorMessage } from "@/app/error-message";
-import { euroFormatter } from "../utils";
+import { determineSplittedAmount, euroFormatter } from "../utils";
 
 export default async function ExpenseId({
   params,
@@ -67,14 +67,6 @@ export default async function ExpenseId({
   const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
   const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
 
-  // TODO: Move this to a helper function
-  const spiltAmount = (split: number, amount: number) => {
-    if (split === 1 || split === 3) {
-      return amount / 2;
-    }
-    return amount;
-  };
-
   function formatTimestamp(timestamp: string) {
     const date = new Date(timestamp);
 
@@ -124,10 +116,12 @@ export default async function ExpenseId({
         {formatTimestamp(created_at)}.
       </p>
       <p>
-        {namePaidBy} owe {euroFormatter(spiltAmount(split, amount))}.
+        {namePaidBy} owe {euroFormatter(determineSplittedAmount(split, amount))}
+        .
       </p>
       <p>
-        {nameOwedTo} owes {euroFormatter(spiltAmount(split, amount))}.
+        {nameOwedTo} owes{" "}
+        {euroFormatter(determineSplittedAmount(split, amount))}.
       </p>
     </div>
   );

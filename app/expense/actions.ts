@@ -2,6 +2,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
+import { determineSplittedAmount } from "./utils";
 
 async function getExpenses(
   supabase: SupabaseClient<any, "public", any>,
@@ -25,10 +26,6 @@ async function getExpenses(
     return { expensesUserPaid: [], expensesProfilePaid: [] };
   }
   return { expensesUserPaid, expensesProfilePaid };
-}
-
-function determineSplittedAmount(amount: number, split: number) {
-  return split === 1 || split === 3 ? amount / 2 : amount;
 }
 
 function calculateTotalAmount(expenses: any[]) {

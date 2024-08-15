@@ -48,6 +48,10 @@ export function determineAmount(validatedData: ValidateFormData): {
   };
 }
 
+export function determineSplittedAmount(amount: number, split: number) {
+  return split === 1 || split === 3 ? amount / 2 : amount;
+}
+
 export async function validateFormData(
   formData: FormData,
 ): Promise<ValidateFormData> {
