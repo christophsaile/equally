@@ -93,7 +93,6 @@ export default async function ExpenseId({
   }
 
   return (
-    // TODO add default layout for all pages
     <div>
       <Link
         href={{ pathname: "/expense/edit", query: { expense_id: params.id } }}

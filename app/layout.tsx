@@ -15,8 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} p-5`}>{children}</body>
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} px-4 py-8 max-w-2xl mx-auto h-full`}>
+        <header>{/* TODO: add Navigation */}</header>
+        <main className="h-full">{children}</main>
+      </body>
     </html>
   );
 }
