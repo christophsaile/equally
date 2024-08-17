@@ -18,7 +18,7 @@ export function Profile({ ...props }: Props) {
         <span className="text-xs text-neutral-500">{props.lastName}</span>
       </h2>
       <Link href="/account">
-      <span className="sr-only">Account Settings</span>
+        <span className="sr-only">Account Settings</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

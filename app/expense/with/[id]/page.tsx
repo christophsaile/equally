@@ -85,7 +85,7 @@ export default async function ExpenseProfile({
               <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
                 <span className="text-xs">{amountText}</span>{" "}
                 {euroFormatter(
-                  determineSplittedAmount(expense.split, expense.amount),
+                  determineSplittedAmount(expense.amount, expense.split),
                 )}
               </p>
             </ExpenseCard>

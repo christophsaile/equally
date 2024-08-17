@@ -3,27 +3,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { euroFormatter } from "../expense/utils";
 
-type Props = ComponentProps<"a"> & {
+type Props = {
   avatar?: string;
   firstName: string;
   lastName: string;
   amount: number;
+  href: string;
 };
 
 export function BalanceCard({
-  children,
   avatar,
   firstName,
   lastName,
   amount,
-  ...props
+  href,
 }: Props) {
   const isAmountNegative = amount < 0;
   const amountColor = isAmountNegative ? "text-red-500" : "text-green-500";
   const amountText = isAmountNegative ? "you owe" : "owes you";
 
   return (
-    <Link {...props}>
+    <Link href={href}>
       <div className="relative flex items-center gap-4 rounded-md bg-neutral-100 px-4 pb-6 pt-2 hover:bg-neutral-200">
         <div className="h-12 w-12 rounded-full bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
