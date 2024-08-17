@@ -2,7 +2,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { validateFormData, determineWhoPaid, determineAmount } from "../utils";
+import { validateFormData, determineWhoPaid } from "../utils";
 import { updateBalances } from "../actions";
 
 export async function addExpense(formData: FormData) {
@@ -25,7 +25,6 @@ export async function addExpense(formData: FormData) {
   }
 
   const determineWhoPaidResult = determineWhoPaid(validatedData, user.id);
-  const determineAmountResult = determineAmount(validatedData);
 
   // insert the expense into the database
   const { error: expenseError } = await supabase.from("expenses").insert([

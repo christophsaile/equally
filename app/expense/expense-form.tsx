@@ -9,7 +9,7 @@ import {
 } from "@headlessui/react";
 
 // TODO: add library to prevent re-rendering on every key stroke
-// TODO: add feature to select user from database
+// TODO: add feature to search for users from database
 type Props = ComponentProps<"form"> & {
   profiles: Profile[];
   preselectProfile?: Profile;
@@ -54,7 +54,6 @@ export default function ExpenseForm({
           onChange={setSelectedPerson}
           immediate
         >
-          {/* TODO: add feature to select multiple users */}
           <ComboboxInput
             id="profile"
             aria-label="Person"

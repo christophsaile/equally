@@ -13,22 +13,24 @@ export default async function ExpenseEdit({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data, error } = await supabase
-    .from("profiles")
-    .select()
-    .neq("id", user?.id);
-  if (error) console.log(error);
+  const [profilesResult, expenseResult] = await Promise.all([
+    supabase.from("profiles").select().neq("id", user?.id),
+    supabase
+      .from("expenses")
+      .select()
+      .eq("expense_id", searchParams.expense_id)
+      .limit(1)
+      .single(),
+  ]);
 
-  const { data: expenseData, error: expenseError } = await supabase
-    .from("expenses")
-    .select()
-    .eq("expense_id", searchParams.expense_id)
-    .single();
+  const { data: profileData, error: profileError } = profilesResult;
+  const { data: expenseData, error: expenseError } = expenseResult;
+  if (profileError || expenseError)
+    console.error("Error fetching data:", profileError || expenseError);
 
-  if (expenseError) console.log(expenseError);
   const { split, paid, owes, amount, description } = expenseData;
 
-  const preselectProfile = data?.find(
+  const preselectProfile = profileData?.find(
     (profile) => profile.id === paid || profile.id === owes,
   );
 
@@ -36,7 +38,7 @@ export default async function ExpenseEdit({
     <div>
       <span>edit expense</span>
       <ExpenseForm
-        profiles={data as Profile[]}
+        profiles={profileData as Profile[]}
         preselectProfile={preselectProfile}
         split={split}
         amount={amount}

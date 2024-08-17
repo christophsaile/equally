@@ -19,33 +19,36 @@ export default async function ExpenseProfile({
     return redirect("/login");
   }
 
-  // profile data, TODO: can be called in parallel
-  const { data: profileData, error: profileError } = await supabase
-    .from("profiles")
-    .select()
-    .eq("id", params.id)
-    .single();
+  const [profileResult, paidByYouResult, paidByProfileResult] =
+    await Promise.all([
+      supabase.from("profiles").select().eq("id", params.id).limit(1).single(),
+      supabase
+        .from("expenses")
+        .select()
+        .eq("paid", user.id)
+        .eq("owes", params.id),
+      supabase
+        .from("expenses")
+        .select()
+        .eq("paid", params.id)
+        .eq("owes", user.id),
+    ]);
+
+  const { data: profileData, error: profileError } = profileResult;
+  const { data: paidByYouData, error: paidByYouError } = paidByYouResult;
+  const { data: paidByProfileData, error: paidByProfileError } =
+    paidByProfileResult;
+
+  if (paidByYouError || paidByProfileError || profileError) {
+    console.error(
+      "Error fetching data:",
+      paidByYouError || paidByProfileError || profileError,
+    );
+    return [];
+  }
 
   const userFirstName = profileData.first_name;
   const userLastName = profileData.last_name;
-
-  // expenses data, TODO: paidByYouData and paidByProfileData can be called in parallel
-  const { data: paidByYouData, error: paidByYouError } = await supabase
-    .from("expenses")
-    .select()
-    .eq("paid", user.id)
-    .eq("owes", params.id);
-
-  const { data: paidByProfileData, error: paidByProfileError } = await supabase
-    .from("expenses")
-    .select()
-    .eq("paid", params.id)
-    .eq("owes", user.id);
-
-  if (paidByYouError || paidByProfileError) {
-    console.error("Error fetching data:", paidByYouError || paidByProfileError);
-    return [];
-  }
 
   const combinedData = [...paidByYouData, ...paidByProfileData].sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();

@@ -9,17 +9,25 @@ async function getExpenses(
   userId: string,
   profileId: string,
 ) {
-  const { data: expensesUserPaid, error: errorUserPaid } = await supabase
-    .from("expenses")
-    .select()
-    .eq("paid", userId)
-    .eq("owes", profileId);
+  const [expensesUserPaidResult, expensesProfilePaidResult] = await Promise.all(
+    [
+      supabase
+        .from("expenses")
+        .select()
+        .eq("paid", userId)
+        .eq("owes", profileId),
+      supabase
+        .from("expenses")
+        .select()
+        .eq("paid", profileId)
+        .eq("owes", userId),
+    ],
+  );
 
-  const { data: expensesProfilePaid, error: errorProfilePaid } = await supabase
-    .from("expenses")
-    .select()
-    .eq("paid", profileId)
-    .eq("owes", userId);
+  const { data: expensesUserPaid, error: errorUserPaid } =
+    expensesUserPaidResult;
+  const { data: expensesProfilePaid, error: errorProfilePaid } =
+    expensesProfilePaidResult;
 
   if (errorUserPaid || errorProfilePaid) {
     console.error("Error fetching data:", errorUserPaid || errorProfilePaid);
@@ -76,6 +84,7 @@ async function updateOrInsertBalance(
   }
 }
 
+// TODO: replace with rpc call
 export async function updateBalances(userId: string, profileId: string) {
   const supabase = createClient();
   const {

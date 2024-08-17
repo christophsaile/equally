@@ -15,42 +15,41 @@ export default async function Balance() {
     return redirect("/login");
   }
 
-  const { data: profileData, error: profileError } = await supabase
-    .from("profiles")
-    .select()
-    .eq("id", user.id)
-    .single();
+  const [profileResult, owedResult, owesResult] = await Promise.all([
+    supabase.from("profiles").select().eq("id", user.id).limit(1).single(),
+    supabase
+      .from("balances")
+      .select("balance_id, user_id (id, first_name, last_name), owes, amount")
+      .eq("owes", user.id),
+    supabase
+      .from("balances")
+      .select("balance_id, user_id, owes (id, first_name, last_name), amount")
+      .eq("user_id", user.id),
+  ]);
+
+  const { data: profileData, error: profileError } = profileResult;
+  const { data: loggedInUserGetsMoneyFrom, error: owedError } = owedResult;
+  const { data: loggedInUserOwesMoneyFrom, error: owesError } = owesResult;
+
+  if (owedError || owesError || profileError) {
+    console.error(
+      "Error fetching data:",
+      owedError || owesError || profileError,
+    );
+  }
 
   const userFirstName = profileData.first_name;
   const userLastName = profileData.last_name;
 
-  // select all balances where the user is owed money
-  // select all balances where the user owes money
-  // subtract the two to get the net balance
-  const { data: loggedInUserGetsMoneyFrom, error: owedError } = await supabase
-    .from("balances")
-    .select("balance_id, user_id (id, first_name, last_name), owes, amount")
-    .eq("owes", user.id);
-
-  const { data: loggedInUserOwesMoneyFrom, error: owesError } = await supabase
-    .from("balances")
-    .select("balance_id, user_id, owes (id, first_name, last_name), amount")
-    .eq("user_id", user.id);
-
-  if (owedError || owesError) {
-    console.error("Error fetching data:", owedError || owesError);
-    return [];
-  }
-
   const owesMoneyMap = new Map(
-    loggedInUserOwesMoneyFrom.map((balanceOwe) => [
+    loggedInUserOwesMoneyFrom?.map((balanceOwe) => [
       // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
       balanceOwe.owes.id,
       balanceOwe.amount,
     ]),
   );
 
-  const data = loggedInUserGetsMoneyFrom.map(
+  const data = loggedInUserGetsMoneyFrom?.map(
     ({ balance_id, user_id, amount }) => ({
       balance_id,
       user_id,

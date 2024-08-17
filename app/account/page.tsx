@@ -15,6 +15,7 @@ export default async function Account() {
     .from("profiles")
     .select()
     .eq("id", user.id)
+    .limit(1)
     .single();
 
   if (profileError) {
@@ -24,6 +25,9 @@ export default async function Account() {
   const userFirstName = profileData.first_name;
   const userLastName = profileData.last_name;
 
+  // TODO add a form to update the user's profile, name, email, password, avatar, etc.
+  // TODO add a button to delete the user's account
+  // TODO add a button to log out
   return (
     <div>
       <h1>Account</h1>

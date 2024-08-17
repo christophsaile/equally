@@ -3,7 +3,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ExpenseDeleteButton } from "./expense-delete-button";
 import { ErrorMessage } from "@/app/error-message";
-import { determineSplittedAmount, euroFormatter } from "../utils";
+import {
+  determineSplittedAmount,
+  euroFormatter,
+  formatTimestamp,
+} from "../utils";
 
 export default async function ExpenseId({
   params,
@@ -25,6 +29,7 @@ export default async function ExpenseId({
       "expense_id, description, amount, split, created_at, paid(id, first_name), owes(id, first_name)",
     )
     .eq("expense_id", params.id)
+    .limit(1)
     .single();
 
   if (expenseError) {
@@ -67,31 +72,6 @@ export default async function ExpenseId({
   const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
   // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
   const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
-
-  // TODO: move this to a helper function
-  function formatTimestamp(timestamp: string) {
-    const date = new Date(timestamp);
-
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-
-    return `${day} ${month} ${year}`;
-  }
 
   return (
     <div>

@@ -7,7 +7,6 @@ import { revalidatePath } from "next/cache";
 import { updateBalances } from "../actions";
 
 export async function editExpense(formData: FormData) {
-  // TODO - move this to a shared function
   const supabase = createClient();
   const {
     data: { user },
