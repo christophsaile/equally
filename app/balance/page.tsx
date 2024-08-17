@@ -17,12 +17,12 @@ export default async function Balance() {
   // select all balances where the user is owed money
   // select all balances where the user owes money
   // subtract the two to get the net balance
-  const { data: getMoneyData, error: owedError } = await supabase
+  const { data: loggedInUserGetsMoneyFrom, error: owedError } = await supabase
     .from("balances")
     .select("balance_id, user_id (id, first_name, last_name), owes, amount")
     .eq("owes", user.id);
 
-  const { data: oweMoneyData, error: owesError } = await supabase
+  const { data: loggedInUserOwesMoneyFrom, error: owesError } = await supabase
     .from("balances")
     .select("balance_id, user_id, owes (id, first_name, last_name), amount")
     .eq("user_id", user.id);
@@ -32,16 +32,17 @@ export default async function Balance() {
     return [];
   }
 
-  const data = getMoneyData.map((owed) => {
-    const owes = oweMoneyData.find((owe) => {
-      return owe.user_id === owed.owes;
-    });
-    return {
-      balance_id: owed.balance_id,
-      user_id: owed.user_id,
-      amount: owed.amount - (owes?.amount || 0),
-    };
-  });
+// typeerror can be ignored as there is no array returned from the select lookup
+const owesMoneyMap = new Map(
+  loggedInUserOwesMoneyFrom.map((balanceOwe) => [balanceOwe.owes.id, balanceOwe.amount])
+);
+
+const data = loggedInUserGetsMoneyFrom.map(({ balance_id, user_id, amount }) => ({
+  balance_id,
+  user_id,
+  amount: amount - (owesMoneyMap.get(user_id.id) || 0),
+}));
+
 
   return (
     <div className="flex flex-col gap-2">
