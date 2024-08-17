@@ -1,6 +1,6 @@
 "use client";
-import { useState, type Key, useEffect, ComponentProps } from "react";
-import { addExpense, Profile } from "./utils";
+import { useState, ComponentProps } from "react";
+import { Profile } from "./utils";
 import {
   Combobox,
   ComboboxInput,
@@ -59,7 +59,7 @@ export default function ExpenseForm({
             id="profile"
             aria-label="Person"
             placeholder="Enter a name"
-            displayValue={(profile) => {
+            displayValue={(profile: any) => {
               if (profile === null) {
                 return "";
               }

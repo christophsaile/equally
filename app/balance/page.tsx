@@ -15,18 +15,14 @@ export default async function Balance() {
     return redirect("/login");
   }
 
-  let userFirstName = "";
-  let userLastName = "";
-
   const { data: profileData, error: profileError } = await supabase
     .from("profiles")
     .select()
-    .eq("id", user.id);
+    .eq("id", user.id)
+    .single();
 
-  if (profileData?.length) {
-    userFirstName = profileData[0].first_name;
-    userLastName = profileData[0].last_name;
-  }
+  const userFirstName = profileData.first_name;
+  const userLastName = profileData.last_name;
 
   // select all balances where the user is owed money
   // select all balances where the user owes money
@@ -46,9 +42,9 @@ export default async function Balance() {
     return [];
   }
 
-  // typeerror can be ignored as there is no array returned from the select lookup
   const owesMoneyMap = new Map(
     loggedInUserOwesMoneyFrom.map((balanceOwe) => [
+      // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
       balanceOwe.owes.id,
       balanceOwe.amount,
     ]),
@@ -58,6 +54,7 @@ export default async function Balance() {
     ({ balance_id, user_id, amount }) => ({
       balance_id,
       user_id,
+      // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
       amount: amount - (owesMoneyMap.get(user_id.id) || 0),
     }),
   );
@@ -74,8 +71,11 @@ export default async function Balance() {
           key={elem.balance_id}
           avatar=""
           amount={elem.amount}
+          // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
           firstName={elem.user_id.first_name}
+          // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
           lastName={elem.user_id.last_name}
+          // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
           href={`/expense/with/${elem.user_id.id}`}
         ></BalanceCard>
       ))}

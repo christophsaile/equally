@@ -19,7 +19,7 @@ export default async function ExpenseAdd({
     .neq("id", user?.id);
   if (error) console.log(error);
 
-  const preselectProfile = data.find(
+  const preselectProfile = data?.find(
     (profile) => profile.id === searchParams.profile_id,
   );
 

@@ -22,12 +22,13 @@ export default async function ExpenseEdit({
   const { data: expenseData, error: expenseError } = await supabase
     .from("expenses")
     .select()
-    .eq("expense_id", searchParams.expense_id);
+    .eq("expense_id", searchParams.expense_id)
+    .single();
 
   if (expenseError) console.log(expenseError);
-  const { split, paid, owes, amount, description } = expenseData[0];
+  const { split, paid, owes, amount, description } = expenseData;
 
-  const preselectProfile = data.find(
+  const preselectProfile = data?.find(
     (profile) => profile.id === paid || profile.id === owes,
   );
 

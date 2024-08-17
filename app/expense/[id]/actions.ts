@@ -20,9 +20,8 @@ export async function deleteExpense(expenseId: number) {
     .from("expenses")
     .delete()
     .eq("expense_id", expenseId)
-    .select();
-
-  console.log(deleteExpenseData);
+    .select()
+    .single();
 
   if (deleteExpenseError) {
     console.error("Error deleting expense:", deleteExpenseError);
@@ -30,10 +29,10 @@ export async function deleteExpense(expenseId: number) {
 
   let profileId;
 
-  if (user.id === deleteExpenseData[0].paid) {
-    profileId = deleteExpenseData[0].owes;
+  if (user.id === deleteExpenseData.paid) {
+    profileId = deleteExpenseData.owes;
   } else {
-    profileId = deleteExpenseData[0].paid;
+    profileId = deleteExpenseData.paid;
   }
 
   await updateBalances(user.id, profileId);

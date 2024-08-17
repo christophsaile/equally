@@ -24,27 +24,26 @@ export default async function ExpenseId({
     .select(
       "expense_id, description, amount, split, created_at, paid(id, first_name), owes(id, first_name)",
     )
-    .eq("expense_id", params.id);
+    .eq("expense_id", params.id)
+    .single();
 
   if (expenseError) {
     console.error("Error fetching data:", expenseError);
   }
 
-  if (!expenseData || !expenseData.length) {
+  if (!expenseData) {
     return (
       <div>
-        <ErrorMessage>Expense not found</ErrorMessage>
+        <ErrorMessage>No expense found with the id {params.id}</ErrorMessage>
       </div>
     );
   }
 
   // TODO: if we at some point want to allow multiple users to be part of a transaction
   // this function needs to be updated
+  // TODO: handle over global error page
   const checkIfUserIsPartOfTransaction = (expenseData: any, user: any) => {
-    if (
-      expenseData[0].paid.id === user.id ||
-      expenseData[0].owes.id === user.id
-    ) {
+    if (expenseData.paid.id === user.id || expenseData.owes.id === user.id) {
       return true;
     }
     return false;
@@ -62,9 +61,11 @@ export default async function ExpenseId({
   }
 
   // TODO: rename owes to something else?
-  const { description, amount, split, created_at, paid, owes } = expenseData[0];
+  const { description, amount, split, created_at, paid, owes } = expenseData;
 
+  // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
   const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
+  // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
   const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
 
   // TODO: move this to a helper function

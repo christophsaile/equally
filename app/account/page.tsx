@@ -11,18 +11,18 @@ export default async function Account() {
     return redirect("/login");
   }
 
-  let userFirstName = "";
-  let userLastName = "";
-
   const { data: profileData, error: profileError } = await supabase
     .from("profiles")
     .select()
-    .eq("id", user.id);
+    .eq("id", user.id)
+    .single();
 
-  if (profileData?.length) {
-    userFirstName = profileData[0].first_name;
-    userLastName = profileData[0].last_name;
+  if (profileError) {
+    console.error("Error fetching profile data:", profileError);
   }
+
+  const userFirstName = profileData.first_name;
+  const userLastName = profileData.last_name;
 
   return (
     <div>
@@ -31,5 +31,5 @@ export default async function Account() {
         {userFirstName} {userLastName}
       </p>
     </div>
-  )
+  );
 }
