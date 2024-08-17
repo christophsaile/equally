@@ -1,8 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ExpenseCard } from "./expense-card";
-import { euroFormatter } from "../../utils";
+import { determineSplittedAmount, euroFormatter } from "../../utils";
 import { ExpenseAddLink } from "../../add/expense-add-link";
+import { Profile } from "@/components/Profile";
 
 export default async function ExpenseProfile({
   params,
@@ -18,12 +19,19 @@ export default async function ExpenseProfile({
     return redirect("/login");
   }
 
+  let userFirstName = "";
+  let userLastName = "";
+
   // profile data, TODO: can be called in parallel
   const { data: profileData, error: profileError } = await supabase
     .from("profiles")
     .select()
     .eq("id", params.id);
-  const { first_name: firstName, last_name: lastName } = profileData[0];
+
+  if (profileData?.length) {
+    userFirstName = profileData[0].first_name;
+    userLastName = profileData[0].last_name;
+  }
 
   // expenses data, TODO: paidByYouData and paidByProfileData can be called in parallel
   const { data: paidByYouData, error: paidByYouError } = await supabase
@@ -51,16 +59,8 @@ export default async function ExpenseProfile({
     if (split === 1 || split === 2) {
       return "You paid";
     } else {
-      return `${firstName} paid`;
+      return `${userFirstName} paid`;
     }
-  };
-
-  // TODO: Move this to a helper function
-  const spiltAmount = (split: number, amount: number) => {
-    if (split === 1 || split === 3) {
-      return amount / 2;
-    }
-    return amount;
   };
 
   const splitDescription = (split: number, amount: number) =>
@@ -68,15 +68,7 @@ export default async function ExpenseProfile({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row items-center gap-4">
-        <div className="h-12 w-12 rounded-full bg-neutral-200">
-          {/* {avatar && <Image src={avatar} alt="" />} */}
-        </div>
-        <h2 className="flex flex-col">
-          {firstName}
-          <span className="text-xs text-neutral-500">{lastName}</span>
-        </h2>
-      </div>
+      <Profile firstName={userFirstName} lastName={userLastName}></Profile>
       <div className="flex flex-col gap-2">
         {combinedData.map((expense) => {
           const amountColor =
@@ -92,7 +84,9 @@ export default async function ExpenseProfile({
             >
               <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
                 <span className="text-xs">{amountText}</span>{" "}
-                {euroFormatter(spiltAmount(expense.split, expense.amount))}
+                {euroFormatter(
+                  determineSplittedAmount(expense.split, expense.amount),
+                )}
               </p>
             </ExpenseCard>
           );

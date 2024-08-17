@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ExpenseAddLink } from "../expense/add/expense-add-link";
 import { BalanceCard } from "./balance-card";
+import { Profile } from "@/components/Profile";
 
 export default async function Balance() {
   const supabase = createClient();
@@ -12,6 +13,19 @@ export default async function Balance() {
 
   if (!user) {
     return redirect("/login");
+  }
+
+  let userFirstName = "";
+  let userLastName = "";
+
+  const { data: profileData, error: profileError } = await supabase
+    .from("profiles")
+    .select()
+    .eq("id", user.id);
+
+  if (profileData?.length) {
+    userFirstName = profileData[0].first_name;
+    userLastName = profileData[0].last_name;
   }
 
   // select all balances where the user is owed money
@@ -32,20 +46,29 @@ export default async function Balance() {
     return [];
   }
 
-// typeerror can be ignored as there is no array returned from the select lookup
-const owesMoneyMap = new Map(
-  loggedInUserOwesMoneyFrom.map((balanceOwe) => [balanceOwe.owes.id, balanceOwe.amount])
-);
+  // typeerror can be ignored as there is no array returned from the select lookup
+  const owesMoneyMap = new Map(
+    loggedInUserOwesMoneyFrom.map((balanceOwe) => [
+      balanceOwe.owes.id,
+      balanceOwe.amount,
+    ]),
+  );
 
-const data = loggedInUserGetsMoneyFrom.map(({ balance_id, user_id, amount }) => ({
-  balance_id,
-  user_id,
-  amount: amount - (owesMoneyMap.get(user_id.id) || 0),
-}));
-
+  const data = loggedInUserGetsMoneyFrom.map(
+    ({ balance_id, user_id, amount }) => ({
+      balance_id,
+      user_id,
+      amount: amount - (owesMoneyMap.get(user_id.id) || 0),
+    }),
+  );
 
   return (
     <div className="flex flex-col gap-2">
+      <Profile
+        firstName={userFirstName}
+        lastName={userLastName}
+        loggedInUser
+      ></Profile>
       {data?.map((elem) => (
         <BalanceCard
           key={elem.balance_id}
