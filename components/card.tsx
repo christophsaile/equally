@@ -1,7 +1,6 @@
-import { type ComponentProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { euroFormatter } from "../expense/utils";
+import { euroFormatter } from "../app/expense/utils";
 
 type Props = {
   avatar?: string;
@@ -11,13 +10,7 @@ type Props = {
   href: string;
 };
 
-export function BalanceCard({
-  avatar,
-  firstName,
-  lastName,
-  amount,
-  href,
-}: Props) {
+export function Card({ avatar, firstName, lastName, amount, href }: Props) {
   const isAmountNegative = amount < 0;
   const amountColor = isAmountNegative ? "text-red-500" : "text-green-500";
   const amountText = isAmountNegative ? "you owe" : "owes you";

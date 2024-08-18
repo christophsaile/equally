@@ -6,7 +6,7 @@ export type Profile = {
   last_name: string;
 };
 
-type ValidateFormData = {
+type ValidateExpenseFormData = {
   profile_id: string;
   description: string;
   amount: number;
@@ -23,7 +23,7 @@ const expenseSchema = object({
 });
 
 export function determineWhoPaid(
-  validatedData: ValidateFormData,
+  validatedData: ValidateExpenseFormData,
   userId: string,
 ): { paid: string; owed: string } {
   if ([1, 2].includes(validatedData.split)) {
@@ -38,7 +38,7 @@ export function determineWhoPaid(
   };
 }
 
-export function determineAmount(validatedData: ValidateFormData): {
+export function determineAmount(validatedData: ValidateExpenseFormData): {
   equal: number;
   full: number;
 } {
@@ -52,9 +52,9 @@ export function determineSplittedAmount(amount: number, split: number) {
   return split === 1 || split === 3 ? amount / 2 : amount;
 }
 
-export async function validateFormData(
+export async function validateExpenseFormData(
   formData: FormData,
-): Promise<ValidateFormData> {
+): Promise<ValidateExpenseFormData> {
   const validatedData = await expenseSchema.validate({
     profile_id: formData.get("profile[id]"),
     description: formData.get("description"),

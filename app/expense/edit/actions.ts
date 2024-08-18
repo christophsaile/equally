@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { determineWhoPaid, validateFormData } from "../utils";
+import { determineWhoPaid, validateExpenseFormData } from "../utils";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { updateBalances } from "../actions";
@@ -19,7 +19,7 @@ export async function editExpense(formData: FormData) {
 
   try {
     // validate the form data
-    validatedData = await validateFormData(formData);
+    validatedData = await validateExpenseFormData(formData);
   } catch (error) {
     console.error("Validation or user retrieval failed:", error);
     throw new Error("Invalid expense data");
@@ -45,6 +45,6 @@ export async function editExpense(formData: FormData) {
 
   await updateBalances(user.id, validatedData.profile_id);
 
-  revalidatePath("/balance");
-  redirect("/balance");
+  revalidatePath("/");
+  redirect("/");
 }

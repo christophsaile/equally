@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { ExpenseCard } from "./expense-card";
 import { determineSplittedAmount, euroFormatter } from "../../utils";
 import { ExpenseAddLink } from "../../add/expense-add-link";
-import { Profile } from "@/components/Profile";
+import { Profile } from "@/components/profile";
 
 export default async function ExpenseProfile({
   params,

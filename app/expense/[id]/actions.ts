@@ -37,7 +37,7 @@ export async function deleteExpense(expenseId: number) {
 
   await updateBalances(user.id, profileId);
 
-  revalidatePath("/balance");
+  revalidatePath("/");
   revalidatePath(`/expense/with/${profileId}`);
   redirect(`/expense/with/${profileId}`);
 }

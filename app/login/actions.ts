@@ -1,19 +1,33 @@
 "use server";
-
+import { object, string, number } from "yup";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 
+const formSchema = object({
+  email: string().required(),
+  password: string().required(),
+});
+
+export async function validateForm(formData: FormData) {
+  const validatedData = await formSchema.validate({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  return validatedData;
+}
+
 export async function login(formData: FormData) {
   const supabase = createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+  let data;
+  try {
+    data = await validateForm(formData);
+  } catch (error) {
+    redirect("/error");
+  }
 
   const { error } = await supabase.auth.signInWithPassword(data);
 
@@ -21,6 +35,7 @@ export async function login(formData: FormData) {
     redirect("/error");
   }
 
+  // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
   revalidatePath("/", "layout");
   redirect("/");
 }
@@ -28,12 +43,12 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+  let data;
+  try {
+    data = await validateForm(formData);
+  } catch (error) {
+    redirect("/error");
+  }
 
   const { error } = await supabase.auth.signUp(data);
 
@@ -41,6 +56,7 @@ export async function signup(formData: FormData) {
     redirect("/error");
   }
 
+  // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
   revalidatePath("/", "layout");
   redirect("/");
 }

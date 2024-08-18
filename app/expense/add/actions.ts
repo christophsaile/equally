@@ -2,7 +2,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { validateFormData, determineWhoPaid } from "../utils";
+import { validateExpenseFormData, determineWhoPaid } from "../utils";
 import { updateBalances } from "../actions";
 
 export async function addExpense(formData: FormData) {
@@ -18,7 +18,7 @@ export async function addExpense(formData: FormData) {
 
   try {
     // validate the form data
-    validatedData = await validateFormData(formData);
+    validatedData = await validateExpenseFormData(formData);
   } catch (error) {
     console.error("Validation or user retrieval failed:", error);
     throw new Error("Invalid expense data");
@@ -47,6 +47,6 @@ export async function addExpense(formData: FormData) {
   // TODO: make sure that if one action fails, the other one is rolled back
   // atomic transactions
 
-  revalidatePath("/balance");
-  redirect("/balance");
+  revalidatePath("/");
+  redirect("/");
 }
