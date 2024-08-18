@@ -1,5 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { updateProfileData } from "./actions";
+import Image from "next/image";
 
 export default async function Account() {
   const supabase = createClient();
@@ -22,18 +24,53 @@ export default async function Account() {
     console.error("Error fetching profile data:", profileError);
   }
 
-  const userFirstName = profileData.first_name;
-  const userLastName = profileData.last_name;
+  const userFirstName = profileData?.first_name;
+  const userLastName = profileData?.last_name;
+  const avatar = profileData?.avatar;
 
   // TODO add a form to update the user's profile, name, email, password, avatar, etc.
   // TODO add a button to delete the user's account
   // TODO add a button to log out
   return (
     <div>
-      <h1>Account</h1>
-      <p>
-        {userFirstName} {userLastName}
-      </p>
+      <h2 className="mb-4">Profile Settings</h2>
+      <form action={updateProfileData} className="mb-8 flex flex-col gap-2">
+        <Image src={avatar} alt="Profile Picture" width={300} height={300} />
+        <label htmlFor="avatar">Choose a profile picture:</label>
+        <input type="file" id="avatar" name="avatar" accept="image/*" />
+        <label htmlFor="first_name">First Name</label>
+        <input
+          id="first_name"
+          name="first_name"
+          type="text"
+          required
+          defaultValue={userFirstName}
+        />
+        <label htmlFor="last_name">Last Name</label>
+        <input
+          id="last_name"
+          name="last_name"
+          type="text"
+          required
+          defaultValue={userLastName}
+        />
+        <button type="submit" name="button" value="submit">
+          Save Changes
+        </button>
+      </form>
+      <h2 className="mb-4">Account Settings</h2>
+      <form className="flex flex-col gap-2">
+        <label htmlFor="email">Email:</label>
+        <input id="email" name="email" type="email" required disabled />
+        <label htmlFor="password">Password:</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          disabled
+        />
+      </form>
     </div>
   );
 }

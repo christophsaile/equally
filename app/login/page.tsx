@@ -1,5 +1,7 @@
 import { login, signup } from "./actions";
 
+// TODO - Implement the login page
+// TODO - Add status messages for login and signup
 export default function LoginPage() {
   return (
     <form>
