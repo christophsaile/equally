@@ -13,16 +13,14 @@ export default async function FirstLogin() {
   }
 
   return (
-    <form>
-      <form action={updateProfileData} className="mb-8 flex flex-col gap-2">
-        <label htmlFor="first_name">First Name</label>
-        <input id="first_name" name="first_name" type="text" required />
-        <label htmlFor="last_name">Last Name</label>
-        <input id="last_name" name="last_name" type="text" required />
-        <button type="submit" name="button" value="submit">
-          Save Changes
-        </button>
-      </form>
+    <form action={updateProfileData} className="mb-8 flex flex-col gap-2">
+      <label htmlFor="first_name">First Name</label>
+      <input id="first_name" name="first_name" type="text" required />
+      <label htmlFor="last_name">Last Name</label>
+      <input id="last_name" name="last_name" type="text" required />
+      <button type="submit" name="button" value="submit">
+        Save Changes
+      </button>
     </form>
   );
 }

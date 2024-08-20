@@ -7,10 +7,12 @@ export async function updateProfileData(formData: FormData) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
   if (!user) {
     return redirect("/login");
   }
 
+  // TODO - Add validation for first_name and last_name
   const firstName = formData.get("first_name") as string;
   const lastName = formData.get("last_name") as string;
 
