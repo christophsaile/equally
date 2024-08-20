@@ -28,7 +28,7 @@ export default async function Account() {
   const userLastName = profileData?.last_name;
   const avatar = profileData?.avatar;
 
-  // TODO add a form to update the user's profile, name, email, password, avatar, etc.
+  // TODO add a form to change password and email
   // TODO add a button to delete the user's account
   // TODO add a button to log out
   return (

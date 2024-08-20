@@ -56,8 +56,9 @@ export async function signup(formData: FormData) {
     redirect("/error");
   }
 
-  // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
   // TODO: add base data to the profile table
+
+  // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
   revalidatePath("/", "layout");
   redirect("/account");
 }

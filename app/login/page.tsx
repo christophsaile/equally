@@ -2,7 +2,7 @@ import { login, signup } from "./actions";
 
 // TODO - Implement the login page
 // TODO - Add status messages for login and signup
-export default function LoginPage() {
+export default function Login() {
   return (
     <form>
       <label htmlFor="email">Email:</label>
