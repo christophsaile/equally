@@ -70,3 +70,9 @@ export async function updateProfileData(formData: FormData) {
   }
   revalidatePath("/account");
 }
+
+export async function logout() {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+  redirect("/login");
+}

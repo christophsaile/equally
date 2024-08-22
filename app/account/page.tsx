@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { updateProfileData } from "./actions";
+import { logout, updateProfileData } from "./actions";
 import Image from "next/image";
 
 export default async function Account() {
@@ -35,7 +35,9 @@ export default async function Account() {
     <div>
       <h2 className="mb-4">Profile Settings</h2>
       <form action={updateProfileData} className="mb-8 flex flex-col gap-2">
-        <Image src={avatar} alt="Profile Picture" width={300} height={300} />
+        {avatar && (
+          <Image src={avatar} alt="Profile Picture" width={300} height={300} />
+        )}
         <label htmlFor="avatar">Choose a profile picture:</label>
         <input type="file" id="avatar" name="avatar" accept="image/*" />
         <label htmlFor="first_name">First Name</label>
@@ -70,6 +72,11 @@ export default async function Account() {
           required
           disabled
         />
+      </form>
+      <form action={logout}>
+        <button type="submit" name="button" value="submit">
+          Log out
+        </button>
       </form>
     </div>
   );

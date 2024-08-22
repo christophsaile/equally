@@ -32,6 +32,7 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
+    console.log(error);
     redirect("/error");
   }
 
@@ -53,12 +54,13 @@ export async function signup(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    redirect("/error");
+    console.log(error);
+    return redirect("/error");
   }
 
   // TODO: add base data to the profile table
 
   // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
   revalidatePath("/", "layout");
-  redirect("/account");
+  // return message to user that they need to verify their email
 }

@@ -53,7 +53,6 @@ export default function ExpenseForm({
           value={selectedPerson}
           onChange={setSelectedPerson}
           immediate
-          disabled={!!selectedPerson}
         >
           <ComboboxInput
             id="profile"

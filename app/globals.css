@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-  .btn {
-    @apply rounded bg-blue-500 px-4 py-2 font-bold text-white;
+  .btn-primary {
+    @apply flex items-center justify-center gap-2 rounded-xl bg-black p-4 text-center text-sm font-semibold text-white shadow-md;
+  }
+
+  .btn-secondary {
+    @apply flex items-center justify-center gap-2 rounded-xl bg-white p-4 text-sm font-semibold text-black shadow-md;
   }
 }
