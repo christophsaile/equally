@@ -22,45 +22,54 @@ export async function validateForm(formData: FormData) {
 export async function login(formData: FormData) {
   const supabase = createClient();
 
-  let data;
-  try {
-    data = await validateForm(formData);
-  } catch (error) {
-    redirect("/error");
+  // Step 1: Validate login form data
+  const data = await validateForm(formData);
+  if (!data) {
+    // Redirect if login form data is invalid
+    redirect(`/login?message=Invalid form data.&error=true`);
+    return;
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  // Step 2: Attempt login
+  const { error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
+  });
 
   if (error) {
-    console.log(error);
-    redirect("/error");
+    // Log and redirect if login failed with a specific error message
+    console.log("Error during login:", error.message);
+    redirect(`/login?message=${encodeURIComponent(error.message)}&error=true`);
+    return;
   }
 
-  // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
+  // Step 3: Successful login, redirect to the home page
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect(`/`);
 }
 
 export async function signup(formData: FormData) {
   const supabase = createClient();
 
-  let data;
-  try {
-    data = await validateForm(formData);
-  } catch (error) {
-    redirect("/error");
+  // Step 1: Validate form data
+  const data = await validateForm(formData);
+  if (!data) {
+    // Redirect if form data is invalid
+    redirect(`/login?message=Invalid form data.&error=true`);
+    return;
   }
 
+  // Step 2: Perform the sign-up process
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    console.log(error);
-    return redirect("/error");
+    // Redirect on Supabase signup error
+    redirect(`/login?message=${encodeURIComponent(error.message)}&error=true`);
+    return;
   }
 
-  // TODO: add base data to the profile table
-
-  // This will purge the Client-side Router Cache, and revalidate the Data Cache on the next page visit.
-  revalidatePath("/", "layout");
-  // return message to user that they need to verify their email
+  // Step 3: Successful signup, redirect with success message
+  redirect(
+    `/login?message=Account created. Please check your email for the verification link.`,
+  );
 }
