@@ -17,7 +17,7 @@ export function Card({ avatar, firstName, lastName, amount, href }: Props) {
 
   return (
     <Link href={href}>
-      <div className="relative flex items-center gap-4 pb-6 pt-2 hover:bg-neutral-100">
+      <div className="relative flex items-center gap-4 pb-6 pt-2">
         <div className="h-12 w-12 rounded-full bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
         </div>

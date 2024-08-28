@@ -9,7 +9,7 @@ type Props = {
 
 export function Profile({ ...props }: Props) {
   return (
-    <div className="flex flex-row items-center gap-4">
+    <Link href="/account" className="flex flex-row items-center gap-4">
       <div className="h-12 w-12 rounded-full bg-neutral-200">
         {/* {avatar && <Image src={props.avatar} alt="" />} */}
       </div>
@@ -17,7 +17,7 @@ export function Profile({ ...props }: Props) {
         {props.firstName}
         <span className="text-xs text-neutral-500">{props.lastName}</span>
       </h2>
-      <Link href="/account" className="ml-auto">
+      <div className="ml-auto">
         <span className="sr-only">Account Settings</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ export function Profile({ ...props }: Props) {
             d="m8.25 4.5 7.5 7.5-7.5 7.5"
           />
         </svg>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }
