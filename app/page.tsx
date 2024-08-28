@@ -59,25 +59,29 @@ export default async function Home() {
   );
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-10">
       <Profile
         firstName={userFirstName}
         lastName={userLastName}
         loggedInUser
       ></Profile>
-      {data?.map((elem) => (
-        <Card
-          key={elem.balance_id}
-          avatar=""
-          amount={elem.amount}
-          // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-          firstName={elem.user_id.first_name}
-          // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-          lastName={elem.user_id.last_name}
-          // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-          href={`/expense/with/${elem.user_id.id}`}
-        ></Card>
-      ))}
+      <ul>
+        {data?.map((elem) => (
+          <li key={elem.balance_id}>
+            <Card
+              avatar=""
+              amount={elem.amount}
+              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+              firstName={elem.user_id.first_name}
+              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+              lastName={elem.user_id.last_name}
+              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+              href={`/expense/with/${elem.user_id.id}`}
+            ></Card>
+            <hr />
+          </li>
+        ))}
+      </ul>
       <ExpenseAddLink></ExpenseAddLink>
     </div>
   );

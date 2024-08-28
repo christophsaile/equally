@@ -17,13 +17,13 @@ export function Card({ avatar, firstName, lastName, amount, href }: Props) {
 
   return (
     <Link href={href}>
-      <div className="relative flex items-center gap-4 rounded-md bg-neutral-100 px-4 pb-6 pt-2 hover:bg-neutral-200">
+      <div className="relative flex items-center gap-4 pb-6 pt-2 hover:bg-neutral-100">
         <div className="h-12 w-12 rounded-full bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
         </div>
         <h2 className="flex flex-col">
           {firstName}
-          <span className="text-xs text-neutral-500">{lastName}</span>
+          <span className="text-xs text-neutral-600">{lastName}</span>
         </h2>
         <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
           <span className="text-xs">{amountText}</span> {euroFormatter(amount)}
@@ -32,7 +32,7 @@ export function Card({ avatar, firstName, lastName, amount, href }: Props) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="absolute bottom-2 right-4 size-4 text-neutral-500"
+          className="absolute bottom-2 right-0 size-4 text-neutral-600"
           aria-hidden="true"
         >
           <path

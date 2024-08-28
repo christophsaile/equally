@@ -17,15 +17,15 @@ export function Profile({ ...props }: Props) {
         {props.firstName}
         <span className="text-xs text-neutral-500">{props.lastName}</span>
       </h2>
-      <Link href="/account">
+      <Link href="/account" className="ml-auto">
         <span className="sr-only">Account Settings</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={1.5}
+          className="h-[1em] w-[1em] text-neutral-600"
           stroke="currentColor"
-          className="size-6"
+          strokeWidth={2}
           aria-hidden="true"
         >
           <path
