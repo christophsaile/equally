@@ -56,7 +56,7 @@ export async function validateExpenseFormData(
   formData: FormData,
 ): Promise<ValidateExpenseFormData> {
   const validatedData = await expenseSchema.validate({
-    profile_id: formData.get("profile[id]"),
+    profile_id: formData.get("profile"),
     description: formData.get("description"),
     amount: Number(formData.get("amount")),
     split: Number(formData.get("split")),

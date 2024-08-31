@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { ExpenseAddLink } from "./expense/add/expense-add-link";
 import { Card } from "../components/card";
 import { Profile } from "@/components/profile";
+import { FsButton } from "@/components/fs-button";
 
 export default async function Home() {
   const supabase = createClient();
@@ -82,7 +82,26 @@ export default async function Home() {
           </li>
         ))}
       </ul>
-      <ExpenseAddLink></ExpenseAddLink>
+      <div className="fixed bottom-4 right-4">
+        <FsButton variant="primary" href="/expense/add">
+          Add Expense
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-[1em] w-[1em]"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </FsButton>
+      </div>
     </div>
   );
 }
