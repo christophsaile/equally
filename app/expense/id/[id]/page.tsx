@@ -10,6 +10,7 @@ import {
 } from "../../utils";
 import { FsButtonGroup } from "@/components/fs-button-group";
 import { FsButton } from "@/components/fs-button";
+import Image from "next/image";
 
 export default async function ExpenseId({
   params,
@@ -28,7 +29,7 @@ export default async function ExpenseId({
   const { data: expenseData, error: expenseError } = await supabase
     .from("expenses")
     .select(
-      "expense_id, description, amount, split, created_at, paid(id, first_name), owes(id, first_name)",
+      "expense_id, description, amount, split, created_at, paid(id, first_name, avatar), owes(id, first_name, avatar), created_by(id, first_name)",
     )
     .eq("expense_id", params.id)
     .limit(1)
@@ -68,30 +69,56 @@ export default async function ExpenseId({
   }
 
   // TODO: rename owes to something else?
-  const { description, amount, split, created_at, paid, owes } = expenseData;
+  const { description, amount, split, created_at, paid, owes, created_by } =
+    expenseData;
 
   // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
   const namePaidBy = paid.id === user.id ? "You" : paid.first_name;
   // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
   const nameOwedTo = owes.id === user.id ? "You" : owes.first_name;
+  // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+  const nameCreator = created_by.id === user.id ? "You" : created_by.first_name;
 
+  const renderAvatar = () => {
+    if (paid[0]?.avatar) {
+      return (
+        <Image
+          className="inline-block size-[46px] rounded-full"
+          src={paid[0]?.avatar}
+          alt=""
+          width={46}
+          height={46}
+        ></Image>
+      );
+    }
+    return (
+      <div className="inline-block size-[46px] rounded-full bg-neutral-200"></div>
+    );
+  };
   return (
-    <div>
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="mb-2 text-xl">{description}</h1>
+        <p className="text-sm text-neutral-400">
+          Added by {nameCreator} on {formatTimestamp(created_at)}
+        </p>
+      </div>
+      <div className="flex flex-row gap-4">
+        {renderAvatar()}
+        <div className="flex flex-col gap-2">
+          <h2 className="text-lg">
+            {namePaidBy} paid {euroFormatter(amount)}
+          </h2>
+          <p className="text-sm text-neutral-400">
+            {namePaidBy} owe{" "}
+            {euroFormatter(determineSplittedAmount(amount, split))}
+            <br></br>
+            {nameOwedTo} owes{" "}
+            {euroFormatter(determineSplittedAmount(amount, split))}
+          </p>
+        </div>
+      </div>
       <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
-
-      <h1>{description}</h1>
-      <p>
-        {namePaidBy} paid {euroFormatter(amount)} on{" "}
-        {formatTimestamp(created_at)}.
-      </p>
-      <p>
-        {namePaidBy} owe {euroFormatter(determineSplittedAmount(split, amount))}
-        .
-      </p>
-      <p>
-        {nameOwedTo} owes{" "}
-        {euroFormatter(determineSplittedAmount(split, amount))}.
-      </p>
       <FsButtonGroup>
         <FsButton
           variant="secondary"

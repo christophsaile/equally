@@ -16,6 +16,6 @@
   }
 
   .input {
-    @apply form-input focus-style w-full rounded-xl border border-black px-4 py-3 text-sm text-black;
+    @apply focus-style form-input w-full rounded-xl border border-black px-4 py-3 text-sm text-black;
   }
 }

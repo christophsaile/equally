@@ -16,8 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className={`${inter.className} mx-auto max-w-lg px-4 pb-20 pt-16`}>
+    <html lang="en">
+      <body
+        className={`${inter.className} relative mx-auto h-full min-h-svh max-w-lg px-4 pb-20 pt-16 dark:bg-neutral-900 dark:text-white`}
+      >
         <header>{/* TODO: add Navigation */}</header>
         <main className="h-full">{children}</main>
       </body>

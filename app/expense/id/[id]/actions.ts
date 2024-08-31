@@ -19,25 +19,29 @@ export async function deleteExpense(expenseId: number) {
     .from("expenses")
     .delete()
     .eq("expense_id", expenseId)
-    .select()
-    .limit(1)
-    .single();
+    .select("paid, owes");
 
   if (deleteExpenseError) {
     console.error("Error deleting expense:", deleteExpenseError);
   }
 
+  console.log("deleteExpenseData", deleteExpenseData);
+
   let profileId;
 
-  if (user.id === deleteExpenseData.paid) {
-    profileId = deleteExpenseData.owes;
+  if (!deleteExpenseData) {
+    return;
+  }
+
+  if (user.id === deleteExpenseData[0].paid) {
+    profileId = deleteExpenseData[0].owes;
   } else {
-    profileId = deleteExpenseData.paid;
+    profileId = deleteExpenseData[0].paid;
   }
 
   await updateBalances(user.id, profileId);
 
   revalidatePath("/");
-  revalidatePath(`/expense/with/${profileId}`);
-  redirect(`/expense/with/${profileId}`);
+  revalidatePath(`/expense/profile/${profileId}`);
+  redirect(`/expense/profile/${profileId}`);
 }
