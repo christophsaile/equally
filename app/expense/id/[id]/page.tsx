@@ -23,8 +23,6 @@ export default async function ExpenseId({
     return redirect("/login");
   }
 
-  console.log("params", params.id);
-
   const { data: expenseData, error: expenseError } = await supabase
     .from("expenses")
     .select(

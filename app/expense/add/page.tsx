@@ -64,7 +64,7 @@ export default async function ExpenseAdd({
               previous page
             </>
           </FsButton>
-          {/* <FsButton variant="accent" formAction={addExpense}>
+          <FsButton variant="accent" formAction={addExpense}>
             Add expense
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@ export default async function ExpenseAdd({
                 clipRule="evenodd"
               />
             </svg>
-          </FsButton> */}
+          </FsButton>
         </FsButtonGroup>
       </ExpenseForm>
     </div>
