@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import PrelineScript from "../components/PrelineScript";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,6 +21,7 @@ export default function RootLayout({
         <header>{/* TODO: add Navigation */}</header>
         <main className="h-full">{children}</main>
       </body>
+      <PrelineScript />
     </html>
   );
 }

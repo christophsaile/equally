@@ -7,7 +7,7 @@ type Props = {
 export function ExpenseAddLink({ ...props }: Props) {
   return (
     <Link
-      className="fixed bottom-4 right-4 flex items-center gap-2 rounded-xl bg-black p-4 text-sm font-semibold text-white shadow-md"
+      className="btn-primary fixed bottom-4 right-4"
       href={{
         pathname: "/expense/add",
         query: { profile_id: props.profileId },
