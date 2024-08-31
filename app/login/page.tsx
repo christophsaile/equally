@@ -1,4 +1,4 @@
-import { FsButtonGroup } from "@/components/fs-button-group";
+import { FsNav } from "@/components/fs-nav";
 import { SubmitButton } from "./submit-button";
 import { Alert } from "@/components/alert";
 
@@ -53,14 +53,14 @@ export default function Login({
           </Alert>
         )}
       </div>
-      <FsButtonGroup>
+      <FsNav>
         <SubmitButton action="login" pendingText="Login">
           Login
         </SubmitButton>
         <SubmitButton action="signup" pendingText="Signing up">
           Sign up
         </SubmitButton>
-      </FsButtonGroup>
+      </FsNav>
     </form>
   );
 }

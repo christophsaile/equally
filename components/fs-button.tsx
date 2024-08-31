@@ -14,7 +14,7 @@ export function FsButton({ href, variant, children, ...props }: Props) {
   const renderButton = () => {
     return (
       <button
-        className="btn-primary w-full"
+        className={`btn-primary ${props.className || ""}`}
         formAction={props.formAction}
         onClick={props.onClick}
       >
@@ -24,7 +24,7 @@ export function FsButton({ href, variant, children, ...props }: Props) {
   };
   const renderLink = () => {
     return (
-      <Link className="btn-primary w-full" href={href!}>
+      <Link className={`btn-primary ${props.className || ""}`} href={href!}>
         {children}
       </Link>
     );

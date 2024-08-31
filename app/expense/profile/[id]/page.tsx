@@ -4,7 +4,7 @@ import { ExpenseCard } from "./expense-card";
 import { determineSplittedAmount, euroFormatter } from "../../utils";
 import { Profile } from "@/components/profile";
 import { FsButton } from "@/components/fs-button";
-import { FsButtonGroup } from "@/components/fs-button-group";
+import { FsNav } from "@/components/fs-nav";
 
 export default async function ExpenseProfile({
   params,
@@ -92,7 +92,7 @@ export default async function ExpenseProfile({
           );
         })}
       </div>
-      <FsButtonGroup>
+      <FsNav>
         <FsButton variant="secondary" href="/">
           <>
             <svg
@@ -136,7 +136,7 @@ export default async function ExpenseProfile({
             />
           </svg>
         </FsButton>
-      </FsButtonGroup>
+      </FsNav>
     </div>
   );
 }

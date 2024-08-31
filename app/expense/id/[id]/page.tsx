@@ -8,7 +8,7 @@ import {
   euroFormatter,
   formatTimestamp,
 } from "../../utils";
-import { FsButtonGroup } from "@/components/fs-button-group";
+import { FsNav } from "@/components/fs-nav";
 import { FsButton } from "@/components/fs-button";
 import Image from "next/image";
 
@@ -119,7 +119,7 @@ export default async function ExpenseId({
         </div>
       </div>
       <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
-      <FsButtonGroup>
+      <FsNav>
         <FsButton
           variant="secondary"
           // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
@@ -160,7 +160,7 @@ export default async function ExpenseId({
             </svg>
           </>
         </FsButton>
-      </FsButtonGroup>
+      </FsNav>
     </div>
   );
 }

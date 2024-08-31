@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import ExpenseForm from "../expense-form";
 import { Profile } from "../utils";
 import { addExpense } from "./actions";
-import { FsButtonGroup } from "@/components/fs-button-group";
+import { FsNav } from "@/components/fs-nav";
 import { FsButton } from "@/components/fs-button";
 import { redirect } from "next/navigation";
 
@@ -36,7 +36,7 @@ export default async function ExpenseAdd({
         profiles={data as Profile[]}
         preselectProfile={preselectProfile}
       >
-        <FsButtonGroup>
+        <FsNav>
           <FsButton
             variant="secondary"
             href={
@@ -79,7 +79,7 @@ export default async function ExpenseAdd({
               />
             </svg>
           </FsButton>
-        </FsButtonGroup>
+        </FsNav>
       </ExpenseForm>
     </div>
   );

@@ -4,6 +4,7 @@ import { Card } from "../components/card";
 import { Profile } from "@/components/profile";
 import { FsButton } from "@/components/fs-button";
 import Link from "next/link";
+import { FsNav } from "@/components/fs-nav";
 
 export default async function Home() {
   const supabase = createClient();
@@ -85,8 +86,8 @@ export default async function Home() {
           </li>
         ))}
       </ul>
-      <div className="fixed bottom-4 right-4">
-        <FsButton variant="primary" href="/expense/add">
+      <FsNav>
+        <FsButton className="col-start-2" variant="primary" href="/expense/add">
           Add Expense
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +105,7 @@ export default async function Home() {
             />
           </svg>
         </FsButton>
-      </div>
+      </FsNav>
     </div>
   );
 }
