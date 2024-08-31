@@ -60,7 +60,7 @@ export default function ExpenseForm({
                 <option
                   key={profile.id}
                   value={profile.id}
-                  data-hs-select-option={`{"icon": "<img class='shrink-0 size-5 rounded-full'  src=${profile.avatar} />"}`}
+                  data-hs-select-option={`{"icon": "${profile.avatar ? `<img class='shrink-0 size-5 rounded-full' src='${profile.avatar}' />` : `<div class='shrink-0 size-5 rounded-full bg-neutral-200'></div>`}"}`}
                 >
                   {profile.first_name} {profile.last_name}
                 </option>
@@ -99,6 +99,7 @@ export default function ExpenseForm({
               name="amount"
               className="block w-full rounded-lg border-gray-200 px-4 py-3 pe-16 ps-9 text-sm shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               placeholder="0.00"
+              defaultValue={amount || 0}
             />
             <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
               <span className="text-gray-500 dark:text-neutral-500">€</span>
@@ -118,7 +119,7 @@ export default function ExpenseForm({
           <select
             id="split"
             name="split"
-            defaultValue="1"
+            defaultValue={split || 1}
             data-hs-select='{
                 "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
                 "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border border-gray-200 rounded-lg text-start text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-neutral-600",

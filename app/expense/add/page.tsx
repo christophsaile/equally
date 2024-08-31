@@ -38,34 +38,31 @@ export default async function ExpenseAdd({
       >
         <FsButtonGroup>
           <FsButton
-            variant="primary"
+            variant="secondary"
             href={
               searchParams.profile_id
                 ? `/expense/profile/${searchParams.profile_id}`
                 : "/"
             }
           >
-            <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="h-[1em] w-[1em]"
-                stroke="currentColor"
-                strokeWidth={2}
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 19.5 8.25 12l7.5-7.5"
-                />
-              </svg>
-              previous page
-            </>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="h-[1em] w-[1em]"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-label="Back Link"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+              />
+            </svg>
           </FsButton>
           <FsButton variant="accent" formAction={addExpense}>
-            Add expense
+            Add Expense
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

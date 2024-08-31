@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Card } from "../components/card";
 import { Profile } from "@/components/profile";
 import { FsButton } from "@/components/fs-button";
+import Link from "next/link";
 
 export default async function Home() {
   const supabase = createClient();
@@ -60,11 +61,13 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-10">
-      <Profile
-        firstName={userFirstName}
-        lastName={userLastName}
-        loggedInUser
-      ></Profile>
+      <Link href="/account">
+        <Profile
+          firstName={userFirstName}
+          lastName={userLastName}
+          loggedInUser
+        ></Profile>
+      </Link>
       <ul>
         {data?.map((elem) => (
           <li key={elem.balance_id}>
