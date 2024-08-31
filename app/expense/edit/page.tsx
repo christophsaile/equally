@@ -26,7 +26,10 @@ export default async function ExpenseEdit({
   const { data: profileData, error: profileError } = profilesResult;
   const { data: expenseData, error: expenseError } = expenseResult;
   if (profileError || expenseError)
-    console.error("Error fetching data:", profileError || expenseError);
+    console.error(
+      "Error fetching data from expense/edit:",
+      profileError || expenseError,
+    );
 
   const { split, paid, owes, amount, description } = expenseData;
 

@@ -33,7 +33,7 @@ export default async function Home() {
 
   if (owedError || owesError || profileError) {
     console.error(
-      "Error fetching data:",
+      "Error fetching data from /:",
       owedError || owesError || profileError,
     );
   }
@@ -76,7 +76,7 @@ export default async function Home() {
               // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
               lastName={elem.user_id.last_name}
               // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-              href={`/expense/with/${elem.user_id.id}`}
+              href={`/expense/profile/${elem.user_id.id}`}
             ></Card>
             <hr />
           </li>

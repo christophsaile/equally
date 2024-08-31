@@ -11,14 +11,14 @@ type Props = ComponentProps<"button"> & {
 export function FsButton({ href, variant, children, ...props }: Props) {
   const renderButton = () => {
     return (
-      <button className="btn-primary" formAction={props.formAction}>
+      <button className="btn-primary w-full" formAction={props.formAction}>
         {children}
       </button>
     );
   };
   const renderLink = () => {
     return (
-      <Link className="btn-primary" href={href!}>
+      <Link className="btn-primary w-full" href={href!}>
         {children}
       </Link>
     );

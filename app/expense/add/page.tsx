@@ -4,6 +4,7 @@ import { Profile } from "../utils";
 import { addExpense } from "./actions";
 import { FsButtonGroup } from "@/components/fs-button-group";
 import { FsButton } from "@/components/fs-button";
+import { redirect } from "next/navigation";
 
 export default async function ExpenseAdd({
   searchParams,
@@ -14,6 +15,10 @@ export default async function ExpenseAdd({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
 
   const { data, error } = await supabase
     .from("profiles")
@@ -36,7 +41,7 @@ export default async function ExpenseAdd({
             variant="primary"
             href={
               searchParams.profile_id
-                ? `/expense/with/${searchParams.profile_id}`
+                ? `/expense/profile/${searchParams.profile_id}`
                 : "/"
             }
           >
@@ -59,7 +64,7 @@ export default async function ExpenseAdd({
               previous page
             </>
           </FsButton>
-          <FsButton variant="accent" formAction={addExpense}>
+          {/* <FsButton variant="accent" formAction={addExpense}>
             Add expense
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +81,7 @@ export default async function ExpenseAdd({
                 clipRule="evenodd"
               />
             </svg>
-          </FsButton>
+          </FsButton> */}
         </FsButtonGroup>
       </ExpenseForm>
     </div>

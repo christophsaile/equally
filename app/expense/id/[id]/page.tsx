@@ -7,7 +7,7 @@ import {
   determineSplittedAmount,
   euroFormatter,
   formatTimestamp,
-} from "../utils";
+} from "../../utils";
 
 export default async function ExpenseId({
   params,
@@ -23,6 +23,8 @@ export default async function ExpenseId({
     return redirect("/login");
   }
 
+  console.log("params", params.id);
+
   const { data: expenseData, error: expenseError } = await supabase
     .from("expenses")
     .select(
@@ -33,7 +35,7 @@ export default async function ExpenseId({
     .single();
 
   if (expenseError) {
-    console.error("Error fetching data:", expenseError);
+    console.error("Error fetching data from expense/[Id]", expenseError);
   }
 
   if (!expenseData) {

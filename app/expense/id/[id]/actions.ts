@@ -1,7 +1,7 @@
 "use server";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { updateBalances } from "../actions";
+import { updateBalances } from "../../actions";
 import { revalidatePath } from "next/cache";
 
 export async function deleteExpense(expenseId: number) {

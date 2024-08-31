@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ExpenseCard } from "./expense-card";
 import { determineSplittedAmount, euroFormatter } from "../../utils";
-import { ExpenseAddLink } from "../../add/expense-add-link";
 import { Profile } from "@/components/profile";
 import { FsButton } from "@/components/fs-button";
 
@@ -42,7 +41,7 @@ export default async function ExpenseProfile({
 
   if (paidByYouError || paidByProfileError || profileError) {
     console.error(
-      "Error fetching data:",
+      "Error fetching data from expense/with[id]:",
       paidByYouError || paidByProfileError || profileError,
     );
     return [];
@@ -80,7 +79,7 @@ export default async function ExpenseProfile({
               date={expense.created_at}
               description={expense.description}
               split={splitDescription(expense.split, expense.amount)}
-              href={`/expense/${expense.expense_id}`}
+              href={`/expense/id/${expense.expense_id}`}
             >
               <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
                 <span className="text-xs">{amountText}</span>{" "}
