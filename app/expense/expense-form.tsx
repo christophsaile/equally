@@ -24,6 +24,9 @@ export default function ExpenseForm({
     preselectProfile || null,
   );
 
+  // TODO: check why person is selected in the dropdown but not in the state
+  console.log(selectedPerson);
+
   return (
     <form {...props} className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
@@ -46,8 +49,8 @@ export default function ExpenseForm({
               id="profile"
               name="profile"
               className="hidden"
-              defaultValue={preselectProfile?.id || ""}
-              data-hs-select='{"placeholder": "Select assignee",
+              defaultValue={preselectProfile?.id}
+              data-hs-select='{"placeholder": "Select a profile",
               "toggleTag": "<button type=\"button\" aria-expanded=\"false\"><span class=\"me-2\" data-icon></span><span class=\"text-gray-800 dark:text-neutral-200 \" data-title></span></button>",
               "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border border-gray-200 rounded-lg text-start text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-neutral-600",
               "dropdownClasses": "mt-2 max-h-72 p-1 space-y-0.5 z-20 w-full bg-white border border-gray-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-900 dark:border-neutral-700",

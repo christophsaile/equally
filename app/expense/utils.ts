@@ -74,7 +74,14 @@ export function euroFormatter(amount: number): string {
   }).format(amount);
 }
 
-export function formatTimestamp(timestamp: string) {
+export function formatTimestamp(
+  timestamp: string,
+  options?: {
+    day?: boolean;
+    month?: boolean;
+    year?: boolean;
+  },
+) {
   const date = new Date(timestamp);
 
   const months = [
@@ -91,9 +98,23 @@ export function formatTimestamp(timestamp: string) {
     "Nov",
     "Dec",
   ];
+
   const day = date.getDate().toString().padStart(2, "0");
   const month = months[date.getMonth()];
   const year = date.getFullYear();
 
-  return `${day} ${month} ${year}`;
+  if (options?.day) {
+    return `${day} ${month} ${year}`;
+  }
+
+  if (options?.month) {
+    return `${month} ${year}`;
+  }
+
+  if (options?.year) {
+    return year.toString();
+  }
+
+  // Default to month and year if no options are provided
+  return `${month} ${year}`;
 }

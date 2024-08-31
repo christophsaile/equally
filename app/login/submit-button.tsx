@@ -2,6 +2,7 @@
 
 import { ComponentProps } from "react";
 import { login, signup } from "./actions";
+import { FsButton } from "@/components/fs-button";
 
 type Props = ComponentProps<"button"> & {
   pendingText?: string;
@@ -10,9 +11,9 @@ type Props = ComponentProps<"button"> & {
 
 export const SubmitButton = ({ children, ...props }: Props) => {
   return (
-    <button
+    <FsButton
+      variant="primary"
       formAction={props.action === "login" ? login : signup}
-      className="btn-primary w-full"
     >
       {children}
       <svg
@@ -30,6 +31,6 @@ export const SubmitButton = ({ children, ...props }: Props) => {
           d="m8.25 4.5 7.5 7.5-7.5 7.5"
         />
       </svg>
-    </button>
+    </FsButton>
   );
 };
