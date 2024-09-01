@@ -62,7 +62,10 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-10">
-      <Link href="/account">
+      <Link
+        href="/account"
+        className="rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
+      >
         <Profile
           firstName={userFirstName}
           lastName={userLastName}
@@ -82,7 +85,6 @@ export default async function Home() {
               // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
               href={`/expense/profile/${elem.user_id.id}`}
             ></Card>
-            <hr />
           </li>
         ))}
       </ul>

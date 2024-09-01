@@ -12,27 +12,32 @@ type Props = {
 
 export function Card({ avatar, firstName, lastName, amount, href }: Props) {
   const isAmountNegative = amount < 0;
-  const amountColor = isAmountNegative ? "text-red-500" : "text-green-500";
+  const amountColor = isAmountNegative ? "text-red-500" : "text-teal-500";
   const amountText = isAmountNegative ? "you owe" : "owes you";
 
   return (
     <Link href={href}>
-      <div className="relative flex items-center gap-4 pb-6 pt-2">
+      <div className="bg-gray relative flex items-center gap-4 rounded-lg px-2 pb-8 pt-4 hover:bg-gray-100 dark:hover:bg-white/10">
         <div className="h-12 w-12 rounded-full bg-neutral-200">
           {avatar && <Image src={avatar} alt="" />}
         </div>
-        <h2 className="flex flex-col">
+        <h2 className="flex flex-col font-semibold text-gray-800 dark:text-white">
           {firstName}
-          <span className="text-xs text-neutral-600">{lastName}</span>
+          <span className="text-xs font-normal text-gray-600 dark:text-neutral-400">
+            {lastName}
+          </span>
         </h2>
-        <p className={`ml-auto flex flex-col text-right ${amountColor}`}>
-          <span className="text-xs">{amountText}</span> {euroFormatter(amount)}
+        <p
+          className={`ml-auto flex flex-col text-right font-bold ${amountColor}`}
+        >
+          <span className="text-xs font-normal">{amountText}</span>{" "}
+          {euroFormatter(amount)}
         </p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="absolute bottom-2 right-0 size-4 text-neutral-600"
+          className="absolute bottom-4 right-2 size-4 text-gray-600 dark:text-neutral-400"
           aria-hidden="true"
         >
           <path

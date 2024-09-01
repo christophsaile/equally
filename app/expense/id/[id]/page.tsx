@@ -10,7 +10,6 @@ import {
 } from "../../utils";
 import { FsNav } from "@/components/fs-nav";
 import { FsButton } from "@/components/fs-button";
-import Image from "next/image";
 
 export default async function ExpenseId({
   params,
@@ -79,49 +78,37 @@ export default async function ExpenseId({
   // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
   const nameCreator = created_by.id === user.id ? "You" : created_by.first_name;
 
-  const renderAvatar = () => {
-    if (paid[0]?.avatar) {
-      return (
-        <Image
-          className="inline-block size-[46px] rounded-full"
-          src={paid[0]?.avatar}
-          alt=""
-          width={46}
-          height={46}
-        ></Image>
-      );
-    }
-    return (
-      <div className="inline-block size-[46px] rounded-full bg-neutral-200"></div>
-    );
-  };
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="mb-2 text-xl">{description}</h1>
-        <p className="text-sm text-neutral-400">
+        <h1 className="font-semibold text-gray-800 dark:text-white">
+          {description}
+        </h1>
+        <p className="text-xs text-gray-600 dark:text-neutral-400">
           Added by {nameCreator} on {formatTimestamp(created_at)}
         </p>
       </div>
       <div className="flex flex-row gap-4">
-        {renderAvatar()}
-        <div className="flex flex-col gap-2">
-          <h2 className="text-lg">
+        <div className="flex flex-col gap-1">
+          <h2 className="font-semibold text-gray-800 dark:text-white">
             {namePaidBy} paid {euroFormatter(amount)}
           </h2>
-          <p className="text-sm text-neutral-400">
-            {namePaidBy} owe{" "}
-            {euroFormatter(determineSplittedAmount(amount, split))}
-            <br></br>
-            {nameOwedTo} owes{" "}
-            {euroFormatter(determineSplittedAmount(amount, split))}
-          </p>
+          <ul className="list-disc space-y-2 ps-5 text-xs text-gray-600 marker:text-blue-600 dark:text-neutral-400">
+            <li>
+              {namePaidBy} owe{" "}
+              {euroFormatter(determineSplittedAmount(amount, split))}
+            </li>
+            <li>
+              {nameOwedTo} owes{" "}
+              {euroFormatter(determineSplittedAmount(amount, split))}
+            </li>
+          </ul>
         </div>
       </div>
       <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
       <FsNav>
         <FsButton
-          variant="secondary"
+          variant="primary"
           // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
           href={`/expense/profile/${paid.id === user.id ? owes.id : paid.id}`}
         >
@@ -131,7 +118,7 @@ export default async function ExpenseId({
             viewBox="0 0 24 24"
             className="h-[1em] w-[1em]"
             stroke="currentColor"
-            strokeWidth={2}
+            strokeWidth={3}
             aria-label="Back Link"
           >
             <path
