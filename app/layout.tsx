@@ -18,10 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} relative mx-auto h-full min-h-svh max-w-lg px-4 pb-20 pt-16 dark:bg-neutral-900 dark:text-white`}
+        className={`${inter.className} relative mx-auto flex min-h-dvh max-w-lg flex-col px-4 pb-20 pt-16 dark:bg-neutral-900 dark:text-white`}
       >
-        <header>{/* TODO: add Navigation */}</header>
-        <main className="h-full">{children}</main>
+        <main className="grow">{children}</main>
       </body>
       <PrelineScript />
     </html>

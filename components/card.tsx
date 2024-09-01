@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { euroFormatter } from "../app/expense/utils";
+import { Avatar } from "./avatar";
 
 type Props = {
   avatar?: string;
@@ -18,9 +18,7 @@ export function Card({ avatar, firstName, lastName, amount, href }: Props) {
   return (
     <Link href={href}>
       <div className="bg-gray relative flex items-center gap-4 rounded-lg px-2 pb-8 pt-4 hover:bg-gray-100 dark:hover:bg-white/10">
-        <div className="h-12 w-12 rounded-full bg-neutral-200">
-          {avatar && <Image src={avatar} alt="" />}
-        </div>
+        <Avatar src={avatar} size="md" />
         <h2 className="flex flex-col font-semibold text-gray-800 dark:text-white">
           {firstName}
           <span className="text-xs font-normal text-gray-600 dark:text-neutral-400">
