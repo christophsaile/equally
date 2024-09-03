@@ -12,6 +12,7 @@ export default async function FirstLogin() {
     return redirect("/login");
   }
 
+  // TODO: add new components
   return (
     <form
       action={updateProfileData}

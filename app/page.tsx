@@ -42,6 +42,7 @@ export default async function Home() {
 
   const userFirstName = profileData?.first_name;
   const userLastName = profileData?.last_name;
+  const userAvatar = profileData?.avatar;
 
   const owesMoneyMap = new Map(
     loggedInUserOwesMoneyFrom?.map((balanceOwe) => [
@@ -69,6 +70,7 @@ export default async function Home() {
         <Profile
           firstName={userFirstName}
           lastName={userLastName}
+          avatar={userAvatar}
           loggedInUser
         ></Profile>
       </Link>

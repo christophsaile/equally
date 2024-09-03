@@ -1,5 +1,5 @@
 "use client";
-import { type ComponentProps } from "react";
+import { useRef, type ComponentProps } from "react";
 import { deleteExpense } from "./actions";
 
 type Props = ComponentProps<"button"> & {
@@ -8,8 +8,13 @@ type Props = ComponentProps<"button"> & {
 
 export function ExpenseDeleteButton({ children, ...props }: Props) {
   function handleClick() {
-    deleteExpense(props.expense);
+    if (!elementRef.current) return;
+    deleteExpense(props.expense).then(() => {
+      (window as any).HSOverlay.close(elementRef.current);
+    });
   }
+
+  const elementRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <>
@@ -36,9 +41,10 @@ export function ExpenseDeleteButton({ children, ...props }: Props) {
         </svg>
         <span className="sr-only">Delete Expense</span>
       </button>
-
+      {/* // TODO: add loading spinner */}
       <div
         id="hs-vertically-centered-modal"
+        ref={elementRef}
         className="hs-overlay pointer-events-none fixed start-0 top-0 z-[80] hidden size-full overflow-y-auto overflow-x-hidden"
         role="dialog"
         tabIndex={-1}
