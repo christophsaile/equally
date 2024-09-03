@@ -74,7 +74,11 @@ export default async function ExpenseEdit({
               />
             </svg>
           </FsButton>
-          <FsButton variant="accent" formAction={editExpense}>
+          <FsButton
+            variant="accent"
+            formAction={editExpense}
+            pendingText="Loading"
+          >
             Edit expense
             <svg
               xmlns="http://www.w3.org/2000/svg"

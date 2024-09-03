@@ -87,7 +87,12 @@ export default async function Account() {
             defaultValue={userLastName}
           />
         </div>
-        <FsButton type="submit" variant="accent" className="mt-4">
+        <FsButton
+          type="submit"
+          variant="accent"
+          className="mt-4"
+          pendingText="Saving"
+        >
           Save Changes
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -279,7 +284,7 @@ export default async function Account() {
               />
             </svg>
           </FsButton>
-          <FsButton variant="danger" formAction={logout}>
+          <FsButton variant="danger" formAction={logout} pendingText="Loading">
             Log out
             <svg
               xmlns="http://www.w3.org/2000/svg"

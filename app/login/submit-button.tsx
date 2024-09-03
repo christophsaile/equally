@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 import { login, signup } from "./actions";
 import { FsButton } from "@/components/fs-button";
 
@@ -14,6 +14,7 @@ export const SubmitButton = ({ children, ...props }: Props) => {
     <FsButton
       variant="primary"
       formAction={props.action === "login" ? login : signup}
+      pendingText={props.pendingText}
     >
       {children}
       <svg

@@ -3,14 +3,22 @@
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
 import { ComponentProps } from "react";
+import { useFormStatus } from "react-dom";
 
 type Props = ComponentProps<"button"> & {
   href?: Url;
   variant: "primary" | "secondary" | "accent" | "danger";
   children: React.ReactNode;
+  pendingText?: string;
 };
 
-export function FsButton({ href, variant, children, ...props }: Props) {
+export function FsButton({
+  href,
+  variant,
+  children,
+  pendingText,
+  ...props
+}: Props) {
   const baseButtonClass =
     "h-[46px] py-3 px-4 inline-flex items-center justify-between gap-x-2 text-sm font-medium rounded-lg border border-transparent focus:outline-none disabled:opacity-50 disabled:pointer-events-none shadow-md";
   const variantClasses = {
@@ -24,18 +32,34 @@ export function FsButton({ href, variant, children, ...props }: Props) {
   const getButtonClass = () =>
     `${baseButtonClass} ${variantClasses[variant] || ""}`;
 
-  const renderButton = () => {
+  const RenderButton = () => {
+    const { pending, action } = useFormStatus();
+
+    const isPending = pending && action === props.formAction;
+
     return (
       <button
         className={`${getButtonClass()} ${props.className || ""}`}
         formAction={props.formAction}
         onClick={props.onClick}
+        disabled={isPending || props.disabled}
       >
-        {children}
+        {isPending ? (
+          <>
+            {pendingText}
+            <span
+              className="inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent text-blue-600 dark:text-blue-500"
+              role="status"
+              aria-label="loading"
+            ></span>
+          </>
+        ) : (
+          children
+        )}
       </button>
     );
   };
-  const renderLink = () => {
+  const RenderLink = () => {
     return (
       <Link
         className={`${getButtonClass()} ${props.className || ""}`}
@@ -45,5 +69,5 @@ export function FsButton({ href, variant, children, ...props }: Props) {
       </Link>
     );
   };
-  return href ? renderLink() : renderButton();
+  return href ? <RenderLink></RenderLink> : <RenderButton></RenderButton>;
 }
