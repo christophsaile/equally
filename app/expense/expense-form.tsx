@@ -2,8 +2,8 @@
 import { useState, ComponentProps } from "react";
 import { Profile } from "./utils";
 
-// TODO: add library to prevent re-rendering on every key stroke
-// TODO: add feature to search for users from database
+// TODO add library to prevent re-rendering on every key stroke
+// TODO add feature to search for users from database
 type Props = ComponentProps<"form"> & {
   profiles: Profile[];
   preselectProfile?: Profile;
@@ -24,7 +24,7 @@ export default function ExpenseForm({
     preselectProfile || null,
   );
 
-  // TODO: check why person is selected in the dropdown but not in the state
+  // TODO check why person is selected in the dropdown but not in the state
   console.log(selectedPerson);
 
   return (

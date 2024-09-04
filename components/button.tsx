@@ -29,8 +29,20 @@ export function Button({
     danger: "bg-red-500 text-white hover:bg-red-600 focus:bg-red-600",
   };
 
+  const baseLoadingClass =
+    "inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent";
+  const loadingClasses = {
+    primary: "text-white dark:text-neutral-800",
+    secondary: "text-gray-800",
+    accent: "text-white",
+    danger: "text-white",
+  };
+
   const getButtonClass = () =>
     `${baseButtonClass} ${variantClasses[variant] || ""}`;
+
+  const getLoadingClass = () =>
+    `${baseLoadingClass} ${loadingClasses[variant] || ""}`;
 
   const RenderButton = () => {
     const { pending, action } = useFormStatus();
@@ -48,7 +60,7 @@ export function Button({
           <>
             {pendingText}
             <span
-              className="inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent text-blue-600 dark:text-blue-500"
+              className={getLoadingClass()}
               role="status"
               aria-label="loading"
             ></span>

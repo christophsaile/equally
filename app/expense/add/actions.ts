@@ -44,7 +44,7 @@ export async function addExpense(formData: FormData) {
 
   await updateBalances(user.id, validatedData.profile_id);
 
-  // TODO: make sure that if one action fails, the other one is rolled back
+  // TODO make sure that if one action fails, the other one is rolled back
   // atomic transactions
 
   revalidatePath("/");

@@ -46,9 +46,9 @@ export default async function ExpenseId({
     );
   }
 
-  // TODO: if we at some point want to allow multiple users to be part of a transaction
+  // TODO if we at some point want to allow multiple users to be part of a transaction
   // this function needs to be updated
-  // TODO: handle over global error page
+  // TODO handle over global error page
   const checkIfUserIsPartOfTransaction = (expenseData: any, user: any) => {
     if (expenseData.paid.id === user.id || expenseData.owes.id === user.id) {
       return true;
@@ -67,7 +67,7 @@ export default async function ExpenseId({
     );
   }
 
-  // TODO: rename owes to something else?
+  // TODO rename owes to something else?
   const { description, amount, split, created_at, paid, owes, created_by } =
     expenseData;
 

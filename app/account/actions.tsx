@@ -14,7 +14,7 @@ export async function updateProfileData(formData: FormData) {
   }
 
   // get the file from the form data
-  // todo: add validation to ensure the file is an image and not too large
+  // TODO add validation to ensure the file is an image and not too large
   const firstName = formData.get("first_name") as string;
   const lastName = formData.get("last_name") as string;
   const selectedAvatarFile = (formData.get("avatar") as File) || null;
