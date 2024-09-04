@@ -21,11 +21,15 @@ export default async function Home() {
     supabase.from("profiles").select().eq("id", user.id).limit(1).single(),
     supabase
       .from("balances")
-      .select("balance_id, user_id (id, first_name, last_name), owes, amount")
+      .select(
+        "balance_id, user_id (id, first_name, last_name, avatar), owes, amount",
+      )
       .eq("owes", user.id),
     supabase
       .from("balances")
-      .select("balance_id, user_id, owes (id, first_name, last_name), amount")
+      .select(
+        "balance_id, user_id, owes (id, first_name, last_name, avatar), amount",
+      )
       .eq("user_id", user.id),
   ]);
 
@@ -78,7 +82,8 @@ export default async function Home() {
         {data?.map((elem) => (
           <li key={elem.balance_id}>
             <Card
-              avatar=""
+              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+              avatar={elem.user_id.avatar}
               amount={elem.amount}
               // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
               firstName={elem.user_id.first_name}

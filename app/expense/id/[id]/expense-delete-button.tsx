@@ -20,7 +20,7 @@ export function ExpenseDeleteButton({ children, ...props }: Props) {
     <>
       <button
         type="button"
-        className="absolute bottom-20 right-4 inline-flex size-[46px] items-center justify-center rounded-full bg-red-500 text-white"
+        className="ml-auto inline-flex size-[46px] items-center justify-center rounded-full bg-red-500 text-white"
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="hs-vertically-centered-modal"
@@ -41,7 +41,6 @@ export function ExpenseDeleteButton({ children, ...props }: Props) {
         </svg>
         <span className="sr-only">Delete Expense</span>
       </button>
-      {/* // TODO: add loading spinner */}
       <div
         id="hs-vertically-centered-modal"
         ref={elementRef}
@@ -92,7 +91,7 @@ export function ExpenseDeleteButton({ children, ...props }: Props) {
             <div className="flex items-center justify-end gap-x-2 border-t px-4 py-3 dark:border-neutral-700">
               <button
                 type="button"
-                className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 focus:bg-gray-50 focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                 data-hs-overlay="#hs-vertically-centered-modal"
               >
                 Close

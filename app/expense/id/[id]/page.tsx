@@ -80,12 +80,13 @@ export default async function ExpenseId({
 
   return (
     <div className="flex flex-col gap-6">
+      <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
       <div>
         <h1 className="font-semibold text-gray-800 dark:text-white">
           {description}
         </h1>
         <p className="text-xs text-gray-600 dark:text-neutral-400">
-          Added by {nameCreator} on {formatTimestamp(created_at)}
+          Added by {nameCreator} on {formatTimestamp(created_at, { day: true })}
         </p>
       </div>
       <div className="flex flex-row gap-4">
@@ -105,7 +106,6 @@ export default async function ExpenseId({
           </ul>
         </div>
       </div>
-      <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
       <Navigation>
         <Button
           variant="primary"
