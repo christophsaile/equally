@@ -13,6 +13,17 @@ export default async function FirstLogin() {
     return redirect("/login");
   }
 
+  const { data: profileData } = await supabase
+    .from("profiles")
+    .select("first_name, last_name")
+    .eq("id", user.id)
+    .limit(1)
+    .single();
+
+  if (profileData) {
+    return redirect("/");
+  }
+
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-1 text-gray-800 dark:text-white">

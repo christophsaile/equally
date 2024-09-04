@@ -2,6 +2,7 @@ import { Navigation } from "@/components/navigation";
 import { SubmitButton } from "./submit-button";
 import { Alert } from "@/components/alert";
 
+// TODO: add forgot password link
 export default function Login({
   searchParams,
 }: {
