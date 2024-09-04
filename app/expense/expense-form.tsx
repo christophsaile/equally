@@ -1,5 +1,5 @@
 "use client";
-import { useState, ComponentProps } from "react";
+import { ComponentProps } from "react";
 import { Profile } from "./utils";
 
 // TODO add library to prevent re-rendering on every key stroke
@@ -20,13 +20,6 @@ export default function ExpenseForm({
   children,
   ...props
 }: Props) {
-  const [selectedPerson, setSelectedPerson] = useState<Profile | null>(
-    preselectProfile || null,
-  );
-
-  // TODO check why person is selected in the dropdown but not in the state
-  console.log(selectedPerson);
-
   return (
     <form {...props} className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
@@ -39,17 +32,11 @@ export default function ExpenseForm({
           </label>
           <div className="relative">
             <select
-              onChange={(e) => {
-                setSelectedPerson(
-                  profiles.find(
-                    (profile) => profile.id === Number(e.target.value),
-                  ) || null,
-                );
-              }}
               id="profile"
               name="profile"
               className="hidden"
               defaultValue={preselectProfile?.id}
+              required
               data-hs-select='{"placeholder": "Select a profile",
               "toggleTag": "<button type=\"button\" aria-expanded=\"false\"><span class=\"me-2\" data-icon></span><span class=\"text-gray-800 dark:text-neutral-200 \" data-title></span></button>",
               "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border border-gray-200 rounded-lg text-start text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-neutral-600",
@@ -59,6 +46,9 @@ export default function ExpenseForm({
               "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 text-gray-500 dark:text-neutral-500 \" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
             }'
             >
+              <option value="" key="0">
+                Select a Profile
+              </option>
               {profiles.map((profile) => (
                 <option
                   key={profile.id}
@@ -100,9 +90,10 @@ export default function ExpenseForm({
               type="text"
               id="amount"
               name="amount"
+              required
               className="block w-full rounded-lg border-gray-200 px-4 py-3 pe-16 ps-9 text-sm shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               placeholder="0.00"
-              defaultValue={amount || 0}
+              defaultValue={amount}
             />
             <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
               <span className="text-gray-500 dark:text-neutral-500">€</span>
@@ -122,6 +113,7 @@ export default function ExpenseForm({
           <select
             id="split"
             name="split"
+            required
             defaultValue={split || 1}
             data-hs-select='{
                 "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
@@ -135,12 +127,8 @@ export default function ExpenseForm({
           >
             <option value="1">You paid, split equally</option>
             <option value="2">You are owed the full amount</option>
-            <option value="3">
-              {selectedPerson?.first_name} paid, split equally
-            </option>
-            <option value="4">
-              {selectedPerson?.first_name} is owed the full amount
-            </option>
+            <option value="3">Someone else paid, split equally</option>
+            <option value="4">Someone else is owed the full amount</option>
           </select>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { object, string, number } from "yup";
 
 export type Profile = {
-  id: number;
+  id: string;
   first_name: string;
   last_name: string;
   avatar?: string;
