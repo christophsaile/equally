@@ -2,8 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import ExpenseForm from "../expense-form";
 import { Profile } from "../utils";
 import { editExpense } from "./actions";
-import { FsButton } from "@/components/fs-button";
-import { FsNav } from "@/components/fs-nav";
+import { Button } from "@/components/button";
+import { Navigation } from "@/components/navigation";
 
 export default async function ExpenseEdit({
   searchParams,
@@ -53,8 +53,8 @@ export default async function ExpenseEdit({
           name="expense_id"
           value={searchParams.expense_id}
         />
-        <FsNav>
-          <FsButton
+        <Navigation>
+          <Button
             variant="primary"
             href={`/expense/id/${searchParams.expense_id}`}
           >
@@ -73,8 +73,8 @@ export default async function ExpenseEdit({
                 d="M15.75 19.5 8.25 12l7.5-7.5"
               />
             </svg>
-          </FsButton>
-          <FsButton
+          </Button>
+          <Button
             variant="accent"
             formAction={editExpense}
             pendingText="Loading"
@@ -91,8 +91,8 @@ export default async function ExpenseEdit({
             >
               <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
             </svg>
-          </FsButton>
-        </FsNav>
+          </Button>
+        </Navigation>
       </ExpenseForm>
     </div>
   );

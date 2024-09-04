@@ -1,4 +1,4 @@
-import { FsNav } from "@/components/fs-nav";
+import { Navigation } from "@/components/navigation";
 import { SubmitButton } from "./submit-button";
 import { Alert } from "@/components/alert";
 
@@ -53,14 +53,14 @@ export default function Login({
           </Alert>
         )}
       </div>
-      <FsNav>
+      <Navigation>
         <SubmitButton action="login" pendingText="Login">
           Login
         </SubmitButton>
         <SubmitButton action="signup" pendingText="Signing up">
           Sign up
         </SubmitButton>
-      </FsNav>
+      </Navigation>
     </form>
   );
 }

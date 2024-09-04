@@ -7,8 +7,8 @@ import {
   formatTimestamp,
 } from "../../utils";
 import { Profile } from "@/components/profile";
-import { FsButton } from "@/components/fs-button";
-import { FsNav } from "@/components/fs-nav";
+import { Button } from "@/components/button";
+import { Navigation } from "@/components/navigation";
 import { ExpenseTimelineItem } from "./expense-timeline-item";
 interface Expense {
   expense_id: number;
@@ -158,8 +158,8 @@ export default async function ExpenseProfile({
         lastName={userProfile.last_name}
       ></Profile>
       {renderTimeline()}
-      <FsNav>
-        <FsButton variant="primary" href="/">
+      <Navigation>
+        <Button variant="primary" href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -175,8 +175,8 @@ export default async function ExpenseProfile({
               d="M15.75 19.5 8.25 12l7.5-7.5"
             />
           </svg>
-        </FsButton>
-        <FsButton
+        </Button>
+        <Button
           variant="primary"
           href={{
             pathname: "/expense/add",
@@ -199,8 +199,8 @@ export default async function ExpenseProfile({
               clipRule="evenodd"
             />
           </svg>
-        </FsButton>
-      </FsNav>
+        </Button>
+      </Navigation>
     </div>
   );
 }

@@ -2,9 +2,9 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Card } from "../components/card";
 import { Profile } from "@/components/profile";
-import { FsButton } from "@/components/fs-button";
+import { Button } from "@/components/button";
 import Link from "next/link";
-import { FsNav } from "@/components/fs-nav";
+import { Navigation } from "@/components/navigation";
 
 export default async function Home() {
   const supabase = createClient();
@@ -90,8 +90,8 @@ export default async function Home() {
           </li>
         ))}
       </ul>
-      <FsNav>
-        <FsButton className="col-start-2" variant="primary" href="/expense/add">
+      <Navigation>
+        <Button className="col-start-2" variant="primary" href="/expense/add">
           Add Expense
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,8 +108,8 @@ export default async function Home() {
               clipRule="evenodd"
             />
           </svg>
-        </FsButton>
-      </FsNav>
+        </Button>
+      </Navigation>
     </div>
   );
 }

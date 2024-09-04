@@ -2,8 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import ExpenseForm from "../expense-form";
 import { Profile } from "../utils";
 import { addExpense } from "./actions";
-import { FsNav } from "@/components/fs-nav";
-import { FsButton } from "@/components/fs-button";
+import { Navigation } from "@/components/navigation";
+import { Button } from "@/components/button";
 import { redirect } from "next/navigation";
 
 export default async function ExpenseAdd({
@@ -36,8 +36,8 @@ export default async function ExpenseAdd({
         profiles={data as Profile[]}
         preselectProfile={preselectProfile}
       >
-        <FsNav>
-          <FsButton
+        <Navigation>
+          <Button
             variant="primary"
             href={
               searchParams.profile_id
@@ -60,8 +60,8 @@ export default async function ExpenseAdd({
                 d="M15.75 19.5 8.25 12l7.5-7.5"
               />
             </svg>
-          </FsButton>
-          <FsButton
+          </Button>
+          <Button
             variant="accent"
             formAction={addExpense}
             pendingText="Loading"
@@ -82,8 +82,8 @@ export default async function ExpenseAdd({
                 clipRule="evenodd"
               />
             </svg>
-          </FsButton>
-        </FsNav>
+          </Button>
+        </Navigation>
       </ExpenseForm>
     </div>
   );

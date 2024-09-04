@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fair Share",
-  description: "Fair Share is a simple way to keep track of shared expenses.",
+  title: "Equally",
+  description: "Equally is a simple way to keep track of shared expenses.",
 };
 
 export const viewport: Viewport = {

@@ -12,7 +12,7 @@ type Props = ComponentProps<"button"> & {
   pendingText?: string;
 };
 
-export function FsButton({
+export function Button({
   href,
   variant,
   children,

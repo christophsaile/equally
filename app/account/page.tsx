@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { logout, updateProfileData } from "./actions";
-import { FsButton } from "@/components/fs-button";
-import { FsNav } from "@/components/fs-nav";
+import { Button } from "@/components/button";
+import { Navigation } from "@/components/navigation";
 import { Avatar } from "@/components/avatar";
 
 export default async function Account() {
@@ -87,7 +87,7 @@ export default async function Account() {
             defaultValue={userLastName}
           />
         </div>
-        <FsButton
+        <Button
           type="submit"
           variant="accent"
           className="mt-4"
@@ -111,7 +111,7 @@ export default async function Account() {
             <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path>
             <path d="M7 3v4a1 1 0 0 0 1 1h7"></path>
           </svg>
-        </FsButton>
+        </Button>
       </form>
       {/* <h2 className="mb-8">Account Settings</h2>
       <form className="flex flex-col gap-4">
@@ -266,8 +266,8 @@ export default async function Account() {
         </div>
       </form> */}
       <form>
-        <FsNav>
-          <FsButton variant="primary" href={`/`}>
+        <Navigation>
+          <Button variant="primary" href={`/`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -283,8 +283,8 @@ export default async function Account() {
                 d="M15.75 19.5 8.25 12l7.5-7.5"
               />
             </svg>
-          </FsButton>
-          <FsButton variant="danger" formAction={logout} pendingText="Loading">
+          </Button>
+          <Button variant="danger" formAction={logout} pendingText="Loading">
             Log out
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -301,8 +301,8 @@ export default async function Account() {
                 clipRule="evenodd"
               />
             </svg>
-          </FsButton>
-        </FsNav>
+          </Button>
+        </Navigation>
       </form>
     </div>
   );
