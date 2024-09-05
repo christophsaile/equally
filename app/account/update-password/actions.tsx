@@ -32,5 +32,5 @@ export async function updatePassword(formData: FormData) {
   await supabase.auth.updateUser({ password: validatedFormData.password });
 
   // TODO check if revalidate is needed
-  encodedRedirect("success", "login", "Password successfully updated");
+  encodedRedirect("success", "/login", "Password successfully updated");
 }
