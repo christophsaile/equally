@@ -3,6 +3,7 @@ import { updatePassword } from "./actions";
 import { Navigation } from "@/components/navigation";
 
 export default async function UpdatePassword() {
+  // TODO use input which shows password
   return (
     <form className="flex flex-col gap-10">
       <div className="flex flex-col gap-6">

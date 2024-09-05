@@ -30,7 +30,8 @@ export default async function Account() {
   const userLastName = profileData?.last_name;
   const avatar = profileData?.avatar;
 
-  // TODO add a form to change password and email
+  // TODO add link to update password page
+  // TODO add option to update email
   // TODO add a button to delete the user's account
   return (
     <div>
