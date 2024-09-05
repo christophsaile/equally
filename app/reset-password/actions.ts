@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { encodedRedirect } from "@/utils/utils";
 import { object, string } from "yup";
 
 const formSchema = object({
@@ -21,8 +21,8 @@ export async function resetPassword(formData: FormData) {
 
   const validatedFormData = await validateForm(formData);
   if (!validatedFormData) {
-    // Redirect if login form data is invalid
-    redirect(`/login?message=Invalid form data.&error=true`);
+    // Redirect if form data is invalid
+    encodedRedirect("error", "reset-password", "Invalid form data.");
     return;
   }
 
@@ -30,12 +30,13 @@ export async function resetPassword(formData: FormData) {
     validatedFormData.email,
   );
   if (error) {
-    console.log("Error during password reset:", error.message);
-    redirect(`/login?message=${encodeURIComponent(error.message)}&error=true`);
+    encodedRedirect("error", "reset-password", error.message);
     return;
   }
-  // TODO add on success message
-  redirect(
-    `/reset-password?message=We've sent a password reset link to your email address. Please check your inbox (and your spam folder, just in case) and follow the instructions to reset your password.`,
+
+  encodedRedirect(
+    "success",
+    "reset-password",
+    "We've sent a password reset link to your email address. Please check your inbox (and your spam folder, just in case) and follow the instructions to reset your password",
   );
 }

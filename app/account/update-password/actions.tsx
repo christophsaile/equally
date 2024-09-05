@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { encodedRedirect } from "@/utils/utils";
 import { object, ref, string } from "yup";
 
 const formSchema = object().shape({
@@ -25,12 +25,12 @@ export async function updatePassword(formData: FormData) {
 
   const validatedFormData = await validateForm(formData);
   if (!validatedFormData) {
-    // Redirect if login form data is invalid
-    redirect(`/login?message=Invalid form data.&error=true`);
+    // Redirect if form data is invalid
+    encodedRedirect("error", "update-password", "Invalid form data");
     return;
   }
   await supabase.auth.updateUser({ password: validatedFormData.password });
 
   // TODO check if revalidate is needed
-  redirect(`/login?message=Password updated successfully.`);
+  encodedRedirect("success", "login", "Password successfully updated");
 }

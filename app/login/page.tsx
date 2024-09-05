@@ -1,14 +1,10 @@
 import { Navigation } from "@/components/navigation";
+import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "./submit-button";
-import { Alert } from "@/components/alert";
 import Link from "next/link";
 
 // TODO: add forgot password link
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string; error: boolean };
-}) {
+export default function Login({ searchParams }: { searchParams: Message }) {
   return (
     <>
       <form className="flex flex-col gap-10">
@@ -46,16 +42,6 @@ export default function Login({
             />
           </div>
         </div>
-        <div
-          className={`${!searchParams.message ? "hidden" : ""} `}
-          aria-live="polite"
-        >
-          {searchParams.message && (
-            <Alert type={searchParams.error ? "error" : "success"}>
-              {searchParams.message}
-            </Alert>
-          )}
-        </div>
         <Navigation>
           <SubmitButton action="login" pendingText="Login">
             Login
@@ -66,11 +52,12 @@ export default function Login({
         </Navigation>
       </form>
       <Link
-        className="mt-3 block text-right text-xs text-gray-600 underline dark:text-neutral-400"
+        className="mb-6 mt-3 block text-right text-xs text-gray-600 underline dark:text-neutral-400"
         href="/reset-password"
       >
         Forgotten your Password?
       </Link>
+      <FormMessage message={searchParams} />
     </>
   );
 }

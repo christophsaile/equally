@@ -1,9 +1,9 @@
 "use server";
-import { object, string, number } from "yup";
+import { object, string } from "yup";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
 import { createClient } from "@/utils/supabase/server";
+import { encodedRedirect } from "@/utils/utils";
 
 const formSchema = object({
   email: string().required(),
@@ -26,7 +26,7 @@ export async function login(formData: FormData) {
   const data = await validateForm(formData);
   if (!data) {
     // Redirect if login form data is invalid
-    redirect(`/login?message=Invalid form data.&error=true`);
+    encodedRedirect("error", "login", "Invalid form data.");
     return;
   }
 
@@ -38,8 +38,7 @@ export async function login(formData: FormData) {
 
   if (error) {
     // Log and redirect if login failed with a specific error message
-    console.log("Error during login:", error.message);
-    redirect(`/login?message=${encodeURIComponent(error.message)}&error=true`);
+    encodedRedirect("error", "login", error.message);
     return;
   }
 
@@ -55,7 +54,7 @@ export async function signup(formData: FormData) {
   const data = await validateForm(formData);
   if (!data) {
     // Redirect if form data is invalid
-    redirect(`/login?message=Invalid form data.&error=true`);
+    encodedRedirect("error", "login", "Invalid form data.");
     return;
   }
 
@@ -63,13 +62,14 @@ export async function signup(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    // Redirect on Supabase signup error
-    redirect(`/login?message=${encodeURIComponent(error.message)}&error=true`);
+    encodedRedirect("error", "login", error.message);
     return;
   }
 
   // Step 3: Successful signup, redirect with success message
-  redirect(
-    `/login?message=Account created. Please check your email for the verification link.`,
+  encodedRedirect(
+    "success",
+    "login",
+    "Account created. Please check your email for the verification link.",
   );
 }
