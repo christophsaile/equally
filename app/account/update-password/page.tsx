@@ -10,7 +10,7 @@ export default async function UpdatePassword({
 }) {
   return (
     <>
-      <form className="flex flex-col gap-10">
+      <form className="mb-6 flex flex-col gap-10">
         <div className="flex flex-col gap-6">
           <div className="space-y-5" data-hs-toggle-password-group="">
             <div>
@@ -191,7 +191,6 @@ export default async function UpdatePassword({
           </Button>
         </Navigation>
       </form>
-      {/* // TODO Add spacing */}
       <FormMessage message={searchParams} />
     </>
   );
