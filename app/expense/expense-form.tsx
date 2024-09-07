@@ -87,12 +87,14 @@ export default function ExpenseForm({
           </label>
           <div className="relative">
             <input
-              type="text"
+              type="number"
               id="amount"
               name="amount"
               required
               className="block w-full rounded-lg border-gray-200 px-4 py-3 pe-16 ps-9 text-sm shadow-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               placeholder="0.00"
+              step="0.01"
+              min="0"
               defaultValue={amount}
             />
             <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-4">
