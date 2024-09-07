@@ -16,7 +16,7 @@ export function Card({ avatar, firstName, lastName, amount, href }: Props) {
   const amountText = isAmountNegative ? "you owe" : "owes you";
 
   return (
-    <Link href={href}>
+    <Link href={href} className="block rounded-lg">
       <div className="bg-gray relative flex items-center gap-4 rounded-lg px-2 pb-8 pt-4 hover:bg-gray-100 dark:hover:bg-white/10">
         <Avatar src={avatar} size="md" />
         <h2 className="flex flex-col font-semibold text-gray-800 dark:text-white">

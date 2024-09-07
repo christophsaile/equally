@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .focus-style {
+    @apply focus:outline-none focus:ring-4 focus:ring-blue-600 dark:focus:ring-blue-500;
+  }
+}
+
+:focus {
+  @apply focus-style;
+}

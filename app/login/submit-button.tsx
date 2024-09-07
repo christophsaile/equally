@@ -15,6 +15,8 @@ export const SubmitButton = ({ children, ...props }: Props) => {
       variant="primary"
       formAction={props.action === "login" ? login : signup}
       pendingText={props.pendingText}
+      type="submit"
+      form={props.form}
     >
       {children}
       <svg

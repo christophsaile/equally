@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Login({ searchParams }: { searchParams: Message }) {
   return (
     <>
-      <form className="flex flex-col gap-10">
+      <form id="login" className="flex flex-col gap-10">
         <div className="flex flex-col gap-6">
           <div>
             <label
@@ -20,7 +20,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
               type="email"
               id="email"
               name="email"
-              className="block w-full rounded-lg border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+              className="block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
               placeholder="you@site.com"
               required
             />
@@ -33,7 +33,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
               <input
                 id="hs-toggle-password"
                 type="password"
-                className="block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                className="block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
                 placeholder="Enter password"
                 required
                 name="password"
@@ -90,22 +90,22 @@ export default function Login({ searchParams }: { searchParams: Message }) {
             </div>
           </div>
         </div>
-        <Navigation>
-          <SubmitButton action="login" pendingText="Login">
-            Login
-          </SubmitButton>
-          <SubmitButton action="signup" pendingText="Signing up">
-            Sign up
-          </SubmitButton>
-        </Navigation>
       </form>
       <Link
-        className="mb-6 mt-3 block text-right text-xs text-gray-600 underline dark:text-neutral-400"
+        className="mb-6 mt-3 block p-1 text-right text-xs text-gray-600 underline dark:text-neutral-400"
         href="/reset-password"
       >
         Forgotten your Password?
       </Link>
       <FormMessage message={searchParams} />
+      <Navigation>
+        <SubmitButton action="signup" pendingText="Signing up" form="login">
+          Sign up
+        </SubmitButton>
+        <SubmitButton action="login" pendingText="Login" form="login">
+          Login
+        </SubmitButton>
+      </Navigation>
     </>
   );
 }

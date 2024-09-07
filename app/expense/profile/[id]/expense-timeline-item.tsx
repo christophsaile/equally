@@ -19,7 +19,7 @@ export function ExpenseTimelineItem({
 }: Props) {
   return (
     <div className="group relative flex gap-x-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10">
-      <a className="absolute inset-0 z-[1]" href={href}></a>
+      <a className="absolute inset-0 z-[1] rounded-lg" href={href}></a>
 
       {/* <!-- Icon --> */}
       <div className="relative after:absolute after:bottom-0 after:start-3.5 after:top-0 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 last:after:hidden dark:after:bg-neutral-700 dark:group-hover:after:bg-neutral-600">
