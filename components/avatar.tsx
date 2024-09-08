@@ -15,7 +15,7 @@ export function Avatar({
   };
   return src ? (
     <Image
-      className={`block ${sizeMap[size]} rounded-full`}
+      className={`block ${sizeMap[size]} rounded-full object-cover`}
       src={src}
       alt=""
       width={64}

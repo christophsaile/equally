@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { Card } from "../components/card";
 import { Profile } from "@/components/profile";
 import { Button } from "@/components/button";
-import Link from "next/link";
 import { Navigation } from "@/components/navigation";
+import { Alert } from "@/components/alert";
 
 export default async function Home() {
   const supabase = createClient();
@@ -39,7 +39,7 @@ export default async function Home() {
 
   if (owedError || owesError || profileError) {
     console.error(
-      "Error fetching data from /:",
+      "Error fetching data from '/'",
       owedError || owesError || profileError,
     );
   }
@@ -73,23 +73,30 @@ export default async function Home() {
         avatar={userAvatar}
         href="/account"
       ></Profile>
-      <ul>
-        {data?.map((elem) => (
-          <li key={elem.balance_id}>
-            <Card
-              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-              avatar={elem.user_id.avatar}
-              amount={elem.amount}
-              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-              firstName={elem.user_id.first_name}
-              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-              lastName={elem.user_id.last_name}
-              // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
-              href={`/expense/profile/${elem.user_id.id}`}
-            ></Card>
-          </li>
-        ))}
-      </ul>
+      {data?.length ? (
+        <ul>
+          {data?.map((elem) => (
+            <li key={elem.balance_id}>
+              <Card
+                // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+                avatar={elem.user_id.avatar}
+                amount={elem.amount}
+                // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+                firstName={elem.user_id.first_name}
+                // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+                lastName={elem.user_id.last_name}
+                // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+                href={`/expense/profile/${elem.user_id.id}`}
+              ></Card>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <Alert type="info">
+          No expenses found yet. To create an expense use the &quot;Add
+          Expense&quot; button below.
+        </Alert>
+      )}
       <Navigation>
         <Button className="col-start-2" variant="accent" href="/expense/add">
           Add Expense
