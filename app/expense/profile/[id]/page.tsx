@@ -177,7 +177,7 @@ export default async function ExpenseProfile({
           </svg>
         </Button>
         <Button
-          variant="primary"
+          variant="accent"
           href={{
             pathname: "/expense/add",
             query: { profile_id: params.id },

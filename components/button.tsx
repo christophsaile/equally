@@ -25,7 +25,7 @@ export function Button({
     primary:
       "bg-gray-800 text-white hover:bg-gray-900 focus:bg-gray-900 dark:bg-white dark:text-neutral-800 dark:hover:bg-gray-200 dark:focus:bg-gray-200",
     secondary: "bg-white text-gray-800 hover:bg-gray-200 focus:bg-gray-200",
-    accent: "bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700",
+    accent: "bg-teal-600 text-white hover:bg-teal-700 focus:bg-teal-700",
     danger: "bg-red-500 text-white hover:bg-red-600 focus:bg-red-600",
   };
 

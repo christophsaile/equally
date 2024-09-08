@@ -91,7 +91,7 @@ export default async function Home() {
         ))}
       </ul>
       <Navigation>
-        <Button className="col-start-2" variant="primary" href="/expense/add">
+        <Button className="col-start-2" variant="accent" href="/expense/add">
           Add Expense
           <svg
             xmlns="http://www.w3.org/2000/svg"

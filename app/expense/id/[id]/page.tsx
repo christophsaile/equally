@@ -129,7 +129,7 @@ export default async function ExpenseId({
           </svg>
         </Button>
         <Button
-          variant="primary"
+          variant="accent"
           href={{ pathname: "/expense/edit", query: { expense_id: params.id } }}
         >
           <>
