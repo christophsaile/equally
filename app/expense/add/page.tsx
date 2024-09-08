@@ -52,7 +52,7 @@ export default async function ExpenseAdd({
               className="h-[1em] w-[1em]"
               stroke="currentColor"
               strokeWidth={3}
-              aria-label="Back Link"
+              aria-label="Back"
             >
               <path
                 strokeLinecap="round"

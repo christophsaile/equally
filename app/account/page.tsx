@@ -144,7 +144,7 @@ export default async function Account() {
               className="h-[1em] w-[1em]"
               stroke="currentColor"
               strokeWidth={3}
-              aria-label="Back Link"
+              aria-label="Back to overview"
             >
               <path
                 strokeLinecap="round"

@@ -167,7 +167,7 @@ export default async function ExpenseProfile({
             className="h-[1em] w-[1em]"
             stroke="currentColor"
             strokeWidth={3}
-            aria-label="Back Link"
+            aria-label="Back to overview"
           >
             <path
               strokeLinecap="round"

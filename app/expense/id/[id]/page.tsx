@@ -119,7 +119,7 @@ export default async function ExpenseId({
             className="h-[1em] w-[1em]"
             stroke="currentColor"
             strokeWidth={3}
-            aria-label="Back Link"
+            aria-label="Back to expenses list"
           >
             <path
               strokeLinecap="round"
