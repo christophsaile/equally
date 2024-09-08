@@ -17,7 +17,7 @@ export function Avatar({
     <Image
       className={`block ${sizeMap[size]} rounded-full`}
       src={src}
-      alt="Profile Picture"
+      alt=""
       width={64}
       height={64}
     />
@@ -30,6 +30,7 @@ export function Avatar({
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
       >
         <rect
           x="0.62854"

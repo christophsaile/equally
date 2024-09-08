@@ -67,17 +67,12 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-10">
-      <Link
+      <Profile
+        firstName={userFirstName}
+        lastName={userLastName}
+        avatar={userAvatar}
         href="/account"
-        className="rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
-      >
-        <Profile
-          firstName={userFirstName}
-          lastName={userLastName}
-          avatar={userAvatar}
-          loggedInUser
-        ></Profile>
-      </Link>
+      ></Profile>
       <ul>
         {data?.map((elem) => (
           <li key={elem.balance_id}>

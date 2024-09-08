@@ -1,15 +1,21 @@
+import Link from "next/link";
 import { Avatar } from "./avatar";
 
 type Props = {
   avatar?: string;
   firstName: string;
   lastName: string;
-  loggedInUser?: boolean;
+  href?: string;
 };
 
 export function Profile({ ...props }: Props) {
   return (
-    <div className="flex flex-row items-center gap-4 px-2 py-4">
+    <div className="relative flex flex-row items-center gap-4 rounded-lg px-2 py-4 hover:bg-gray-100 dark:hover:bg-white/10">
+      {props.href && (
+        <Link href="/account" className="absolute inset-0 z-[1] rounded-lg">
+          <span className="sr-only">Account settings</span>
+        </Link>
+      )}
       <Avatar src={props.avatar} size="md" />
       <h2 className="flex flex-col font-semibold text-gray-800 dark:text-white">
         {props.firstName}
@@ -17,9 +23,8 @@ export function Profile({ ...props }: Props) {
           {props.lastName}
         </span>
       </h2>
-      {props.loggedInUser && (
+      {props.href && (
         <div className="ml-auto">
-          <span className="sr-only">Account Settings</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
