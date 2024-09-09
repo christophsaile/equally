@@ -16,7 +16,7 @@ export default async function UpdatePassword({
             <div>
               <label
                 htmlFor="hs-toggle-password-multi-toggle-np"
-                className="mb-2 block text-sm dark:text-white"
+                className="mb-2 block text-base dark:text-white"
               >
                 New password
               </label>
@@ -25,7 +25,7 @@ export default async function UpdatePassword({
                   id="hs-toggle-password-multi-toggle-np"
                   type="password"
                   name="password"
-                  className="focus-style block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+                  className="focus-style block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
                   placeholder="Enter new password"
                 />
                 <button
@@ -82,7 +82,7 @@ export default async function UpdatePassword({
             <div className="mb-5">
               <label
                 htmlFor="hs-toggle-password-multi-toggle"
-                className="mb-2 block text-sm dark:text-white"
+                className="mb-2 block text-base dark:text-white"
               >
                 Confirm password
               </label>
@@ -91,7 +91,7 @@ export default async function UpdatePassword({
                   id="hs-toggle-password-multi-toggle"
                   type="password"
                   name="password_confirmation"
-                  className="focus-style block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+                  className="focus-style block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
                   placeholder="Confirm new password"
                 />
                 <button

@@ -35,7 +35,7 @@ export default async function FirstLogin() {
           <div>
             <label
               htmlFor="first_name"
-              className="mb-2 block text-sm font-medium dark:text-white"
+              className="mb-2 block text-base font-medium dark:text-white"
             >
               First Name
             </label>
@@ -43,7 +43,7 @@ export default async function FirstLogin() {
               type="text"
               id="first_name"
               name="first_name"
-              className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+              className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
               placeholder="John"
               required
             />
@@ -51,7 +51,7 @@ export default async function FirstLogin() {
           <div>
             <label
               htmlFor="last_name"
-              className="mb-2 block text-sm font-medium dark:text-white"
+              className="mb-2 block text-base font-medium dark:text-white"
             >
               Last Name
             </label>
@@ -59,7 +59,7 @@ export default async function FirstLogin() {
               type="text"
               id="last_name"
               name="last_name"
-              className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+              className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
               placeholder="Snow"
               required
             />

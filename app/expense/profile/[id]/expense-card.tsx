@@ -42,10 +42,10 @@ export function ExpenseCard({
   return (
     <Link {...props}>
       <div className="relative flex items-center gap-4 rounded-md bg-neutral-100 px-4 pb-6 pt-2 hover:bg-neutral-200">
-        <time className="text-xs text-neutral-500">{formatDate(date)}</time>
+        <time className="text-sm text-neutral-500">{formatDate(date)}</time>
         <h2 className="flex flex-col">
           {description}
-          <span className="text-xs text-neutral-500">{split}</span>
+          <span className="text-sm text-neutral-500">{split}</span>
         </h2>
         {children}
         <svg

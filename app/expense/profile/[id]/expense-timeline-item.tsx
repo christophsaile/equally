@@ -39,14 +39,14 @@ export function ExpenseTimelineItem({
             <h3 className="font-semibold text-gray-800 dark:text-white">
               {description}
             </h3>
-            <div className="text-xs text-gray-600 dark:text-neutral-400">
+            <div className="text-sm text-gray-600 dark:text-neutral-400">
               {split}
             </div>
           </div>
           <div className="ml-auto">{children}</div>
         </div>
         <div className="flex items-center text-gray-600 dark:text-neutral-400">
-          <p className="text-xs">Created at {date}</p>
+          <p className="text-sm">Created at {date}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

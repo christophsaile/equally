@@ -15,7 +15,7 @@ export default async function ResetPassword({
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium dark:text-white"
+              className="mb-2 block text-base font-medium dark:text-white"
             >
               Email
             </label>
@@ -23,7 +23,7 @@ export default async function ResetPassword({
               type="email"
               id="email"
               name="email"
-              className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+              className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
               placeholder="you@site.com"
               required
             />

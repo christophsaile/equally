@@ -85,7 +85,7 @@ export default async function ExpenseId({
         <h1 className="font-semibold text-gray-800 dark:text-white">
           {description}
         </h1>
-        <p className="text-xs text-gray-600 dark:text-neutral-400">
+        <p className="text-sm text-gray-600 dark:text-neutral-400">
           Added by {nameCreator} on {formatTimestamp(created_at, { day: true })}
         </p>
       </div>
@@ -94,7 +94,7 @@ export default async function ExpenseId({
           <h2 className="font-semibold text-gray-800 dark:text-white">
             {namePaidBy} paid {euroFormatter(amount)}
           </h2>
-          <ul className="list-disc space-y-2 ps-5 text-xs text-gray-600 marker:text-blue-600 dark:text-neutral-400">
+          <ul className="list-disc space-y-2 ps-5 text-sm text-gray-600 marker:text-blue-600 dark:text-neutral-400">
             <li>
               {namePaidBy} owe{" "}
               {euroFormatter(determineSplittedAmount(amount, split))}

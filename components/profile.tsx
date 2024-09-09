@@ -19,7 +19,7 @@ export function Profile({ ...props }: Props) {
       <Avatar src={props.avatar} size="md" />
       <h2 className="flex flex-col font-semibold text-gray-800 dark:text-white">
         {props.firstName}
-        <span className="text-xs font-normal text-gray-600 dark:text-neutral-400">
+        <span className="text-sm font-normal text-gray-600 dark:text-neutral-400">
           {props.lastName}
         </span>
       </h2>

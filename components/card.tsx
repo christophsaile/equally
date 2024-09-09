@@ -25,14 +25,14 @@ export function Card({ avatar, firstName, lastName, amount, href }: Props) {
       <Avatar src={avatar} size="md" />
       <h2 className="flex flex-col font-semibold text-gray-800 dark:text-white">
         {firstName}
-        <span className="text-xs font-normal text-gray-600 dark:text-neutral-400">
+        <span className="text-sm font-normal text-gray-600 dark:text-neutral-400">
           {lastName}
         </span>
       </h2>
       <p
         className={`ml-auto flex flex-col text-right font-bold ${amountColor}`}
       >
-        <span className="text-xs font-normal">{amountText}</span>{" "}
+        <span className="text-sm font-normal">{amountText}</span>{" "}
         {euroFormatter(amount)}
       </p>
       <svg

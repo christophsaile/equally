@@ -105,7 +105,7 @@ export default async function ExpenseProfile({
   const renderTimelineHeading = (date: string) => {
     return (
       <div className="my-2 ps-2">
-        <h3 className="text-xs font-medium uppercase text-gray-600 dark:text-neutral-400">
+        <h3 className="text-sm font-medium uppercase text-gray-600 dark:text-neutral-400">
           {date}
         </h3>
       </div>
@@ -138,7 +138,7 @@ export default async function ExpenseProfile({
                 <p
                   className={`ml-auto flex flex-col text-right font-semibold ${amountColor}`}
                 >
-                  <span className="text-xs font-normal">{amountText}</span>{" "}
+                  <span className="text-sm font-normal">{amountText}</span>{" "}
                   {euroFormatter(
                     determineSplittedAmount(expense.amount, expense.split),
                   )}

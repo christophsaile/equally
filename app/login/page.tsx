@@ -12,7 +12,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium dark:text-white"
+              className="mb-2 block text-base font-medium dark:text-white"
             >
               Email
             </label>
@@ -20,20 +20,20 @@ export default function Login({ searchParams }: { searchParams: Message }) {
               type="email"
               id="email"
               name="email"
-              className="block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+              className="block w-full rounded-lg border-gray-200 px-4 py-3 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
               placeholder="you@site.com"
               required
             />
           </div>
           <div>
-            <label className="mb-2 block text-sm dark:text-white">
+            <label className="mb-2 block text-base dark:text-white">
               Password
             </label>
             <div className="relative">
               <input
                 id="hs-toggle-password"
                 type="password"
-                className="block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+                className="block w-full rounded-lg border-gray-200 py-3 pe-10 ps-4 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
                 placeholder="Enter password"
                 required
                 name="password"
@@ -92,7 +92,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </div>
       </form>
       <Link
-        className="mb-6 mt-3 block p-1 text-right text-xs text-gray-600 underline dark:text-neutral-400"
+        className="mb-6 mt-3 block p-1 text-right text-sm text-gray-600 underline dark:text-neutral-400"
         href="/reset-password"
       >
         Forgotten your Password?

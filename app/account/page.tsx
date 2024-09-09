@@ -50,13 +50,13 @@ export default async function Account() {
             name="avatar"
             id="avatar"
             accept="image/*"
-            className="focus-style block w-full rounded-lg border border-gray-200 text-sm shadow-sm file:me-4 file:border-0 file:bg-gray-50 file:px-4 file:py-3 focus:z-10 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:file:bg-neutral-700 dark:file:text-neutral-400"
+            className="focus-style block w-full rounded-lg border border-gray-200 text-base shadow-sm file:me-4 file:border-0 file:bg-gray-50 file:px-4 file:py-3 focus:z-10 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:file:bg-neutral-700 dark:file:text-neutral-400"
           />
         </div>
         <div>
           <label
             htmlFor="first_name"
-            className="mb-2 block text-sm font-medium dark:text-white"
+            className="mb-2 block text-base font-medium dark:text-white"
           >
             First Name
           </label>
@@ -64,7 +64,7 @@ export default async function Account() {
             id="first_name"
             name="first_name"
             type="text"
-            className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+            className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
             placeholder="John"
             required
             defaultValue={userFirstName}
@@ -73,7 +73,7 @@ export default async function Account() {
         <div>
           <label
             htmlFor="last_name"
-            className="mb-2 block text-sm font-medium dark:text-white"
+            className="mb-2 block text-base font-medium dark:text-white"
           >
             Last Name
           </label>
@@ -81,7 +81,7 @@ export default async function Account() {
             id="last_name"
             name="last_name"
             type="text"
-            className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-sm disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
+            className="focus-style block w-full rounded-lg border-gray-200 px-4 py-3 text-base disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500"
             placeholder="Snow"
             required
             defaultValue={userLastName}
