@@ -156,6 +156,7 @@ export default async function ExpenseProfile({
       <Profile
         firstName={userProfile.first_name}
         lastName={userProfile.last_name}
+        avatar={userProfile.avatar}
       ></Profile>
       {renderTimeline()}
       <Navigation>

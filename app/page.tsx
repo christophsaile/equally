@@ -66,13 +66,14 @@ export default async function Home() {
   );
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-6">
       <Profile
         firstName={userFirstName}
         lastName={userLastName}
         avatar={userAvatar}
         href="/account"
       ></Profile>
+      <hr className="border-gray-200 dark:border-neutral-700"></hr>
       {data?.length ? (
         <ul>
           {data?.map((elem) => (
