@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { ExpenseDeleteButton } from "./expense-delete-button";
-import { ErrorMessage } from "@/app/error-message";
 import {
   determineSplittedAmount,
   euroFormatter,
@@ -11,6 +10,7 @@ import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/button";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
+import { Alert } from "@/components/alert";
 
 export default async function ExpenseId({
   params,
@@ -44,9 +44,7 @@ export default async function ExpenseId({
 
     if (!expenseData) {
       return (
-        <div>
-          <ErrorMessage>No expense found with the id {params.id}</ErrorMessage>
-        </div>
+        <Alert type="error">No expense found with the id {params.id}</Alert>
       );
     }
 
@@ -62,12 +60,10 @@ export default async function ExpenseId({
 
     if (!checkIfUserIsPartOfTransaction(expenseData, user)) {
       return (
-        <div>
-          <ErrorMessage>
-            You have no access to preview this expense since you were not part
-            of the transaction
-          </ErrorMessage>
-        </div>
+        <Alert type="error">
+          You have no access to preview this expense since you were not part of
+          the transaction
+        </Alert>
       );
     }
 
