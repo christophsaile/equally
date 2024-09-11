@@ -11,6 +11,7 @@ export async function updateBalances(userId: string, profileId: string) {
     return redirect("/login");
   }
 
+  // TODO update Balance and add Expense should be one RPC
   // Call the RPC function to handle the balance updates
   const { error } = await supabase.rpc("update_balances_rpc", {
     p_user_id: userId,
