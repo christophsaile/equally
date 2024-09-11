@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Equally",
     short_name: "Equally",
     description: "Equally is a simple way to keep track of shared expenses.",
-    start_url: "/",
+    start_url: "/home",
     display: "standalone",
     background_color: "#171717",
     theme_color: "#171717",
