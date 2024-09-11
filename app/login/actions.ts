@@ -44,7 +44,7 @@ export async function login(formData: FormData) {
 
   // Step 3: Successful login, redirect to the home page
   revalidatePath("/", "layout");
-  redirect(`/`);
+  redirect("/");
 }
 
 export async function signup(formData: FormData) {
