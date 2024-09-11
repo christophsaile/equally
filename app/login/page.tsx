@@ -1,13 +1,14 @@
 import { Navigation } from "@/components/navigation";
 import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "./submit-button";
 import Link from "next/link";
+import { login, signup } from "./actions";
+import { Button } from "@/components/button";
 
 // TODO: add autocomplete logic
 export default function Login({ searchParams }: { searchParams: Message }) {
   return (
     <>
-      <form id="login" className="flex flex-col gap-10">
+      <form className="mb-6 flex flex-col gap-10">
         <div className="flex flex-col gap-6">
           <div>
             <label
@@ -88,24 +89,59 @@ export default function Login({ searchParams }: { searchParams: Message }) {
                 </svg>
               </button>
             </div>
+            <Link
+              className="mt-3 block p-1 text-right text-sm text-gray-600 underline dark:text-neutral-400"
+              href="/reset-password"
+            >
+              Forgotten your Password?
+            </Link>
           </div>
         </div>
+
+        <Navigation>
+          <Button
+            formAction={signup}
+            pendingText="Signing up"
+            variant="primary"
+          >
+            Sign up
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="h-[1em] w-[1em]"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </Button>
+          <Button formAction={login} pendingText="Login" variant="primary">
+            Login
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="h-[1em] w-[1em]"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </Button>
+        </Navigation>
       </form>
-      <Link
-        className="mb-6 mt-3 block p-1 text-right text-sm text-gray-600 underline dark:text-neutral-400"
-        href="/reset-password"
-      >
-        Forgotten your Password?
-      </Link>
       <FormMessage message={searchParams} />
-      <Navigation>
-        <SubmitButton action="signup" pendingText="Signing up" form="login">
-          Sign up
-        </SubmitButton>
-        <SubmitButton action="login" pendingText="Login" form="login">
-          Login
-        </SubmitButton>
-      </Navigation>
     </>
   );
 }

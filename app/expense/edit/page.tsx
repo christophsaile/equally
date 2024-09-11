@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import ExpenseForm from "../expense-form";
+import FormExpense from "../../../components/form-expense";
 import { Profile } from "../utils";
 import { editExpense } from "./actions";
 import { Button } from "@/components/button";
@@ -41,7 +41,7 @@ export default async function ExpenseEdit({
 
   return (
     <div>
-      <ExpenseForm
+      <FormExpense
         profiles={profileData as Profile[]}
         preselectProfile={preselectProfile}
         split={split}
@@ -93,7 +93,7 @@ export default async function ExpenseEdit({
             </svg>
           </Button>
         </Navigation>
-      </ExpenseForm>
+      </FormExpense>
     </div>
   );
 }

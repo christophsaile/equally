@@ -1,9 +1,8 @@
 "use client";
 import { ComponentProps } from "react";
-import { Profile } from "./utils";
+import { Profile } from "../app/expense/utils";
 
 // TODO add library to prevent re-rendering on every key stroke
-// TODO add feature to search for users from database
 type Props = ComponentProps<"form"> & {
   profiles: Profile[];
   preselectProfile?: Profile;
@@ -11,7 +10,7 @@ type Props = ComponentProps<"form"> & {
   amount?: number;
   split?: number;
 };
-export default function ExpenseForm({
+export default function FormExpense({
   profiles,
   preselectProfile,
   description,

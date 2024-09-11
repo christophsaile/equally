@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export function ExpenseTimelineItem({
+export function TimelineItem({
   date,
   description,
   split,
@@ -36,9 +36,9 @@ export function ExpenseTimelineItem({
             <h3 className="font-semibold text-gray-800 dark:text-white">
               {description}
             </h3>
-            <div className="text-sm text-gray-600 dark:text-neutral-400">
+            <p className="text-sm text-gray-600 dark:text-neutral-400">
               {split}
-            </div>
+            </p>
           </div>
           <div className="ml-auto">{children}</div>
         </div>

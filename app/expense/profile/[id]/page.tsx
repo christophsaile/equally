@@ -8,7 +8,7 @@ import {
 import { Profile } from "@/components/profile";
 import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
-import { ExpenseTimelineItem } from "./expense-timeline-item";
+import { TimelineItem } from "../../../../components/timeline-item";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
 interface Expense {
@@ -129,7 +129,7 @@ export default async function ExpenseProfile({
               const amountText =
                 expense.paid === user.id ? "you lent" : "you owe";
               return (
-                <ExpenseTimelineItem
+                <TimelineItem
                   key={expense.expense_id}
                   date={formatTimestamp(expense.created_at, { day: true })}
                   description={expense.description}
@@ -144,7 +144,7 @@ export default async function ExpenseProfile({
                       determineSplittedAmount(expense.amount, expense.split),
                     )}
                   </p>
-                </ExpenseTimelineItem>
+                </TimelineItem>
               );
             })}
           </div>

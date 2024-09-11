@@ -21,7 +21,6 @@ export async function resetPassword(formData: FormData) {
 
   const validatedFormData = await validateForm(formData);
   if (!validatedFormData) {
-    // Redirect if form data is invalid
     encodedRedirect("error", "reset-password", "Invalid form data.");
     return;
   }

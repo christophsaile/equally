@@ -46,6 +46,7 @@ export function Button({
 
   const RenderButton = () => {
     const { pending, action } = useFormStatus();
+    console.log(pending, action);
 
     const isPending = pending && action === props.formAction;
 

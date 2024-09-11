@@ -1,5 +1,4 @@
 import { type ComponentProps } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = ComponentProps<"a"> & {
@@ -9,7 +8,7 @@ type Props = ComponentProps<"a"> & {
   href: string;
 };
 
-export function ExpenseCard({
+export function CardExpense({
   children,
   date,
   description,

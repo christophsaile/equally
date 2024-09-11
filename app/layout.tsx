@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import PrelineScript from "../components/PrelineScript";
+import PrelineScript from "../components/preline-script";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

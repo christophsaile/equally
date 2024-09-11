@@ -5,15 +5,21 @@ type Props = {
   avatar?: string;
   firstName: string;
   lastName: string;
-  href?: string;
+  link?: {
+    href: string;
+    label: string;
+  };
 };
 
 export function Profile({ ...props }: Props) {
   return (
     <div className="relative flex flex-row items-center gap-4 rounded-lg px-2 py-4 hover:bg-gray-100 dark:hover:bg-white/10">
-      {props.href && (
-        <Link href="/account" className="absolute inset-0 z-[1] rounded-lg">
-          <span className="sr-only">Account settings</span>
+      {props.link && (
+        <Link
+          href={props.link.href}
+          className="absolute inset-0 z-[1] rounded-lg"
+        >
+          <span className="sr-only">{props.link.href}</span>
         </Link>
       )}
       <Avatar src={props.avatar} size="md" />
@@ -23,7 +29,7 @@ export function Profile({ ...props }: Props) {
           {props.lastName}
         </span>
       </h2>
-      {props.href && (
+      {props.link?.href && (
         <div className="ml-auto">
           <svg
             xmlns="http://www.w3.org/2000/svg"

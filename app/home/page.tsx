@@ -73,7 +73,7 @@ export default async function Home() {
           firstName={userFirstName}
           lastName={userLastName}
           avatar={userAvatar}
-          href="/account"
+          link={{ href: "/account", label: "Account settings" }}
         ></Profile>
         <hr className="border-gray-200 dark:border-neutral-700"></hr>
         {data?.length ? (
