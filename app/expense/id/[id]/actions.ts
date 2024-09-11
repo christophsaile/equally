@@ -25,8 +25,6 @@ export async function deleteExpense(expenseId: number) {
     console.error("Error deleting expense:", deleteExpenseError);
   }
 
-  console.log("deleteExpenseData", deleteExpenseData);
-
   let profileId;
 
   if (!deleteExpenseData) {

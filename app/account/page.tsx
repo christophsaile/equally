@@ -4,39 +4,35 @@ import { logout, updateProfileData } from "./actions";
 import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
 import { Avatar } from "@/components/avatar";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/loading-spinner";
 
 export default async function Account() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  async function SuspenseContent() {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/login");
-  }
+    if (!user) {
+      return redirect("/login");
+    }
 
-  const { data: profileData, error: profileError } = await supabase
-    .from("profiles")
-    .select()
-    .eq("id", user.id)
-    .limit(1)
-    .single();
+    const { data: profileData, error: profileError } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", user.id)
+      .limit(1)
+      .single();
 
-  if (profileError) {
-    console.error("Error fetching profile data:", profileError);
-  }
+    if (profileError) {
+      console.error("Error fetching profile data:", profileError);
+    }
 
-  const userFirstName = profileData?.first_name;
-  const userLastName = profileData?.last_name;
-  const avatar = profileData?.avatar;
-
-  // TODO add option to update email
-  // TODO add a button to delete the user's account
-  return (
-    <div>
-      <h2 className="mb-8 font-semibold text-gray-800 dark:text-white">
-        Profile Settings
-      </h2>
+    const userFirstName = profileData?.first_name;
+    const userLastName = profileData?.last_name;
+    const avatar = profileData?.avatar;
+    return (
       <form action={updateProfileData} className="mb-8 flex flex-col gap-4">
         <div className="m-auto">
           <Avatar src={avatar} size="xl" />
@@ -113,6 +109,19 @@ export default async function Account() {
           </svg>
         </Button>
       </form>
+    );
+  }
+
+  // TODO add option to update email
+  // TODO add a button to delete the user's account
+  return (
+    <div>
+      <h2 className="mb-8 font-semibold text-gray-800 dark:text-white">
+        Profile Settings
+      </h2>
+      <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
+        <SuspenseContent></SuspenseContent>
+      </Suspense>
       <div>
         <h2 className="mb-8 font-semibold text-gray-800 dark:text-white">
           Account Settings

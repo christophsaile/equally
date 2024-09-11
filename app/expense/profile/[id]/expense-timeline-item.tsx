@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -6,7 +5,6 @@ type Props = {
   description: string;
   split: string;
   href: string;
-  avatar?: string;
   children: React.ReactNode;
 };
 
@@ -15,7 +13,6 @@ export function ExpenseTimelineItem({
   description,
   split,
   href,
-  avatar,
   children,
 }: Props) {
   return (
