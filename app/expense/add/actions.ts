@@ -47,6 +47,6 @@ export async function addExpense(formData: FormData) {
   // TODO make sure that if one action fails, the other one is rolled back
   // atomic transactions
 
-  revalidatePath("/");
-  redirect("/");
+  revalidatePath("/home");
+  redirect("/home");
 }

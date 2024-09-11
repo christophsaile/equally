@@ -160,7 +160,7 @@ export default async function ExpenseProfile({
       ></Profile>
       {renderTimeline()}
       <Navigation>
-        <Button variant="primary" href="/">
+        <Button variant="primary" href="/home">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

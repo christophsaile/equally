@@ -21,7 +21,7 @@ export default async function FirstLogin() {
     .single();
 
   if (profileData) {
-    return redirect("/");
+    return redirect("/home");
   }
 
   return (

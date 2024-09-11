@@ -42,7 +42,7 @@ export default async function ExpenseAdd({
             href={
               searchParams.profile_id
                 ? `/expense/profile/${searchParams.profile_id}`
-                : "/"
+                : "/home"
             }
           >
             <svg

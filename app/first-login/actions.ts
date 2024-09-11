@@ -34,5 +34,5 @@ export async function updateProfileData(formData: FormData) {
     console.error("Error updating profile:", error);
   }
 
-  redirect("/");
+  redirect("/home");
 }

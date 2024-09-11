@@ -45,6 +45,6 @@ export async function editExpense(formData: FormData) {
 
   await updateBalances(user.id, validatedData.profile_id);
 
-  revalidatePath("/");
-  redirect("/");
+  revalidatePath("/home");
+  redirect("/home");
 }
