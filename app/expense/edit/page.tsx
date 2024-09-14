@@ -5,6 +5,7 @@ import { editExpense } from "./actions";
 import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
 import { FormMessage, Message } from "@/components/form-message";
+import { Alert } from "@/components/alert";
 
 export default async function ExpenseEdit({
   searchParams,
@@ -28,11 +29,14 @@ export default async function ExpenseEdit({
 
   const { data: profileData, error: profileError } = profilesResult;
   const { data: expenseData, error: expenseError } = expenseResult;
-  if (profileError || expenseError)
+
+  if (profileError || expenseError) {
     console.error(
       "Error fetching data from expense/edit:",
       profileError || expenseError,
     );
+    return <Alert type="error">Error fetching data</Alert>;
+  }
 
   const { split, paid, owes, amount, description } = expenseData;
 

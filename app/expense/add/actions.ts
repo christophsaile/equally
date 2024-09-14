@@ -46,6 +46,7 @@ export async function addExpense(formData: FormData) {
     );
   }
 
+  revalidatePath(`/expense/profile/${validatedData.profile_id}`);
   revalidatePath("/home");
   redirect("/home");
 }

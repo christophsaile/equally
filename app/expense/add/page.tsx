@@ -26,7 +26,11 @@ export default async function ExpenseAdd({
     .from("profiles")
     .select()
     .neq("id", user?.id);
-  if (error) return <Alert type="error">{error.message}</Alert>;
+
+  if (error) {
+    console.error("Error fetching data from expense/edit:", error);
+    return <Alert type="error">Error fetching data</Alert>;
+  }
 
   const preselectProfile = data?.find(
     (profile) => profile.id === searchParams.profile_id,
