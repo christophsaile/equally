@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export function TimelineItem({
+export default function TimelineItem({
   date,
   description,
   split,

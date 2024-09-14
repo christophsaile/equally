@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, type ComponentProps } from "react";
+import { useRef, type ComponentProps } from "react";
 import { deleteExpense } from "./actions";
 
 type Props = ComponentProps<"button"> & {

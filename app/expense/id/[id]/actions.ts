@@ -10,11 +10,10 @@ export async function deleteExpense(expenseId: number, profileId: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
   if (!user) {
     return redirect("/login");
   }
-
-  console.log("Deleting expense", expenseId, profileId);
 
   const { error } = await updateExpenseAndBalances(
     "delete",
