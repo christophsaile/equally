@@ -5,11 +5,13 @@ import { addExpense } from "./actions";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/button";
 import { redirect } from "next/navigation";
+import { Alert } from "@/components/alert";
+import { FormMessage, Message } from "@/components/form-message";
 
 export default async function ExpenseAdd({
   searchParams,
 }: {
-  searchParams: { profile_id: string };
+  searchParams: { profile_id: string } & Message;
 }) {
   const supabase = createClient();
   const {
@@ -24,7 +26,7 @@ export default async function ExpenseAdd({
     .from("profiles")
     .select()
     .neq("id", user?.id);
-  if (error) console.log(error);
+  if (error) return <Alert type="error">{error.message}</Alert>;
 
   const preselectProfile = data?.find(
     (profile) => profile.id === searchParams.profile_id,
@@ -85,6 +87,7 @@ export default async function ExpenseAdd({
           </Button>
         </Navigation>
       </FormExpense>
+      <FormMessage message={searchParams} />
     </div>
   );
 }

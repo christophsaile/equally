@@ -3,7 +3,8 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { validateExpenseFormData, determineWhoPaid } from "../utils";
-import { updateBalances } from "../actions";
+import { updateExpenseAndBalances } from "../actions";
+import { encodedRedirect } from "@/utils/utils";
 
 export async function addExpense(formData: FormData) {
   const supabase = createClient();
@@ -14,20 +15,19 @@ export async function addExpense(formData: FormData) {
     return redirect("/login");
   }
 
-  let validatedData;
+  const validatedData = await validateExpenseFormData(formData);
 
-  try {
-    // validate the form data
-    validatedData = await validateExpenseFormData(formData);
-  } catch (error) {
-    console.error("Validation or user retrieval failed:", error);
-    throw new Error("Invalid expense data");
+  if (!validatedData) {
+    encodedRedirect("error", "/expense/add", "Invalid form data");
+    return;
   }
 
   const determineWhoPaidResult = determineWhoPaid(validatedData, user.id);
 
-  // insert the expense into the database
-  const { error: expenseError } = await supabase.from("expenses").insert([
+  const { error } = await updateExpenseAndBalances(
+    "add",
+    user.id,
+    validatedData.profile_id,
     {
       description: validatedData.description,
       paid: determineWhoPaidResult.paid,
@@ -36,16 +36,15 @@ export async function addExpense(formData: FormData) {
       amount: validatedData.amount,
       created_by: user.id,
     },
-  ]);
+  );
 
-  if (expenseError) {
-    console.error("Error inserting expense:", expenseError);
+  if (error) {
+    encodedRedirect(
+      "error",
+      "/expense/add",
+      "Something went adding a new expense",
+    );
   }
-
-  await updateBalances(user.id, validatedData.profile_id);
-
-  // TODO make sure that if one action fails, the other one is rolled back
-  // atomic transactions
 
   revalidatePath("/home");
   redirect("/home");

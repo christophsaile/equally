@@ -112,7 +112,10 @@ export default async function ExpenseId({
 
   return (
     <div className="flex flex-col gap-6">
-      <ExpenseDeleteButton expense={params.id}></ExpenseDeleteButton>
+      <ExpenseDeleteButton
+        expense={params.id}
+        profileId={searchParams.profile_id}
+      ></ExpenseDeleteButton>
       <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
         <SuspenseContent></SuspenseContent>
       </Suspense>

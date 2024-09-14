@@ -1,11 +1,11 @@
 "use server";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { updateBalances } from "../../actions";
+import { updateExpenseAndBalances } from "../../actions";
 import { revalidatePath } from "next/cache";
+import { encodedRedirect } from "@/utils/utils";
 
-export async function deleteExpense(expenseId: number) {
-  // TODO - move this to a shared function
+export async function deleteExpense(expenseId: number, profileId: string) {
   const supabase = createClient();
   const {
     data: { user },
@@ -14,30 +14,24 @@ export async function deleteExpense(expenseId: number) {
     return redirect("/login");
   }
 
-  // delete the expense from the database
-  const { data: deleteExpenseData, error: deleteExpenseError } = await supabase
-    .from("expenses")
-    .delete()
-    .eq("expense_id", expenseId)
-    .select("paid, owes");
+  console.log("Deleting expense", expenseId, profileId);
 
-  if (deleteExpenseError) {
-    console.error("Error deleting expense:", deleteExpenseError);
+  const { error } = await updateExpenseAndBalances(
+    "delete",
+    user.id,
+    profileId,
+    {
+      expense_id: expenseId,
+    },
+  );
+
+  if (error) {
+    encodedRedirect(
+      "error",
+      `/expense/profile/${profileId}`,
+      "Something went wrong deleting the expense",
+    );
   }
-
-  let profileId;
-
-  if (!deleteExpenseData) {
-    return;
-  }
-
-  if (user.id === deleteExpenseData[0].paid) {
-    profileId = deleteExpenseData[0].owes;
-  } else {
-    profileId = deleteExpenseData[0].paid;
-  }
-
-  await updateBalances(user.id, profileId);
 
   revalidatePath("/home");
   revalidatePath(`/expense/profile/${profileId}`);

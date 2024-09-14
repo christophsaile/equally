@@ -3,6 +3,7 @@ import { ComponentProps } from "react";
 import { Profile } from "../app/expense/utils";
 
 // TODO add library to prevent re-rendering on every key stroke
+// TODO on edit prevent selecting other user
 type Props = ComponentProps<"form"> & {
   profiles: Profile[];
   preselectProfile?: Profile;
@@ -20,7 +21,7 @@ export default function FormExpense({
   ...props
 }: Props) {
   return (
-    <form {...props} className="flex flex-col gap-8">
+    <form {...props} className="mb-6 flex flex-col gap-8">
       <div className="flex flex-col gap-4">
         <div>
           <label

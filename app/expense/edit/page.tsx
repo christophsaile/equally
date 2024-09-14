@@ -4,11 +4,12 @@ import { Profile } from "../utils";
 import { editExpense } from "./actions";
 import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
+import { FormMessage, Message } from "@/components/form-message";
 
 export default async function ExpenseEdit({
   searchParams,
 }: {
-  searchParams: { expense_id: string };
+  searchParams: { expense_id: string } & Message;
 }) {
   const supabase = createClient();
   const {
@@ -40,7 +41,7 @@ export default async function ExpenseEdit({
   );
 
   return (
-    <div>
+    <>
       <FormExpense
         profiles={profileData as Profile[]}
         preselectProfile={preselectProfile}
@@ -94,6 +95,7 @@ export default async function ExpenseEdit({
           </Button>
         </Navigation>
       </FormExpense>
-    </div>
+      <FormMessage message={searchParams} />
+    </>
   );
 }

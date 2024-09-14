@@ -2,8 +2,13 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { updateProfileData } from "./actions";
 import { Button } from "@/components/button";
+import { FormMessage, Message } from "@/components/form-message";
 
-export default async function FirstLogin() {
+export default async function FirstLogin({
+  searchParams,
+}: {
+  searchParams: Message;
+}) {
   const supabase = createClient();
   const {
     data: { user },
@@ -25,7 +30,7 @@ export default async function FirstLogin() {
   }
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="mb-6 flex flex-col gap-10">
       <div className="flex flex-col gap-1 text-gray-800 dark:text-white">
         <h1 className="font-semibold">Hey, welcome to Equally</h1>
         <p>To get started please enter your first and your last name.</p>
@@ -86,6 +91,7 @@ export default async function FirstLogin() {
           </svg>
         </Button>
       </form>
+      <FormMessage message={searchParams} />
     </div>
   );
 }

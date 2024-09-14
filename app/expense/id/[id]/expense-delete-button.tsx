@@ -1,15 +1,16 @@
 "use client";
-import { useRef, type ComponentProps } from "react";
+import { useRef, useState, type ComponentProps } from "react";
 import { deleteExpense } from "./actions";
 
 type Props = ComponentProps<"button"> & {
   expense: number;
+  profileId: string;
 };
 
 export function ExpenseDeleteButton({ children, ...props }: Props) {
-  function handleClick() {
+  function handleDeleteClick() {
     if (!elementRef.current) return;
-    deleteExpense(props.expense).then(() => {
+    deleteExpense(props.expense, props.profileId).then(() => {
       (window as any).HSOverlay.close(elementRef.current);
     });
   }
@@ -99,7 +100,7 @@ export function ExpenseDeleteButton({ children, ...props }: Props) {
               <button
                 type="button"
                 className="focus-style inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-red-500 px-4 py-3 text-base font-medium text-white hover:bg-red-600 focus:bg-red-600 disabled:pointer-events-none disabled:opacity-50"
-                onClick={handleClick}
+                onClick={handleDeleteClick}
               >
                 Delete
               </button>
