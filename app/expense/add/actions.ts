@@ -15,6 +15,7 @@ export async function addExpense(formData: FormData) {
     return redirect("/login");
   }
 
+  // TODO check how to return error
   const validatedData = await validateExpenseFormData(formData);
 
   if (!validatedData) {

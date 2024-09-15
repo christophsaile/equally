@@ -10,7 +10,7 @@ export default async function ExpenseProfile({
   params: { id: string };
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
         <SupenseContent profileId={params.id}></SupenseContent>
       </Suspense>
@@ -57,6 +57,6 @@ export default async function ExpenseProfile({
           </svg>
         </Button>
       </Navigation>
-    </div>
+    </>
   );
 }

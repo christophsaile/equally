@@ -7,6 +7,7 @@ import { Button } from "@/components/button";
 import { redirect } from "next/navigation";
 import { Alert } from "@/components/alert";
 import { FormMessage, Message } from "@/components/form-message";
+import Breadcrumb from "@/components/breadcrumb";
 
 export default async function ExpenseAdd({
   searchParams,
@@ -36,8 +37,24 @@ export default async function ExpenseAdd({
     (profile) => profile.id === searchParams.profile_id,
   );
 
+  const generateBreadcrumb = () => {
+    if (preselectProfile) {
+      return [
+        { name: "Home", href: "/home" },
+        {
+          name: preselectProfile.first_name,
+          href: `/expense/profile/${preselectProfile.id}`,
+        },
+        { name: "Add Expense" },
+      ];
+    }
+
+    return [{ name: "Home", href: "/home" }, { name: "Add Expense" }];
+  };
+
   return (
-    <div>
+    <>
+      <Breadcrumb items={generateBreadcrumb()}></Breadcrumb>
       <FormExpense
         profiles={data as Profile[]}
         preselectProfile={preselectProfile}
@@ -72,7 +89,7 @@ export default async function ExpenseAdd({
             formAction={addExpense}
             pendingText="Loading"
           >
-            Add Expense
+            Save
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -92,6 +109,6 @@ export default async function ExpenseAdd({
         </Navigation>
       </FormExpense>
       <FormMessage message={searchParams} />
-    </div>
+    </>
   );
 }

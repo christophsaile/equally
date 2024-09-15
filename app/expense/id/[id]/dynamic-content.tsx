@@ -6,6 +6,7 @@ import {
   euroFormatter,
   formatTimestamp,
 } from "../../utils";
+import Breadcrumb from "@/components/breadcrumb";
 
 type Props = {
   expenseId: number;
@@ -72,6 +73,19 @@ export default async function DynamicContent({ ...props }: Props) {
 
   return (
     <>
+      {/* { TODO make this dynamic} */}
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/home" },
+          {
+            // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+            name: user.id === paid.id ? owes.first_name : paid.first_name,
+            // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
+            href: `/expense/profile/${user.id === paid.id ? owes.id : paid.id}`,
+          },
+          { name: description },
+        ]}
+      ></Breadcrumb>
       <div>
         <h1 className="font-semibold text-gray-800 dark:text-white">
           {description}

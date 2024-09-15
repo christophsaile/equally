@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
 import { DynamicContent } from "./dynamic-content";
 import { FormMessage, Message } from "@/components/form-message";
+import Breadcrumb from "@/components/breadcrumb";
 
 export default async function Account({
   searchParams,
@@ -16,6 +17,9 @@ export default async function Account({
   // TODO add a button to delete the user's account
   return (
     <div>
+      <Breadcrumb
+        items={[{ name: "Home", href: "/home" }, { name: "Account" }]}
+      ></Breadcrumb>
       <div className="mb-8 flex flex-col gap-6">
         <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
           <DynamicContent></DynamicContent>

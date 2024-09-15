@@ -9,6 +9,7 @@ import {
 import TimelineItem from "@/components/timeline-item";
 import { Alert } from "@/components/alert";
 import { User } from "@supabase/supabase-js";
+import Breadcrumb from "@/components/breadcrumb";
 
 type Props = {
   profileId: string;
@@ -159,12 +160,20 @@ export default async function DynamicContent({ ...props }: Props) {
 
   return (
     <>
-      <Profile
-        firstName={profileData.first_name}
-        lastName={profileData.last_name}
-        avatar={profileData.avatar}
-      ></Profile>
-      {renderTimeline(groupedExpenses, user, profileData)}
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/home" },
+          { name: profileData.first_name },
+        ]}
+      ></Breadcrumb>
+      <div className="flex flex-col gap-4">
+        <Profile
+          firstName={profileData.first_name}
+          lastName={profileData.last_name}
+          avatar={profileData.avatar}
+        ></Profile>
+        {renderTimeline(groupedExpenses, user, profileData)}
+      </div>
     </>
   );
 }

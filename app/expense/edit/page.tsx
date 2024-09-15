@@ -6,6 +6,7 @@ import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
 import { FormMessage, Message } from "@/components/form-message";
 import { Alert } from "@/components/alert";
+import Breadcrumb from "@/components/breadcrumb";
 
 export default async function ExpenseEdit({
   searchParams,
@@ -46,6 +47,20 @@ export default async function ExpenseEdit({
 
   return (
     <>
+      <Breadcrumb
+        items={[
+          { name: "Home", href: "/home" },
+          {
+            name: preselectProfile.first_name,
+            href: `/expense/profile/${preselectProfile.id}`,
+          },
+          {
+            name: description,
+            href: `/expense/id/${searchParams.expense_id}`,
+          },
+          { name: "Edit Expense" },
+        ]}
+      ></Breadcrumb>
       <FormExpense
         profiles={profileData as Profile[]}
         preselectProfile={preselectProfile}
@@ -61,7 +76,7 @@ export default async function ExpenseEdit({
         <Navigation>
           <Button
             variant="primary"
-            href={`/expense/id/${searchParams.expense_id}`}
+            href={`/expense/id/${searchParams.expense_id}?profile_id=${preselectProfile.id}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -29,3 +29,9 @@ export function urlBase64ToUint8Array(base64String: string): Uint8Array {
   }
   return outputArray;
 }
+
+export function truncateString(string = "", maxLength = 50) {
+  return string.length > maxLength
+    ? `${string.substring(0, maxLength)}…`
+    : string;
+}
