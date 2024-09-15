@@ -3,7 +3,7 @@ import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/button";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
-import SuspenseContent from "./suspense-content";
+import DynamicContent from "./dynamic-content";
 
 export default async function ExpenseId({
   params,
@@ -19,7 +19,7 @@ export default async function ExpenseId({
         profileId={searchParams.profile_id}
       ></ExpenseDeleteButton>
       <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
-        <SuspenseContent expenseId={params.id}></SuspenseContent>
+        <DynamicContent expenseId={params.id}></DynamicContent>
       </Suspense>
       <Navigation>
         <Button

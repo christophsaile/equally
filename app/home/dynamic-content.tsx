@@ -4,7 +4,7 @@ import { Card } from "../../components/card";
 import { Profile } from "@/components/profile";
 import { Alert } from "@/components/alert";
 
-export default async function SuspenseContent() {
+export default async function DynamicContent() {
   const supabase = createClient();
 
   const {

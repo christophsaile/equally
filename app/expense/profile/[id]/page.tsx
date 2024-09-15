@@ -2,7 +2,7 @@ import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
-import SupenseContent from "./suspense-content";
+import SupenseContent from "./dynamic-content";
 
 export default async function ExpenseProfile({
   params,

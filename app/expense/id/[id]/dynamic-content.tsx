@@ -11,7 +11,7 @@ type Props = {
   expenseId: number;
 };
 
-export default async function SuspenseContent({ ...props }: Props) {
+export default async function DynamicContent({ ...props }: Props) {
   const supabase = createClient();
   const {
     data: { user },

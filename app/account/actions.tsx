@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { encodedRedirect } from "@/utils/utils";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -40,7 +41,7 @@ export async function updateProfileData(formData: FormData) {
 
   if (error) {
     console.error("Error uploading file:", error);
-    return;
+    encodedRedirect("error", "/account", "Error uploading file");
   }
 
   // get the public URL of the uploaded file

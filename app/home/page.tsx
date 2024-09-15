@@ -2,13 +2,13 @@ import { Button } from "@/components/button";
 import { Navigation } from "@/components/navigation";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
-import SuspenseContent from "./suspense-content";
+import DynamicContent from "./dynamic-content";
 
 export default async function Home() {
   return (
     <div className="flex flex-col gap-6">
       <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
-        <SuspenseContent></SuspenseContent>
+        <DynamicContent></DynamicContent>
       </Suspense>
       <Navigation>
         <Button className="col-start-2" variant="accent" href="/expense/add">
