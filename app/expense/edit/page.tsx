@@ -84,7 +84,7 @@ export default async function ExpenseEdit({
             formAction={editExpense}
             pendingText="Loading"
           >
-            Edit expense
+            Save
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
