@@ -86,29 +86,32 @@ export default async function DynamicContent({ ...props }: Props) {
           { name: description },
         ]}
       ></Breadcrumb>
-      <div>
-        <h1 className="font-semibold text-gray-800 dark:text-white">
-          {description}
-        </h1>
-        <p className="text-sm text-gray-600 dark:text-neutral-400">
-          Added by {nameCreator} on {formatTimestamp(created_at, { day: true })}
-        </p>
-      </div>
-      <div className="flex flex-row gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 className="font-semibold text-gray-800 dark:text-white">
-            {namePaidBy} paid {euroFormatter(amount)}
-          </h2>
-          <ul className="list-disc space-y-2 ps-5 text-sm text-gray-600 marker:text-teal-600 dark:text-neutral-400">
-            <li>
-              {namePaidBy} owe{" "}
-              {euroFormatter(determineSplittedAmount(amount, split))}
-            </li>
-            <li>
-              {nameOwedTo} owes{" "}
-              {euroFormatter(determineSplittedAmount(amount, split))}
-            </li>
-          </ul>
+      <div className="flex flex-col gap-6 pt-2">
+        <div>
+          <h1 className="font-semibold text-gray-800 dark:text-white">
+            {description}
+          </h1>
+          <p className="text-sm text-gray-600 dark:text-neutral-400">
+            Added by {nameCreator} on{" "}
+            {formatTimestamp(created_at, { day: true })}
+          </p>
+        </div>
+        <div className="flex flex-row gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="font-semibold text-gray-800 dark:text-white">
+              {namePaidBy} paid {euroFormatter(amount)}
+            </h2>
+            <ul className="list-disc space-y-2 ps-5 text-sm text-gray-600 marker:text-teal-600 dark:text-neutral-400">
+              <li>
+                {namePaidBy} owe{" "}
+                {euroFormatter(determineSplittedAmount(amount, split))}
+              </li>
+              <li>
+                {nameOwedTo} owes{" "}
+                {euroFormatter(determineSplittedAmount(amount, split))}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

@@ -47,7 +47,7 @@ function breadcrumbItem(item: Item, active: boolean) {
 
 export default function Breadcrumb({ ...props }: Props) {
   return (
-    <nav className="mb-8">
+    <nav className="mb-6">
       <ol className="flex max-w-full flex-wrap items-center gap-y-2 whitespace-nowrap">
         {props.items.map((item) =>
           breadcrumbItem(item, item === props.items[props.items.length - 1]),
