@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Card } from "../../components/card";
 import { Profile } from "@/components/profile";
 import { Alert } from "@/components/alert";
+import HomeGreetings from "@/components/home-greetings";
 
 export default async function DynamicContent() {
   const supabase = createClient();
@@ -48,8 +49,6 @@ export default async function DynamicContent() {
   }
 
   const userFirstName = profileData?.first_name;
-  const userLastName = profileData?.last_name;
-  const userAvatar = profileData?.avatar;
 
   const owesMoneyMap = new Map(
     loggedInUserOwesMoneyFrom?.map((balanceOwe) => [
@@ -67,15 +66,12 @@ export default async function DynamicContent() {
       amount: amount - (owesMoneyMap.get(user_id.id) || 0),
     }),
   );
+
+  const totalAmount = data?.reduce((acc, { amount }) => acc + amount, 0);
+
   return (
     <>
-      <Profile
-        firstName={userFirstName}
-        lastName={userLastName}
-        avatar={userAvatar}
-        link={{ href: "/account", label: "Account settings" }}
-      ></Profile>
-      <hr className="border-gray-200 dark:border-neutral-700"></hr>
+      <HomeGreetings amount={totalAmount} name={userFirstName}></HomeGreetings>
       {data?.length ? (
         <ul>
           {data?.map((elem) => (

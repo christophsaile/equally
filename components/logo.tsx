@@ -24,9 +24,9 @@ export default function Logo({ ...props }: Props) {
     </svg>
   );
   return (
-    <div className="h-10 w-10">
+    <div className="h-12 w-12">
       {props.link ? (
-        <Link href="/home">
+        <Link href="/home" className="block">
           <span className="sr-only">Home</span>
           {SvgLogo()}
         </Link>

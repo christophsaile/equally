@@ -161,6 +161,7 @@ export default async function DynamicContent({ ...props }: Props) {
   return (
     <>
       <Breadcrumb
+        className="mb-6"
         items={[
           { name: "Home", href: "/home" },
           { name: profileData.first_name },

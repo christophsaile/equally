@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { ComponentProps } from "react";
 
 type Item = {
   name: string;
   href?: string;
 };
 
-type Props = {
+type Props = ComponentProps<"nav"> & {
   items: Item[];
 };
 
@@ -45,12 +46,12 @@ function breadcrumbItem(item: Item, active: boolean) {
   );
 }
 
-export default function Breadcrumb({ ...props }: Props) {
+export default function Breadcrumb({ items, ...props }: Props) {
   return (
-    <nav className="mb-6">
+    <nav className={props.className}>
       <ol className="flex max-w-full flex-wrap items-center gap-y-2 whitespace-nowrap">
-        {props.items.map((item) =>
-          breadcrumbItem(item, item === props.items[props.items.length - 1]),
+        {items.map((item) =>
+          breadcrumbItem(item, item === items[items.length - 1]),
         )}
       </ol>
     </nav>

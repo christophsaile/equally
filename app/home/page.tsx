@@ -8,7 +8,10 @@ import Breadcrumb from "@/components/breadcrumb";
 export default async function Home() {
   return (
     <>
-      <Breadcrumb items={[{ name: "Home", href: "/home" }]}></Breadcrumb>
+      <Breadcrumb
+        className="mb-8"
+        items={[{ name: "Home", href: "/home" }]}
+      ></Breadcrumb>
       <div className="flex flex-col gap-6">
         <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
           <DynamicContent></DynamicContent>
