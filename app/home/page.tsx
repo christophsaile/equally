@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <>
       <Breadcrumb
-        className="mb-8"
+        className="pb-8"
         items={[{ name: "Home", href: "/home" }]}
       ></Breadcrumb>
       <div className="flex flex-col gap-6">

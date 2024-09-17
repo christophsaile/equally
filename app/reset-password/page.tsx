@@ -9,8 +9,14 @@ export default async function ResetPassword({
   searchParams: Message;
 }) {
   return (
-    <>
-      <form className="mb-6 flex flex-col gap-10">
+    <div className="pt-2">
+      <h1 className="text-2xl font-semibold leading-relaxed text-gray-800 dark:text-white">
+        Forgot you password? 🤫
+      </h1>
+      <p className="text-2xl leading-relaxed text-gray-600 dark:text-neutral-400">
+        Enter your email to receive a link to reset your password.
+      </p>
+      <form className="mb-6 flex flex-col gap-10 pt-8">
         <div className="flex flex-col gap-6">
           <div>
             <label
@@ -67,6 +73,6 @@ export default async function ResetPassword({
         </Navigation>
       </form>
       <FormMessage message={searchParams} />
-    </>
+    </div>
   );
 }

@@ -7,8 +7,15 @@ import { Button } from "@/components/button";
 // TODO: add autocomplete logic
 export default function Login({ searchParams }: { searchParams: Message }) {
   return (
-    <>
-      <form className="mb-6 flex flex-col gap-10">
+    <div className="pt-2">
+      <h1 className="text-2xl leading-relaxed text-gray-600 dark:text-neutral-400">
+        <span className="font-semibold text-gray-800 dark:text-white">
+          Welcome to Equally 👋
+        </span>
+        <br></br>
+        Log in or sign up to continue.
+      </h1>
+      <form className="mb-6 flex flex-col gap-10 pt-8">
         <div className="flex flex-col gap-6">
           <div>
             <label
@@ -121,8 +128,8 @@ export default function Login({ searchParams }: { searchParams: Message }) {
               />
             </svg>
           </Button>
-          <Button formAction={login} pendingText="Login" variant="primary">
-            Login
+          <Button formAction={login} pendingText="Login" variant="accent">
+            Log in
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -142,6 +149,6 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </Navigation>
       </form>
       <FormMessage message={searchParams} />
-    </>
+    </div>
   );
 }

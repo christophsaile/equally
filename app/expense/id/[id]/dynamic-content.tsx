@@ -73,9 +73,8 @@ export default async function DynamicContent({ ...props }: Props) {
 
   return (
     <>
-      {/* { TODO make this dynamic} */}
       <Breadcrumb
-        className="mb-8"
+        className="pb-8"
         items={[
           { name: "Home", href: "/home" },
           {

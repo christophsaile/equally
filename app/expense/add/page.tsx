@@ -54,7 +54,7 @@ export default async function ExpenseAdd({
 
   return (
     <>
-      <Breadcrumb items={generateBreadcrumb()} className="mb-8"></Breadcrumb>
+      <Breadcrumb items={generateBreadcrumb()} className="pb-8"></Breadcrumb>
       <FormExpense
         profiles={data as Profile[]}
         preselectProfile={preselectProfile}

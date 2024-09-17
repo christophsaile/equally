@@ -18,7 +18,7 @@ export default async function Account({
   return (
     <div>
       <Breadcrumb
-        className="mb-8"
+        className="pb-8"
         items={[{ name: "Home", href: "/home" }, { name: "Account" }]}
       ></Breadcrumb>
       <div className="mb-8 flex flex-col gap-6">
