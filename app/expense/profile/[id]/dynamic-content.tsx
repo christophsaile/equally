@@ -54,6 +54,7 @@ function splitText(split: number, name: string) {
   }
 }
 
+// TODO important, fix description. always shows by the other person You instead of the other person
 function splitDescription(split: number, amount: number, name: string) {
   return `${splitText(split, name)} ${euroFormatter(amount)}`;
 }

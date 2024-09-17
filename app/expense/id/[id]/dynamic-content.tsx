@@ -1,12 +1,10 @@
 import { Alert } from "@/components/alert";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import {
-  determineSplittedAmount,
-  euroFormatter,
-  formatTimestamp,
-} from "../../utils";
+import { euroFormatter, formatTimestamp } from "../../utils";
 import Breadcrumb from "@/components/breadcrumb";
+import AvatarGroup from "@/components/avatar-group";
+import { Avatar } from "@/components/avatar";
 
 type Props = {
   expenseId: number;
@@ -71,6 +69,17 @@ export default async function DynamicContent({ ...props }: Props) {
     // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
     created_by.id === user.id ? "You" : created_by.first_name;
 
+  const generateSplitText = (split: number) => {
+    console.log("split", split);
+    if (split === 1 || split === 3) {
+      return `, the amount is split equally between ${namePaidBy} and ${nameOwedTo}.`;
+    }
+    if (split === 2) {
+      return `, ${namePaidBy} are owed the full amount.`;
+    }
+    return `, ${namePaidBy} is owed the full amount.`;
+  };
+
   return (
     <>
       <Breadcrumb
@@ -86,33 +95,23 @@ export default async function DynamicContent({ ...props }: Props) {
           { name: description },
         ]}
       ></Breadcrumb>
-      <div className="flex flex-col gap-6 pt-2">
-        <div>
-          <h1 className="font-semibold text-gray-800 dark:text-white">
-            {description}
-          </h1>
-          <p className="text-sm text-gray-600 dark:text-neutral-400">
-            Added by {nameCreator} on{" "}
-            {formatTimestamp(created_at, { day: true })}
-          </p>
+      <div className="flex flex-col">
+        <h1 className="pb-1 text-2xl font-semibold leading-relaxed text-gray-800 dark:text-white">
+          {description}
+        </h1>
+        <div className="pb-6 text-2xl text-gray-600 dark:text-neutral-400">
+          {namePaidBy} paid{" "}
+          <span className="text-teal-600">{euroFormatter(amount)}</span>
+          {generateSplitText(split)}
         </div>
-        <div className="flex flex-row gap-4">
-          <div className="flex flex-col gap-1">
-            <h2 className="font-semibold text-gray-800 dark:text-white">
-              {namePaidBy} paid {euroFormatter(amount)}
-            </h2>
-            <ul className="list-disc space-y-2 ps-5 text-sm text-gray-600 marker:text-teal-600 dark:text-neutral-400">
-              <li>
-                {namePaidBy} owe{" "}
-                {euroFormatter(determineSplittedAmount(amount, split))}
-              </li>
-              <li>
-                {nameOwedTo} owes{" "}
-                {euroFormatter(determineSplittedAmount(amount, split))}
-              </li>
-            </ul>
-          </div>
-        </div>
+        {/* TODO add the split amount */}
+        <AvatarGroup>
+          <Avatar size="sm" src={paid.avatar}></Avatar>
+          <Avatar size="sm" src={owes.avatar}></Avatar>
+        </AvatarGroup>
+        <p className="pt-2 text-sm text-gray-600 dark:text-neutral-400">
+          Added by {nameCreator} on {formatTimestamp(created_at, { day: true })}
+        </p>
       </div>
     </>
   );
