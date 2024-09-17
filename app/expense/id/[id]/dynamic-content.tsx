@@ -69,6 +69,7 @@ export default async function DynamicContent({ ...props }: Props) {
     // @ts-ignore https://github.com/supabase/postgrest-js/issues/546
     created_by.id === user.id ? "You" : created_by.first_name;
 
+  // TODO detect who paid, to change color of the amount
   const generateSplitText = (split: number) => {
     console.log("split", split);
     if (split === 1 || split === 3) {
@@ -106,8 +107,8 @@ export default async function DynamicContent({ ...props }: Props) {
         </div>
         {/* TODO add the split amount */}
         <AvatarGroup>
-          <Avatar size="sm" src={paid.avatar}></Avatar>
-          <Avatar size="sm" src={owes.avatar}></Avatar>
+          <Avatar size="sm" src={(paid as any).avatar}></Avatar>
+          <Avatar size="sm" src={(owes as any).avatar}></Avatar>
         </AvatarGroup>
         <p className="pt-2 text-sm text-gray-600 dark:text-neutral-400">
           Added by {nameCreator} on {formatTimestamp(created_at, { day: true })}
