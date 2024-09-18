@@ -7,24 +7,23 @@ type Props = {
 export default function Logo({ ...props }: Props) {
   const SvgLogo = () => (
     <svg
-      viewBox="0 0 192 192"
+      viewBox="0 0 145 139"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <rect width="192" height="192" fill="#171717" />
       <path
-        d="M28.4666 26.4863H111.439L111.637 57.923H66.0911V99.0477H69.6556L76.1903 78.8808L110.647 86.3939C110.647 114.074 84.9034 117.633 66.0911 107.352V131.473H112.033L114.013 164.887H26.4863L28.4666 26.4863Z"
-        fill="white"
+        d="M2.46657 0.486328H85.4386L85.6366 31.923H40.0911V73.0477H43.6556L50.1903 52.8808L84.6465 60.3939C84.6465 88.074 58.9034 91.6329 40.0911 81.3517V105.473H86.0327L88.0129 138.887H0.486328L2.46657 0.486328Z"
+        className="fill-neutral-900 dark:fill-white"
       />
       <path
-        d="M131.499 164.887V129.891H170.114V164.887H131.499Z"
-        fill="white"
+        d="M105.499 138.887V103.891H144.114V138.887H105.499Z"
+        className="fill-neutral-900 dark:fill-white"
       />
     </svg>
   );
   return (
-    <div className="h-12 w-12">
+    <div className="h-10 w-10">
       {props.link ? (
         <Link href="/home" className="block">
           <span className="sr-only">Home</span>

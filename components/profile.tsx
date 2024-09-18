@@ -13,7 +13,9 @@ type Props = {
 
 export function Profile({ ...props }: Props) {
   return (
-    <div className="relative flex flex-row items-center gap-4 rounded-lg px-2 py-4 hover:bg-gray-100 dark:hover:bg-white/10">
+    <div
+      className={`relative flex flex-row items-center gap-4 rounded-lg px-2 py-4 ${props.link ? "hover:bg-gray-100 dark:hover:bg-white/10" : ""} `}
+    >
       {props.link && (
         <Link
           href={props.link.href}
