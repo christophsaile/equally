@@ -23,7 +23,11 @@ export async function editExpense(formData: FormData) {
     return;
   }
 
-  const determineWhoPaidResult = determineWhoPaid(validatedData, user.id);
+  const determineWhoPaidResult = determineWhoPaid(
+    validatedData.split,
+    validatedData.profile_id,
+    user.id,
+  );
 
   const { error } = await updateExpenseAndBalances(
     "update",

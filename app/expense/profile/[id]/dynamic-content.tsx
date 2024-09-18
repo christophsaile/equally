@@ -46,19 +46,6 @@ function groupExpensesByMonth(expenses: Expense[]): GroupedExpenses {
   }, {});
 }
 
-function splitText(split: number, name: string) {
-  if (split === 1 || split === 2) {
-    return "You paid";
-  } else {
-    return `${name} paid`;
-  }
-}
-
-// TODO important, fix description. always shows by the other person You instead of the other person
-function splitDescription(split: number, amount: number, name: string) {
-  return `${splitText(split, name)} ${euroFormatter(amount)}`;
-}
-
 function renderTimelineHeading(date: string) {
   return (
     <div className="my-2 ps-2">
@@ -72,7 +59,12 @@ function renderTimelineHeading(date: string) {
 function renderTimeline(
   groupedExpenses: GroupedExpenses,
   user: User,
-  profile: any,
+  profile: {
+    id: string;
+    first_name: string;
+    last_name: string;
+    avatar?: string;
+  },
 ) {
   return Object.keys(groupedExpenses).map((date) => {
     return (
@@ -82,16 +74,17 @@ function renderTimeline(
           const amountColor =
             expense.paid === user.id ? "text-teal-500" : "text-red-500";
           const amountText = expense.paid === user.id ? "you lent" : "you owe";
+          const splitText =
+            expense.paid === user.id
+              ? `You paid ${euroFormatter(expense.amount)}`
+              : `${profile.first_name} paid ${euroFormatter(expense.amount)}`;
+
           return (
             <TimelineItem
               key={expense.expense_id}
               date={formatTimestamp(expense.created_at, { day: true })}
               description={expense.description}
-              split={splitDescription(
-                expense.split,
-                expense.amount,
-                profile.first_name,
-              )}
+              split={splitText}
               href={`/expense/id/${expense.expense_id}?profile_id=${profile.id}`}
             >
               <p

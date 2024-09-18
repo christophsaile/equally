@@ -24,17 +24,18 @@ const expenseSchema = object({
 });
 
 export function determineWhoPaid(
-  validatedData: ValidateExpenseFormData,
+  split: number,
+  profileId: string,
   userId: string,
 ): { paid: string; owed: string } {
-  if ([1, 2].includes(validatedData.split)) {
+  if ([1, 2].includes(split)) {
     return {
       paid: userId,
-      owed: validatedData.profile_id,
+      owed: profileId,
     };
   }
   return {
-    paid: validatedData.profile_id,
+    paid: profileId,
     owed: userId,
   };
 }
