@@ -31,7 +31,11 @@ export default async function Account({
         <h2 className="mb-8 font-semibold text-gray-800 dark:text-white">
           Account Settings
         </h2>
-        <Button href="/update-password" variant="accent" className="w-full">
+        <Button
+          href="/account/update-password"
+          variant="accent"
+          className="w-full"
+        >
           Update Password
           <svg
             xmlns="http://www.w3.org/2000/svg"
