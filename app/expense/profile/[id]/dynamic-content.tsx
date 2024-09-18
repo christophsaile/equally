@@ -73,7 +73,8 @@ function renderTimeline(
         {groupedExpenses[date].map((expense) => {
           const amountColor =
             expense.paid === user.id ? "text-teal-500" : "text-red-500";
-          const amountText = expense.paid === user.id ? "you lent" : "you owe";
+          const amountText =
+            expense.paid === user.id ? "you lent" : "you borrowed";
           const splitText =
             expense.paid === user.id
               ? `You paid ${euroFormatter(expense.amount)}`
