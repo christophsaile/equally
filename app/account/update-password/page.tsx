@@ -10,7 +10,13 @@ export default async function UpdatePassword({
 }) {
   return (
     <>
-      <form className="mb-6 flex flex-col gap-10">
+      <h1 className="text-2xl font-semibold leading-relaxed text-gray-800 dark:text-white">
+        Update your password 🕵️‍♂️
+      </h1>
+      <p className="text-2xl leading-relaxed text-gray-600 dark:text-neutral-400">
+        Enter your new password and confirm it.
+      </p>
+      <form className="mb-6 flex flex-col gap-10 pt-8">
         <div className="flex flex-col gap-6">
           <div className="space-y-5" data-hs-toggle-password-group="">
             <div>
@@ -170,7 +176,7 @@ export default async function UpdatePassword({
             formAction={updatePassword}
             pendingText="Loading"
           >
-            Update Password
+            Save
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
