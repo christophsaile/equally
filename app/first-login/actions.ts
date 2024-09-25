@@ -9,6 +9,21 @@ const formSchema = object({
   last_name: string().required(),
 });
 
+export async function validateForm(formData: FormData) {
+  try {
+    const validatedData = await formSchema.validate({
+      first_name: formData.get("first_name"),
+      last_name: formData.get("last_name"),
+    });
+
+    // Return data and no error
+    return { data: validatedData, error: null };
+  } catch (validationError) {
+    // If validation fails, return null data and the error
+    return { data: null, error: validationError };
+  }
+}
+
 export async function updateProfileData(formData: FormData) {
   const supabase = createClient();
   const {
@@ -19,14 +34,10 @@ export async function updateProfileData(formData: FormData) {
     return redirect("/login");
   }
 
-  const validatedFormData = await formSchema.validate({
-    first_name: formData.get("first_name"),
-    last_name: formData.get("last_name"),
-  });
-
-  if (!validatedFormData) {
-    // Redirect if form data is invalid
-    encodedRedirect("error", "first-login", "Invalid form data.");
+  const { data: validatedFormData, error: validatedFormDataError } =
+    await validateForm(formData);
+  if (validatedFormDataError || !validatedFormData) {
+    encodedRedirect("error", "first-login", `${validatedFormDataError}`);
     return;
   }
 

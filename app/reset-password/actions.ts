@@ -5,23 +5,30 @@ import { encodedRedirect } from "@/utils/utils";
 import { object, string } from "yup";
 
 const formSchema = object({
-  email: string().required(),
+  email: string().email().required(),
 });
 
 export async function validateForm(formData: FormData) {
-  const validatedData = await formSchema.validate({
-    email: formData.get("email"),
-  });
+  try {
+    const validatedData = await formSchema.validate({
+      email: formData.get("email"),
+    });
 
-  return validatedData;
+    // Return data and no error
+    return { data: validatedData, error: null };
+  } catch (validationError) {
+    // If validation fails, return null data and the error
+    return { data: null, error: validationError };
+  }
 }
 
 export async function resetPassword(formData: FormData) {
   const supabase = createClient();
 
-  const validatedFormData = await validateForm(formData);
-  if (!validatedFormData) {
-    encodedRedirect("error", "reset-password", "Invalid form data.");
+  const { data: validatedFormData, error: validatedFormDataError } =
+    await validateForm(formData);
+  if (validatedFormDataError || !validatedFormData) {
+    encodedRedirect("error", "reset-password", `${validatedFormDataError}`);
     return;
   }
 

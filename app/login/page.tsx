@@ -106,12 +106,8 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </div>
 
         <Navigation>
-          <Button
-            formAction={signup}
-            pendingText="Signing up"
-            variant="primary"
-          >
-            Sign up
+          <Button formAction={login} pendingText="Login" variant="accent">
+            Log in
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -128,8 +124,12 @@ export default function Login({ searchParams }: { searchParams: Message }) {
               />
             </svg>
           </Button>
-          <Button formAction={login} pendingText="Login" variant="accent">
-            Log in
+          <Button
+            formAction={signup}
+            pendingText="Signing up"
+            variant="primary"
+          >
+            Sign up
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

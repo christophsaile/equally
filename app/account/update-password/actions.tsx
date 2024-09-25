@@ -12,25 +12,30 @@ const formSchema = object().shape({
 });
 
 export async function validateForm(formData: FormData) {
-  const validatedData = await formSchema.validate({
-    password: formData.get("password"),
-    password_confirmation: formData.get("password_confirmation"),
-  });
+  try {
+    const validatedData = await formSchema.validate({
+      password: formData.get("password"),
+      password_confirmation: formData.get("password_confirmation"),
+    });
 
-  return validatedData;
+    // Return data and no error
+    return { data: validatedData, error: null };
+  } catch (validationError) {
+    // If validation fails, return null data and the error
+    return { data: null, error: validationError };
+  }
 }
 
 export async function updatePassword(formData: FormData) {
   const supabase = createClient();
 
-  const validatedFormData = await validateForm(formData);
-  if (!validatedFormData) {
-    // Redirect if form data is invalid
-    encodedRedirect("error", "update-password", "Invalid form data");
+  const { data: validatedFormData, error: validatedFormDataError } =
+    await validateForm(formData);
+  if (validatedFormDataError || !validatedFormData) {
+    encodedRedirect("error", "update-password", `${validatedFormDataError}`);
     return;
   }
   await supabase.auth.updateUser({ password: validatedFormData.password });
 
-  // TODO check if revalidate is needed
   encodedRedirect("success", "/login", "Password successfully updated");
 }
