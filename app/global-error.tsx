@@ -28,7 +28,7 @@ export default function GlobalError({
               Something went wrong 😔
             </h1>
             <p className="pb-6 text-2xl leading-relaxed text-gray-600 dark:text-neutral-400">
-              We're sorry, but an unexpected error has occurred.
+              We are sorry, but an unexpected error has occurred.
             </p>
             <p>In the meantime, you can:</p>
             <ul className="list-disc space-y-2 py-2 ps-5 marker:text-teal-600">
