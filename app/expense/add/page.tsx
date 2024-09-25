@@ -58,6 +58,7 @@ export default async function ExpenseAdd({
       <FormExpense
         profiles={data as Profile[]}
         preselectProfile={preselectProfile}
+        type="add"
       >
         <Navigation>
           <Button

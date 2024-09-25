@@ -3,13 +3,13 @@ import { ComponentProps } from "react";
 import { Profile } from "../app/expense/utils";
 
 // TODO add library to prevent re-rendering on every key stroke
-// TODO on edit prevent selecting other user
 type Props = ComponentProps<"form"> & {
   profiles: Profile[];
   preselectProfile?: Profile;
   description?: string;
   amount?: number;
   split?: number;
+  type: "edit" | "add";
 };
 export default function FormExpense({
   profiles,
@@ -36,7 +36,7 @@ export default function FormExpense({
               name="profile"
               className="hidden"
               defaultValue={preselectProfile?.id}
-              required
+              disabled={props.type === "edit"}
               data-hs-select='{"placeholder": "Select a profile",
               "toggleTag": "<button type=\"button\" aria-expanded=\"false\"><span class=\"me-2\" data-icon></span><span class=\"text-gray-800 dark:text-neutral-200 \" data-title></span></button>",
               "toggleClasses": "hs-select-disabled:pointer-events-none hs-select-disabled:opacity-50 relative py-3 ps-4 pe-9 flex gap-x-2 text-nowrap w-full cursor-pointer bg-white border border-gray-200 rounded-lg text-start text-base focus-style dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400",

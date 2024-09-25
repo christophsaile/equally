@@ -68,12 +68,14 @@ export default async function ExpenseEdit({
         split={split}
         amount={amount}
         description={description}
+        type="edit"
       >
         <input
           type="hidden"
           name="expense_id"
           value={searchParams.expense_id}
         />
+        <input type="hidden" name="profile" value={preselectProfile.id}></input>
         <Navigation>
           <Button
             variant="primary"
