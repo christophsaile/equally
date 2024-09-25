@@ -15,30 +15,30 @@ export async function addExpense(formData: FormData) {
     return redirect("/login");
   }
 
-  // TODO check how to return error
-  const validatedData = await validateExpenseFormData(formData);
+  const { data: validationData, error: validationError } =
+    await validateExpenseFormData(formData);
 
-  if (!validatedData) {
-    encodedRedirect("error", "/expense/add", "Invalid form data");
+  if (validationError || !validationData) {
+    encodedRedirect("error", "/expense/add", `${validationError}`);
     return;
   }
 
   const determineWhoPaidResult = determineWhoPaid(
-    validatedData.split,
-    validatedData.profile_id,
+    validationData.split,
+    validationData.profile_id,
     user.id,
   );
 
   const { error } = await updateExpenseAndBalances(
     "add",
     user.id,
-    validatedData.profile_id,
+    validationData.profile_id,
     {
-      description: validatedData.description,
+      description: validationData.description,
       paid: determineWhoPaidResult.paid,
       owes: determineWhoPaidResult.owed,
-      split: validatedData.split,
-      amount: validatedData.amount,
+      split: validationData.split,
+      amount: validationData.amount,
       created_by: user.id,
     },
   );
@@ -51,7 +51,7 @@ export async function addExpense(formData: FormData) {
     );
   }
 
-  revalidatePath(`/expense/profile/${validatedData.profile_id}`);
+  revalidatePath(`/expense/profile/${validationData.profile_id}`);
   revalidatePath("/home");
   redirect("/home");
 }

@@ -5,14 +5,22 @@ import { redirect } from "next/navigation";
  * @param {('error' | 'success')} type - The type of message, either 'error' or 'success'.
  * @param {string} path - The path to redirect to.
  * @param {string} message - The message to be encoded and added as a query parameter.
+ * @param {string[]} params - Optional parameters.
  * @returns {never} This function doesn't return as it triggers a redirect.
  */
 export function encodedRedirect(
   type: "error" | "success",
   path: string,
   message: string,
+  params?: string[],
 ) {
-  return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
+  let optionalParams: string = "";
+  if (params) {
+    optionalParams = params?.map((param) => `&${param}`).join("");
+  }
+  return redirect(
+    `${path}?${type}=${encodeURIComponent(message)}${optionalParams}`,
+  );
 }
 
 export function urlBase64ToUint8Array(base64String: string): Uint8Array {

@@ -54,18 +54,23 @@ export function determineSplittedAmount(amount: number, split: number) {
   return split === 1 || split === 3 ? amount / 2 : amount;
 }
 
-export async function validateExpenseFormData(
-  formData: FormData,
-): Promise<ValidateExpenseFormData> {
-  const validatedData = await expenseSchema.validate({
-    profile_id: formData.get("profile"),
-    description: formData.get("description"),
-    amount: Number(formData.get("amount")),
-    split: Number(formData.get("split")),
-    expense_id: Number(formData.get("expense_id")),
-  });
+export async function validateExpenseFormData(formData: FormData) {
+  try {
+    // Attempt to validate the data
+    const validatedData = await expenseSchema.validate({
+      profile_id: formData.get("profile"),
+      description: formData.get("description"),
+      amount: Number(formData.get("amount")),
+      split: Number(formData.get("split")),
+      expense_id: Number(formData.get("expense_id")),
+    });
 
-  return validatedData;
+    // Return data and no error
+    return { data: validatedData, error: null };
+  } catch (validationError) {
+    // If validation fails, return null data and the error
+    return { data: null, error: validationError };
+  }
 }
 
 export function euroFormatter(amount: number): string {

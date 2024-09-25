@@ -16,30 +16,33 @@ export async function editExpense(formData: FormData) {
     return redirect("/login");
   }
 
-  const validatedData = await validateExpenseFormData(formData);
+  const { data: validationData, error: validationError } =
+    await validateExpenseFormData(formData);
 
-  if (!validatedData) {
-    encodedRedirect("error", "/expense/edit", "Invalid form data");
+  if (validationError || !validationData) {
+    encodedRedirect("error", "/expense/edit", `${validationError}`, [
+      `expense_id=${formData.get("expense_id")}`,
+    ]);
     return;
   }
 
   const determineWhoPaidResult = determineWhoPaid(
-    validatedData.split,
-    validatedData.profile_id,
+    validationData.split,
+    validationData.profile_id,
     user.id,
   );
 
   const { error } = await updateExpenseAndBalances(
     "update",
     user.id,
-    validatedData.profile_id,
+    validationData.profile_id,
     {
-      description: validatedData.description,
+      description: validationData.description,
       owes: determineWhoPaidResult.owed,
       paid: determineWhoPaidResult.paid,
-      split: validatedData.split,
-      amount: validatedData.amount,
-      expense_id: validatedData.expense_id,
+      split: validationData.split,
+      amount: validationData.amount,
+      expense_id: validationData.expense_id,
     },
   );
 
@@ -48,11 +51,12 @@ export async function editExpense(formData: FormData) {
       "error",
       "/expense/edit",
       "Something went wrong editing the expense",
+      [`expense_id=${validationData.expense_id}`],
     );
   }
 
-  revalidatePath(`/expense/id/${validatedData.expense_id}`);
-  revalidatePath(`/expense/profile/${validatedData.profile_id}`);
+  revalidatePath(`/expense/id/${validationData.expense_id}`);
+  revalidatePath(`/expense/profile/${validationData.profile_id}`);
   revalidatePath("/home");
   redirect("/home");
 }

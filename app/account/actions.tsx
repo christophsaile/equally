@@ -20,6 +20,7 @@ export async function updateProfileData(formData: FormData) {
   const lastName = formData.get("last_name") as string;
   const selectedAvatarFile = (formData.get("avatar") as File) || null;
 
+  // TODO: refactor so changing the name doesn't require re-uploading the avatar
   if (selectedAvatarFile === null) {
     return;
   }
