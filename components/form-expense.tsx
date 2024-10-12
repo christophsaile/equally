@@ -1,5 +1,5 @@
 "use client";
-import { ComponentProps } from "react";
+import { ComponentProps, use, useEffect } from "react";
 import { Profile } from "../app/expense/utils";
 
 // TODO add library to prevent re-rendering on every key stroke
@@ -20,6 +20,9 @@ export default function FormExpense({
   children,
   ...props
 }: Props) {
+  useEffect(() => {
+    window.HSStaticMethods.autoInit(["select"]);
+  }, []);
   return (
     <form {...props} className="mb-6 flex flex-col gap-8">
       <div className="flex flex-col gap-4">

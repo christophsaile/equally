@@ -71,7 +71,6 @@ export default async function DynamicContent({ ...props }: Props) {
 
   // TODO detect who paid, to change color of the amount
   const generateSplitText = (split: number) => {
-    console.log("split", split);
     if (split === 1 || split === 3) {
       return `, the amount is split equally between ${namePaidBy} and ${nameOwedTo}.`;
     }
