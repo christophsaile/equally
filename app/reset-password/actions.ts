@@ -23,7 +23,7 @@ export async function validateForm(formData: FormData) {
 }
 
 export async function resetPassword(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: validatedFormData, error: validatedFormDataError } =
     await validateForm(formData);

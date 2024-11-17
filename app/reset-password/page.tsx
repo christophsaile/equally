@@ -3,11 +3,10 @@ import { resetPassword } from "./actions";
 import { Navigation } from "@/components/navigation";
 import { FormMessage, Message } from "@/components/form-message";
 
-export default async function ResetPassword({
-  searchParams,
-}: {
-  searchParams: Message;
+export default async function ResetPassword(props: {
+  searchParams: Promise<Message>;
 }) {
+  const searchParams = await props.searchParams;
   return (
     <div className="pt-2">
       <h1 className="text-2xl font-semibold leading-relaxed text-gray-800 dark:text-white">

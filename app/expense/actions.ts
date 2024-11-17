@@ -15,7 +15,7 @@ export async function updateExpenseAndBalances(
     expense_id?: number;
   },
 ) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase.rpc("update_expense_and_balances_rpc", {
     p_action: action,

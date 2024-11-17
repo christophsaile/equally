@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Header() {
   async function DynamicContent() {
-    const supabase = createClient();
+    const supabase = await createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();

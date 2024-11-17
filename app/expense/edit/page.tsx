@@ -8,12 +8,11 @@ import { FormMessage, Message } from "@/components/form-message";
 import { Alert } from "@/components/alert";
 import Breadcrumb from "@/components/breadcrumb";
 
-export default async function ExpenseEdit({
-  searchParams,
-}: {
-  searchParams: { expense_id: string } & Message;
+export default async function ExpenseEdit(props: {
+  searchParams: Promise<{ expense_id: string } & Message>;
 }) {
-  const supabase = createClient();
+  const searchParams = await props.searchParams;
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

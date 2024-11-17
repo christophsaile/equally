@@ -19,7 +19,7 @@ export function encodedRedirect(
     optionalParams = params?.map((param) => `&${param}`).join("");
   }
   return redirect(
-    `${path}?${type}=${encodeURIComponent(message)}${optionalParams}`,
+    `/${path}?${type}=${encodeURIComponent(message)}${optionalParams}`,
   );
 }
 

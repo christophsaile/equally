@@ -7,13 +7,12 @@ import DynamicContent from "./dynamic-content";
 
 // TODO fix grammatical owes owed ... etc
 // TODO fix 0.01 rounded issue someone should pay 0.01 another one 0.01
-export default async function ExpenseId({
-  params,
-  searchParams,
-}: {
-  params: { id: number };
-  searchParams: { profile_id: string };
+export default async function ExpenseId(props: {
+  params: Promise<{ id: number }>;
+  searchParams: Promise<{ profile_id: string }>;
 }) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   return (
     <>
       <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>

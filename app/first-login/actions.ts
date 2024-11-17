@@ -25,7 +25,7 @@ export async function validateForm(formData: FormData) {
 }
 
 export async function updateProfileData(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

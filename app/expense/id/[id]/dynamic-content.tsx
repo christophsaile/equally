@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default async function DynamicContent({ ...props }: Props) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

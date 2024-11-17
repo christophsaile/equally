@@ -6,7 +6,7 @@ import { Alert } from "@/components/alert";
 import HomeGreetings from "@/components/home-greetings";
 
 export default async function DynamicContent() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },

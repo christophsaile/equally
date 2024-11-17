@@ -5,7 +5,8 @@ import { login, signup } from "./actions";
 import { Button } from "@/components/button";
 
 // TODO: add autocomplete logic
-export default function Login({ searchParams }: { searchParams: Message }) {
+export default async function Login(props: { searchParams: Promise<Message> }) {
+  const searchParams = await props.searchParams;
   return (
     <div className="pt-2">
       <h1 className="text-2xl leading-relaxed text-gray-600 dark:text-neutral-400">

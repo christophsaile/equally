@@ -26,7 +26,7 @@ export async function validateForm(formData: FormData) {
 }
 
 export async function login(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // Step 1: Validate login form data
   const { data: validatedFormData, error: validatedFormDataError } =
@@ -54,7 +54,7 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   // Step 1: Validate form data
   const { data: validatedFormData, error: validatedFormDataError } =

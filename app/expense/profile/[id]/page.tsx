@@ -4,11 +4,10 @@ import { Suspense } from "react";
 import LoadingSpinner from "@/components/loading-spinner";
 import SupenseContent from "./dynamic-content";
 
-export default async function ExpenseProfile({
-  params,
-}: {
-  params: { id: string };
+export default async function ExpenseProfile(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   return (
     <>
       <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>

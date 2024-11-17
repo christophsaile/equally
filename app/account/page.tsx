@@ -8,11 +8,10 @@ import { DynamicContent } from "./dynamic-content";
 import { FormMessage, Message } from "@/components/form-message";
 import Breadcrumb from "@/components/breadcrumb";
 
-export default async function Account({
-  searchParams,
-}: {
-  searchParams: Message;
+export default async function Account(props: {
+  searchParams: Promise<Message>;
 }) {
+  const searchParams = await props.searchParams;
   // TODO add option to update email
   // TODO add a button to delete the user's account
   return (

@@ -7,7 +7,7 @@ import { updateExpenseAndBalances } from "../actions";
 import { encodedRedirect } from "@/utils/utils";
 
 export async function addExpense(formData: FormData) {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

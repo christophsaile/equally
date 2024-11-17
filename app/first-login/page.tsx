@@ -3,12 +3,11 @@ import { redirect } from "next/navigation";
 import { updateProfileData } from "./actions";
 import { Button } from "@/components/button";
 import { FormMessage, Message } from "@/components/form-message";
-export default async function FirstLogin({
-  searchParams,
-}: {
-  searchParams: Message;
+export default async function FirstLogin(props: {
+  searchParams: Promise<Message>;
 }) {
-  const supabase = createClient();
+  const searchParams = await props.searchParams;
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

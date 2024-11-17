@@ -5,7 +5,7 @@ import { updateProfileData } from "./actions";
 import { Button } from "@/components/button";
 
 export async function DynamicContent() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

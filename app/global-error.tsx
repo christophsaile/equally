@@ -4,6 +4,7 @@ import { Alert } from "@/components/alert";
 import { Button } from "@/components/button";
 import Header from "@/components/header";
 import Logo from "@/components/logo";
+import Link from "next/link";
 
 export default function GlobalError({
   error,
@@ -35,9 +36,9 @@ export default function GlobalError({
               <li>Try refreshing the page.</li>
               <li>
                 Return to the{" "}
-                <a href="/" className="text-teal-600 underline">
+                <Link href="/home" className="text-teal-600 underline">
                   homepage
-                </a>
+                </Link>
                 .
               </li>
             </ul>
