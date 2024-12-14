@@ -13,19 +13,19 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "babel-plugin-react-compiler": "^19.0.0-beta-37ed2a7-20241206",
-    "next": "15.0.3",
+    "next": "15.1.0",
     "preline": "^2.4.1",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.8",
     "@types/node": "^20",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2",
     "eslint": "^8",
-    "eslint-config-next": "15.0.3",
+    "eslint-config-next": "15.1.0",
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
     "prettier": "^3.3.2",
@@ -34,7 +34,7 @@
     "typescript": "^5"
   },
   "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.2"
   }
 }
