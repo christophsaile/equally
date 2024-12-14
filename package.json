@@ -12,6 +12,7 @@
   "dependencies": {
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "babel-plugin-react-compiler": "^19.0.0-beta-37ed2a7-20241206",
     "next": "15.0.3",
     "preline": "^2.4.1",
     "react": "19.0.0-rc-66855b96-20241106",
